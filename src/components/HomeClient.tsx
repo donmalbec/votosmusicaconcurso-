@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useMemo } from "react";
+import { AlertTriangle, CheckCircle2, X } from "lucide-react";
 import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
 import { VoteModal } from "@/components/VoteModal";
@@ -20,8 +21,13 @@ export function HomeClient() {
   const { votes, fetchVotes, userVotedEmail } = useVoteStore();
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [verifiedMagicVideoId, setVerifiedMagicVideoId] = useState<string | null>(null);
+  const [completedMagicVideoId, setCompletedMagicVideoId] = useState<string | null>(null);
+  const [voteNotice, setVoteNotice] = useState<{
+    type: "success" | "duplicate" | "error";
+    videoId?: string;
+  } | null>(null);
 
-  const hasVoted = userVotedEmail !== null;
+  const hasVoted = userVotedEmail !== null || completedMagicVideoId !== null;
 
   // Local state to prevent hydration mismatch
   const [isLoaded, setIsLoaded] = useState(false);
@@ -50,7 +56,34 @@ export function HomeClient() {
 
     const url = new URL(window.location.href);
     const emailVerified = url.searchParams.get("email_verified") === "1";
-    const voteError = url.searchParams.get("vote_error") === "1";
+    const voteSuccess = url.searchParams.get("vote_success") === "1";
+    const voteError = url.searchParams.get("vote_error");
+    const videoId = url.searchParams.get("video_id") || undefined;
+
+    if (voteSuccess) {
+      const completedVideo = VIDEOS.find((video) => video.id === videoId);
+      queueMicrotask(() => {
+        if (completedVideo) {
+          setCompletedMagicVideoId(completedVideo.id);
+        }
+
+        setVoteNotice({ type: "success", videoId: completedVideo?.id });
+      });
+      fetchVotes();
+
+      try {
+        window.localStorage.removeItem(PENDING_MAGIC_VOTE_KEY);
+      } catch {}
+    }
+
+    if (voteError && !voteSuccess) {
+      queueMicrotask(() => {
+        setVoteNotice({
+          type: voteError === "duplicate" ? "duplicate" : "error",
+          videoId,
+        });
+      });
+    }
 
     if (emailVerified && !VOTING_PAUSED) {
       try {
@@ -71,12 +104,14 @@ export function HomeClient() {
       } catch {}
     }
 
-    if (emailVerified || voteError) {
+    if (emailVerified || voteSuccess || voteError) {
       url.searchParams.delete("email_verified");
+      url.searchParams.delete("vote_success");
       url.searchParams.delete("vote_error");
+      url.searchParams.delete("video_id");
       window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
     }
-  }, [isLoaded]);
+  }, [fetchVotes, isLoaded]);
 
   const sortedVideos = useMemo(() => [...VIDEOS].sort((a, b) => {
     const votesA = votes[a.id] || 0;
@@ -95,6 +130,10 @@ export function HomeClient() {
   );
 
   const leadingVideoId = sortedVideos[0]?.id;
+  const noticedVideo = useMemo(
+    () => VIDEOS.find((video) => video.id === voteNotice?.videoId) || null,
+    [voteNotice?.videoId]
+  );
 
   if (!isLoaded && !VOTING_PAUSED) return <div className="min-h-screen bg-black" />;
 
@@ -115,6 +154,48 @@ export function HomeClient() {
       </div>
 
       <Header />
+
+      {voteNotice && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed left-1/2 top-20 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 rounded-lg border border-neon-yellow/35 bg-black/95 p-4 text-left shadow-[0_24px_80px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+        >
+          <div className="flex items-start gap-3">
+            <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neon-yellow/10 text-neon-yellow">
+              {voteNotice.type === "success" ? (
+                <CheckCircle2 size={19} aria-hidden="true" />
+              ) : (
+                <AlertTriangle size={19} aria-hidden="true" />
+              )}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-black uppercase leading-tight text-white">
+                {voteNotice.type === "success"
+                  ? "Voto registrado"
+                  : voteNotice.type === "duplicate"
+                    ? "Voto ya registrado"
+                    : "No pudimos finalizar"}
+              </p>
+              <p className="mt-1 text-xs font-bold leading-relaxed text-white/60">
+                {voteNotice.type === "success"
+                  ? `Tu voto${noticedVideo ? ` por "${noticedVideo.title}"` : ""} fue confirmado correctamente.`
+                  : voteNotice.type === "duplicate"
+                    ? "Ese correo o dispositivo ya tenía un voto registrado en el concurso."
+                    : "El correo fue verificado, pero necesitamos que intentes confirmar el voto nuevamente."}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setVoteNotice(null)}
+              aria-label="Cerrar aviso"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/55 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
+            >
+              <X size={16} aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      )}
 
       <main className="w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 flex flex-col items-center relative z-10">
 

@@ -1,0 +1,4 @@
+<h2>Confirma tu voto</h2>
+<p>Tu codigo de verificacion es: <strong>{{ .Token }}</strong></p>
+<p>Haz clic aqui para confirmar tu correo y registrar tu voto:</p>
+<p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirmar y votar</a></p>

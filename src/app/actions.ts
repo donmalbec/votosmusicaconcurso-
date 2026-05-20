@@ -15,11 +15,13 @@ import { VOTING_PAUSED, VOTING_PAUSED_ERROR } from "@/lib/maintenance";
 import { getSupabaseAdminClient, getSupabaseAuthClient } from "@/lib/supabase";
 import {
   clearVerifiedEmailCookie,
+  clearPendingMagicVoteCookie,
   ensureVoteDevice,
   getVerifiedEmail,
   getVerifiedVoteDevice,
   hash,
   safeEqual,
+  setPendingMagicVoteCookie,
   setVerifiedEmailCookie,
 } from "@/lib/vote-security";
 
@@ -43,6 +45,7 @@ interface CastVoteInput {
 
 interface VerificationInput {
   email: string;
+  videoId: string;
   deviceFingerprint: string;
   captchaToken?: string;
   website?: string;
@@ -328,6 +331,11 @@ export async function sendVoteVerificationCode(input: VerificationInput): Promis
     const ip = getRequestIp(headerList);
     const origin = getRequestOrigin(headerList);
     const email = normalizeEmail(input.email);
+    const video = VIDEOS.find((candidate) => candidate.id === input.videoId);
+
+    if (!video) {
+      return { success: false, error: "La canción seleccionada no es válida." };
+    }
 
     if (!isValidEmail(email)) {
       return { success: false, error: "Por favor ingresa un correo electrónico válido." };
@@ -368,16 +376,19 @@ export async function sendVoteVerificationCode(input: VerificationInput): Promis
       return { success: true, alreadyVerified: true };
     }
 
+    await setPendingMagicVoteCookie(email, video.id, voteDevice.deviceId);
+
     const auth = getSupabaseAuthClient();
     const { error } = await auth.auth.signInWithOtp({
       email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: `${origin}/auth/confirm`,
+        emailRedirectTo: `${origin}/auth/confirm?vote=${encodeURIComponent(video.id)}`,
       },
     });
 
     if (error) {
+      await clearPendingMagicVoteCookie();
       logVerificationEmailError(error);
       return { success: false, error: getVerificationEmailError(error) };
     }
@@ -499,6 +510,7 @@ export async function castVote(input: CastVoteInput): Promise<ActionResult<{ cou
     }
 
     await clearVerifiedEmailCookie();
+    await clearPendingMagicVoteCookie();
 
     return {
       success: true,

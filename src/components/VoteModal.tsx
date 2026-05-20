@@ -215,6 +215,7 @@ export function VoteModal({
       const deviceFingerprint = await getBrowserFingerprint();
       const result = await sendVoteVerificationCode({
         email: normalizedEmail,
+        videoId: video.id,
         deviceFingerprint,
         captchaToken,
         website,

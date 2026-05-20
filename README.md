@@ -100,16 +100,16 @@ https://*-feliramis-projects.vercel.app/**
 http://localhost:3000/auth/confirm
 ```
 
-3. Configurar el template de Magic Link para incluir codigo y enlace:
+3. Configurar los templates de Confirmation y Magic Link con `supabase/templates/vote-confirm.html`:
 
 ```html
-<h2>Codigo de verificacion</h2>
-<p>Ingresa este codigo para confirmar tu voto: {{ .Token }}</p>
-<p>O confirma tu correo desde este enlace:</p>
-<p><a href="{{ .ConfirmationURL }}">Confirmar correo</a></p>
+<h2>Confirma tu voto</h2>
+<p>Tu codigo de verificacion es: <strong>{{ .Token }}</strong></p>
+<p>Haz clic aqui para confirmar tu correo y registrar tu voto:</p>
+<p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirmar y votar</a></p>
 ```
 
-El usuario puede votar ingresando el codigo o abriendo el enlace magico desde el mismo navegador.
+El enlace del correo entra a `/auth/confirm`, valida el email con Supabase y registra el voto pendiente con una cookie httpOnly firmada. Si el navegador no conserva esa cookie, el sitio cae al flujo anterior: deja el correo verificado por unos minutos y permite finalizar desde el modal.
 
 Si aparece `over_email_send_rate_limit` o los correos dejan de salir por unos minutos, no es un error del formulario: Supabase esta limitando el proveedor de correo integrado. Para votaciones en produccion conviene configurar un SMTP propio en Supabase Auth para mejorar entregabilidad y aumentar el margen de envio.
 

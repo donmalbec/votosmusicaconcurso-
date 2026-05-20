@@ -2,12 +2,14 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
-import { isValidDeviceId, normalizeEmail } from "@/lib/security";
+import { isValidDeviceId, isValidEmail, normalizeEmail } from "@/lib/security";
 
 export const VERIFIED_EMAIL_COOKIE = "pizza_verified_vote_email";
+export const PENDING_MAGIC_VOTE_COOKIE = "pizza_pending_magic_vote";
 export const VOTE_DEVICE_COOKIE = "pizza_vote_device";
 
 export const VERIFIED_EMAIL_DURATION_SECONDS = 20 * 60;
+export const PENDING_MAGIC_VOTE_DURATION_SECONDS = 20 * 60;
 export const VOTE_DEVICE_DURATION_SECONDS = 180 * 24 * 60 * 60;
 
 type VerifiedEmailMethod = "code" | "magic-link";
@@ -16,6 +18,12 @@ interface VoteDeviceProof {
   deviceId: string;
   fingerprintHash: string;
   isNew: boolean;
+}
+
+export interface PendingMagicVote {
+  email: string;
+  videoId: string;
+  deviceId: string;
 }
 
 export function hash(value: string) {
@@ -106,6 +114,56 @@ export async function setVerifiedEmailCookie(email: string, method: VerifiedEmai
 export async function clearVerifiedEmailCookie() {
   const cookieStore = await cookies();
   cookieStore.delete(VERIFIED_EMAIL_COOKIE);
+}
+
+export function createPendingMagicVoteToken(email: string, videoId: string, deviceId: string) {
+  const expiresAt = Date.now() + PENDING_MAGIC_VOTE_DURATION_SECONDS * 1000;
+  const nonce = randomBytes(16).toString("hex");
+  const normalizedEmail = normalizeEmail(email);
+  const encodedEmail = Buffer.from(normalizedEmail).toString("base64url");
+  const encodedVideoId = Buffer.from(videoId).toString("base64url");
+  const payload = `v1.${expiresAt}.${nonce}.${encodedEmail}.${encodedVideoId}.${deviceId}`;
+
+  return `${payload}.${sign(payload)}`;
+}
+
+export function readPendingMagicVoteToken(token?: string): PendingMagicVote | null {
+  if (!token) return null;
+
+  const parts = token.split(".");
+  if (parts.length !== 7 || parts[0] !== "v1") return null;
+
+  const [version, expiresAtRaw, nonce, encodedEmail, encodedVideoId, deviceId, signature] = parts;
+  const expiresAt = Number(expiresAtRaw);
+  if (!Number.isFinite(expiresAt) || expiresAt < Date.now()) return null;
+
+  const payload = `${version}.${expiresAtRaw}.${nonce}.${encodedEmail}.${encodedVideoId}.${deviceId}`;
+  const expected = sign(payload);
+  if (!safeEqual(signature, expected)) return null;
+
+  const email = normalizeEmail(Buffer.from(encodedEmail, "base64url").toString("utf8"));
+  const videoId = Buffer.from(encodedVideoId, "base64url").toString("utf8");
+  if (!isValidEmail(email) || !isValidDeviceId(deviceId) || videoId.length > 128) return null;
+
+  return {
+    email,
+    videoId,
+    deviceId,
+  };
+}
+
+export async function setPendingMagicVoteCookie(email: string, videoId: string, deviceId: string) {
+  const cookieStore = await cookies();
+  cookieStore.set(
+    PENDING_MAGIC_VOTE_COOKIE,
+    createPendingMagicVoteToken(email, videoId, deviceId),
+    getSecureCookieOptions(PENDING_MAGIC_VOTE_DURATION_SECONDS)
+  );
+}
+
+export async function clearPendingMagicVoteCookie() {
+  const cookieStore = await cookies();
+  cookieStore.delete(PENDING_MAGIC_VOTE_COOKIE);
 }
 
 function createVoteDeviceToken(fingerprint: string) {
