@@ -140,6 +140,46 @@ function getRequestOrigin(headerList: Awaited<ReturnType<typeof headers>>) {
   return `${proto}://${host}`;
 }
 
+function getErrorText(error: unknown, key: "message" | "code" | "status") {
+  if (!error || typeof error !== "object" || !(key in error)) return "";
+
+  const value = (error as Record<string, unknown>)[key];
+  return typeof value === "string" || typeof value === "number" ? String(value) : "";
+}
+
+function getVerificationEmailError(error: unknown) {
+  const message = getErrorText(error, "message");
+  const code = getErrorText(error, "code");
+  const normalized = `${message} ${code}`.toLowerCase();
+
+  if (normalized.includes("rate limit") || normalized.includes("over_email_send_rate_limit")) {
+    return "Supabase limitó el envío de correos por unos minutos. Espera un momento y vuelve a intentarlo.";
+  }
+
+  if (
+    normalized.includes("redirect") ||
+    normalized.includes("redirect_to") ||
+    normalized.includes("url not allowed") ||
+    normalized.includes("uri")
+  ) {
+    return "Falta autorizar este dominio en Supabase Auth. Revisa Site URL y Redirect URLs.";
+  }
+
+  if (normalized.includes("supabase auth credentials") || normalized.includes("supabaseurl is required")) {
+    return "La verificación por correo no está configurada en el servidor.";
+  }
+
+  return "No pudimos enviar el enlace. Intenta nuevamente.";
+}
+
+function logVerificationEmailError(error: unknown) {
+  console.error("[vote-auth] magic link send failed", {
+    message: getErrorText(error, "message") || String(error),
+    code: getErrorText(error, "code") || undefined,
+    status: getErrorText(error, "status") || undefined,
+  });
+}
+
 function checkMemoryRateLimit(
   key: string,
   windowMs = RATE_LIMIT_WINDOW_MS,
@@ -333,12 +373,14 @@ export async function sendVoteVerificationCode(input: VerificationInput): Promis
     });
 
     if (error) {
-      return { success: false, error: "No pudimos enviar el enlace. Intenta nuevamente." };
+      logVerificationEmailError(error);
+      return { success: false, error: getVerificationEmailError(error) };
     }
 
     return { success: true };
-  } catch {
-    return { success: false, error: "No pudimos enviar el enlace. Intenta nuevamente." };
+  } catch (error) {
+    logVerificationEmailError(error);
+    return { success: false, error: getVerificationEmailError(error) };
   }
 }
 
