@@ -1,4 +1,4 @@
-export const VOTING_PAUSED = true;
+export const VOTING_PAUSED = false;
 
 export const VOTING_PAUSED_TITLE = "Votaciones pausadas temporalmente";
 
