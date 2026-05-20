@@ -7,9 +7,13 @@ import { VoteModal } from "@/components/VoteModal";
 import { VIDEOS, type Video } from "@/lib/data";
 import { useVoteStore } from "@/lib/store";
 
+const PENDING_MAGIC_VOTE_KEY = "pizza_pending_magic_vote";
+const PENDING_MAGIC_VOTE_MAX_AGE_MS = 20 * 60 * 1000;
+
 export default function HomePage() {
   const { votes, fetchVotes, userVotedEmail } = useVoteStore();
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [verifiedMagicVideoId, setVerifiedMagicVideoId] = useState<string | null>(null);
 
   const hasVoted = userVotedEmail !== null;
 
@@ -34,6 +38,39 @@ export default function HomePage() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!isLoaded || typeof window === "undefined") return;
+
+    const url = new URL(window.location.href);
+    const emailVerified = url.searchParams.get("email_verified") === "1";
+    const voteError = url.searchParams.get("vote_error") === "1";
+
+    if (emailVerified) {
+      try {
+        const pending = JSON.parse(
+          window.localStorage.getItem(PENDING_MAGIC_VOTE_KEY) || "null"
+        ) as { videoId?: string; createdAt?: number } | null;
+        const isFresh = pending?.createdAt && Date.now() - pending.createdAt < PENDING_MAGIC_VOTE_MAX_AGE_MS;
+        const pendingVideo = isFresh
+          ? VIDEOS.find((video) => video.id === pending?.videoId)
+          : null;
+
+        if (pendingVideo) {
+          queueMicrotask(() => {
+            setVerifiedMagicVideoId(pendingVideo.id);
+            setSelectedVideo(pendingVideo);
+          });
+        }
+      } catch {}
+    }
+
+    if (emailVerified || voteError) {
+      url.searchParams.delete("email_verified");
+      url.searchParams.delete("vote_error");
+      window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    }
+  }, [isLoaded]);
 
   if (!isLoaded) return <div className="min-h-screen bg-black" />;
 
@@ -236,7 +273,10 @@ export default function HomePage() {
               rank={getRank(video.id)}
               hasVoted={hasVoted}
               isLeading={video.id === leadingVideoId && (votes[leadingVideoId] || 0) > 0}
-              onVote={setSelectedVideo}
+              onVote={(candidate) => {
+                setVerifiedMagicVideoId(null);
+                setSelectedVideo(candidate);
+              }}
               delay={i * 60}
             />
           ))}
@@ -253,8 +293,13 @@ export default function HomePage() {
       {/* Vote Modal */}
       <VoteModal
         video={selectedVideo}
-        onClose={() => setSelectedVideo(null)}
+        verifiedByMagicLink={selectedVideo?.id === verifiedMagicVideoId}
+        onClose={() => {
+          setVerifiedMagicVideoId(null);
+          setSelectedVideo(null);
+        }}
         onSuccess={() => {
+          setVerifiedMagicVideoId(null);
           setSelectedVideo(null);
         }}
       />

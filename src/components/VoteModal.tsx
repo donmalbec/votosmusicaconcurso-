@@ -5,18 +5,68 @@ import { X, Shield, CheckCircle2 } from "lucide-react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Video } from "@/lib/data";
 import { useVoteStore } from "@/lib/store";
-import { getBrowserFingerprint, isDisposableEmail } from "@/lib/security";
+import { getBrowserFingerprint, isDisposableEmail, normalizeEmail } from "@/lib/security";
 import { sendVoteVerificationCode, verifyVoteEmailCode } from "@/app/actions";
 
 interface VoteModalProps {
   video: Video | null;
   onClose: () => void;
   onSuccess: (email: string) => void;
+  verifiedByMagicLink?: boolean;
 }
 
 const HCAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY;
+const PENDING_MAGIC_VOTE_KEY = "pizza_pending_magic_vote";
+const PENDING_MAGIC_VOTE_MAX_AGE_MS = 20 * 60 * 1000;
 
-export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
+interface PendingMagicVote {
+  email: string;
+  videoId: string;
+  createdAt: number;
+}
+
+function getPendingMagicVote(videoId?: string) {
+  if (typeof window === "undefined" || !videoId) return null;
+
+  try {
+    const pending = JSON.parse(
+      window.localStorage.getItem(PENDING_MAGIC_VOTE_KEY) || "null"
+    ) as PendingMagicVote | null;
+
+    if (
+      !pending ||
+      pending.videoId !== videoId ||
+      Date.now() - pending.createdAt > PENDING_MAGIC_VOTE_MAX_AGE_MS
+    ) {
+      return null;
+    }
+
+    return pending;
+  } catch {
+    return null;
+  }
+}
+
+function savePendingMagicVote(email: string, videoId: string) {
+  try {
+    window.localStorage.setItem(
+      PENDING_MAGIC_VOTE_KEY,
+      JSON.stringify({
+        email: normalizeEmail(email),
+        videoId,
+        createdAt: Date.now(),
+      })
+    );
+  } catch {}
+}
+
+function clearPendingMagicVote() {
+  try {
+    window.localStorage.removeItem(PENDING_MAGIC_VOTE_KEY);
+  } catch {}
+}
+
+export function VoteModal({ video, onClose, onSuccess, verifiedByMagicLink = false }: VoteModalProps) {
   const [email, setEmail] = useState("");
   const [captchaToken, setCaptchaToken] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
@@ -24,6 +74,7 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<"email" | "code" | "success">("email");
+  const [showCodeInput, setShowCodeInput] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
 
   const { castVote } = useVoteStore();
@@ -33,10 +84,12 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
 
     queueMicrotask(() => {
       if (cancelled) return;
-      setStep("email");
-      setEmail("");
+      const pendingVote = getPendingMagicVote(video?.id);
+      setStep(pendingVote && verifiedByMagicLink ? "code" : "email");
+      setEmail(pendingVote?.email || "");
       setCaptchaToken("");
       setVerificationCode("");
+      setShowCodeInput(false);
       setWebsite("");
       setError("");
       captchaRef.current?.resetCaptcha();
@@ -45,7 +98,7 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
     return () => {
       cancelled = true;
     };
-  }, [video?.id]);
+  }, [video?.id, verifiedByMagicLink]);
 
   if (!video) return null;
 
@@ -96,11 +149,13 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
           return;
         }
 
+        savePendingMagicVote(email, video.id);
         setStep("code");
         setVerificationCode("");
+        setShowCodeInput(false);
         setError("");
       } else {
-        setError(result.error || "No pudimos enviar el código.");
+        setError(result.error || "No pudimos enviar el enlace.");
         setCaptchaToken("");
         captchaRef.current?.resetCaptcha();
       }
@@ -120,6 +175,7 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
 
     const result = await castVote(email, video.id, fingerprint, website);
     if (result.success) {
+      clearPendingMagicVote();
       setStep("success");
       setTimeout(() => {
         onSuccess(email);
@@ -128,7 +184,11 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
       return;
     }
 
-    setError(result.error || "Ocurrió un error");
+    setError(
+      result.error === "Verifica tu correo antes de votar."
+        ? "Abre el enlace mágico desde este navegador y vuelve a intentar."
+        : result.error || "Ocurrió un error"
+    );
   };
 
   const verifyCodeAndVote = async () => {
@@ -184,7 +244,12 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
       return;
     }
 
-    await verifyCodeAndVote();
+    if (showCodeInput && verificationCode.trim()) {
+      await verifyCodeAndVote();
+      return;
+    }
+
+    await voteAfterMagicLink();
   };
 
   return (
@@ -275,19 +340,28 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
               />
 
               {step === "code" && (
-                <div className="w-full">
+                <div className="w-full flex flex-col items-center gap-2">
                   <p className="text-[9px] text-white/50 mb-1.5 font-bold uppercase tracking-widest">
-                    Código enviado por correo o usa el enlace mágico
+                    Te enviamos un enlace mágico. Ábrelo desde este navegador.
                   </p>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    value={verificationCode}
-                    onChange={(e) => setVerificationCode(e.target.value)}
-                    placeholder="000000"
-                    className="input-neon px-4 py-2.5 text-center text-[13px] w-full rounded-full uppercase tracking-[0.35em]"
-                    required
-                  />
+                  <button
+                    type="button"
+                    disabled={loading}
+                    onClick={() => setShowCodeInput((visible) => !visible)}
+                    className="text-[9px] uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+                  >
+                    {showCodeInput ? "Usar enlace mágico" : "Tengo un código numérico"}
+                  </button>
+                  {showCodeInput && (
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={verificationCode}
+                      onChange={(e) => setVerificationCode(e.target.value)}
+                      placeholder="000000"
+                      className="input-neon px-4 py-2.5 text-center text-[13px] w-full rounded-full uppercase tracking-[0.35em]"
+                    />
+                  )}
                 </div>
               )}
 
@@ -313,14 +387,6 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
 
               {step === "code" && (
                 <div className="flex flex-col items-center gap-2">
-                  <button
-                    type="button"
-                    disabled={loading}
-                    onClick={voteAfterMagicLink}
-                    className="text-[9px] uppercase tracking-widest text-white/60 hover:text-white transition-colors"
-                  >
-                    Ya confirmé con el enlace
-                  </button>
                   <button
                     type="button"
                     disabled={loading}
@@ -352,8 +418,10 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
                 {loading
                   ? "Procesando..."
                   : step === "email"
-                    ? "Enviar Código"
-                    : "🍕 Verificar y Votar"}
+                    ? "Enviar Enlace"
+                    : showCodeInput && verificationCode.trim()
+                      ? "Verificar y Votar"
+                      : "Ya Abrí El Enlace"}
               </button>
             </form>
           </div>

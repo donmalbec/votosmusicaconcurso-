@@ -58,6 +58,11 @@ interface VoteRow {
   device_id: string | null;
 }
 
+interface VoteIdentityStatus {
+  email_exists: boolean;
+  device_exists: boolean;
+}
+
 const ADMIN_SESSION_COOKIE = "pizza_admin_session";
 const ADMIN_SESSION_DURATION_SECONDS = 6 * 60 * 60;
 const RATE_LIMIT_WINDOW_MS = Number(process.env.VOTE_RATE_LIMIT_WINDOW_MS || 15 * 60 * 1000);
@@ -195,19 +200,27 @@ async function verifyCaptchaToken(token: string | undefined, ip: string) {
   return payload.success === true;
 }
 
-async function findExistingDeviceVote(deviceId: string, browserFingerprint: string) {
+async function readVoteIdentityStatus(
+  email: string,
+  deviceId: string,
+  browserFingerprint: string
+) {
   const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("votes")
-    .select("id")
-    .or(`device_id.eq.${deviceId},device_id.eq.${browserFingerprint}`)
-    .limit(1);
+  const { data, error } = await supabase.rpc("get_vote_identity_status", {
+    candidate_email: email,
+    primary_device_id: deviceId,
+    secondary_device_id: browserFingerprint,
+  });
 
   if (error) {
     throw error;
   }
 
-  return data?.[0] || null;
+  const status = (Array.isArray(data) ? data[0] : data) as VoteIdentityStatus | null;
+  return {
+    emailExists: status?.email_exists === true,
+    deviceExists: status?.device_exists === true,
+  };
 }
 
 function mapVoteRecord(row: VoteRow): VoteRecord {
@@ -289,28 +302,20 @@ export async function sendVoteVerificationCode(input: VerificationInput): Promis
       !checkMemoryRateLimit(`email-code:ip:${ip}`, EMAIL_CODE_RATE_LIMIT_WINDOW_MS, EMAIL_CODE_RATE_LIMIT_MAX) ||
       !checkMemoryRateLimit(`email-code:email:${hash(email)}`, EMAIL_CODE_RATE_LIMIT_WINDOW_MS, EMAIL_CODE_RATE_LIMIT_MAX)
     ) {
-      return { success: false, error: "Demasiados códigos solicitados. Espera unos minutos." };
+      return { success: false, error: "Demasiados enlaces solicitados. Espera unos minutos." };
     }
 
     if (!(await verifyCaptchaToken(input.captchaToken, ip))) {
       return { success: false, error: "Completa la verificación anti-bot para continuar." };
     }
 
-    const supabase = getSupabaseAdminClient();
-    const [existingEmailVote, existingDeviceVote] = await Promise.all([
-      supabase.from("votes").select("id").eq("email", email).limit(1).maybeSingle(),
-      findExistingDeviceVote(voteDevice.deviceId, input.deviceFingerprint),
-    ]);
+    const identityStatus = await readVoteIdentityStatus(email, voteDevice.deviceId, input.deviceFingerprint);
 
-    if (existingEmailVote.error) {
-      throw existingEmailVote.error;
-    }
-
-    if (existingEmailVote.data) {
+    if (identityStatus.emailExists) {
       return { success: false, error: "Este correo ya registró un voto en el concurso." };
     }
 
-    if (existingDeviceVote) {
+    if (identityStatus.deviceExists) {
       return { success: false, error: "Este dispositivo ya registró un voto en el concurso." };
     }
 
@@ -328,12 +333,12 @@ export async function sendVoteVerificationCode(input: VerificationInput): Promis
     });
 
     if (error) {
-      return { success: false, error: "No pudimos enviar el código. Intenta nuevamente." };
+      return { success: false, error: "No pudimos enviar el enlace. Intenta nuevamente." };
     }
 
     return { success: true };
   } catch {
-    return { success: false, error: "No pudimos enviar el código. Intenta nuevamente." };
+    return { success: false, error: "No pudimos enviar el enlace. Intenta nuevamente." };
   }
 }
 
@@ -411,18 +416,13 @@ export async function castVote(input: CastVoteInput): Promise<ActionResult<{ cou
     }
 
     const supabase = getSupabaseAdminClient();
-    const [existingEmail, existingDevice] = await Promise.all([
-      supabase.from("votes").select("id").eq("email", email).limit(1).maybeSingle(),
-      findExistingDeviceVote(voteDevice.deviceId, input.deviceFingerprint),
-    ]);
+    const identityStatus = await readVoteIdentityStatus(email, voteDevice.deviceId, input.deviceFingerprint);
 
-    if (existingEmail.error) throw existingEmail.error;
-
-    if (existingEmail.data) {
+    if (identityStatus.emailExists) {
       return { success: false, error: "Este correo ya registró un voto en el concurso." };
     }
 
-    if (existingDevice) {
+    if (identityStatus.deviceExists) {
       return { success: false, error: "Este dispositivo ya registró un voto en el concurso." };
     }
 
