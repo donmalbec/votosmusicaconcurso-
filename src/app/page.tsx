@@ -96,7 +96,7 @@ export default function HomePage() {
 
   const leadingVideoId = sortedVideos[0]?.id;
 
-  if (!isLoaded) return <div className="min-h-screen bg-black" />;
+  if (!isLoaded && !VOTING_PAUSED) return <div className="min-h-screen bg-black" />;
 
   return (
     <div className="min-h-screen flex flex-col items-center relative" style={{ background: "#000" }}>
