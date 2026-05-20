@@ -4,13 +4,12 @@ import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
 import { VoteModal } from "@/components/VoteModal";
-import { VIDEOS } from "@/lib/data";
+import { VIDEOS, type Video } from "@/lib/data";
 import { useVoteStore } from "@/lib/store";
 
 export default function HomePage() {
   const { votes, fetchVotes, userVotedEmail } = useVoteStore();
-  const [selectedVideo, setSelectedVideo] = useState<any>(null);
-  const [sortBy, setSortBy] = useState<"votes" | "ai" | "default">("default");
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   const hasVoted = userVotedEmail !== null;
 
@@ -23,7 +22,17 @@ export default function HomePage() {
   }, [fetchVotes]);
 
   useEffect(() => {
-    setIsLoaded(true);
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (!cancelled) {
+        setIsLoaded(true);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (!isLoaded) return <div className="min-h-screen bg-black" />;

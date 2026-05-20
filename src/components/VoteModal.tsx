@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X, Mail, Shield, AlertCircle, CheckCircle2 } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { X, Shield, CheckCircle2 } from "lucide-react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Video } from "@/lib/data";
 import { useVoteStore } from "@/lib/store";
-import { getClientIP } from "@/app/actions";
 import { getBrowserFingerprint, isDisposableEmail } from "@/lib/security";
+import { sendVoteVerificationCode, verifyVoteEmailCode } from "@/app/actions";
 
 interface VoteModalProps {
   video: Video | null;
@@ -13,32 +14,38 @@ interface VoteModalProps {
   onSuccess: (email: string) => void;
 }
 
-const CAPTCHA_QUESTIONS = [
-  { q: "¿Cuántas letras tiene 'PIZZA'?", a: "5" },
-  { q: "¿Cuánto es 3 + 4?", a: "7" },
-  { q: "¿Cuánto es 8 - 3?", a: "5" },
-  { q: "¿Cuántas letras tiene 'WEB3'?", a: "4" },
-  { q: "¿Cuánto es 2 × 3?", a: "6" },
-];
+const HCAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY;
 
 export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
   const [email, setEmail] = useState("");
-  const [captchaAnswer, setCaptchaAnswer] = useState("");
-  const [captchaQ, setCaptchaQ] = useState(CAPTCHA_QUESTIONS[0]);
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [website, setWebsite] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState<"form" | "success">("form");
+  const [step, setStep] = useState<"email" | "code" | "success">("email");
+  const captchaRef = useRef<HCaptcha>(null);
 
   const { castVote } = useVoteStore();
 
   useEffect(() => {
-    const q = CAPTCHA_QUESTIONS[Math.floor(Math.random() * CAPTCHA_QUESTIONS.length)];
-    setCaptchaQ(q);
-    setStep("form");
-    setEmail("");
-    setCaptchaAnswer("");
-    setError("");
-  }, [video]);
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (cancelled) return;
+      setStep("email");
+      setEmail("");
+      setCaptchaToken("");
+      setVerificationCode("");
+      setWebsite("");
+      setError("");
+      captchaRef.current?.resetCaptcha();
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [video?.id]);
 
   if (!video) return null;
 
@@ -48,52 +55,136 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
   };
 
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
+  const validateEmailBeforeSubmit = () => {
     if (!validateEmail(email)) {
       setError("Por favor ingresa un correo electrónico válido.");
-      return;
+      return false;
     }
 
     if (isDisposableEmail(email)) {
       setError("No se permiten correos temporales o desechables.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const requestEmailCode = async () => {
+    if (!validateEmailBeforeSubmit()) {
       return;
     }
 
-    if (captchaAnswer.trim() !== captchaQ.a) {
-      setError("Respuesta de verificación incorrecta. ¿Eres un bot? 🤔");
+    if (HCAPTCHA_SITE_KEY && !captchaToken) {
+      setError("Completa la verificación anti-bot para continuar.");
       return;
     }
 
     setLoading(true);
 
     try {
-      // 1. Obtener IP real del servidor
-      const ip = await getClientIP();
-      
-      // 2. Generar huella digital del dispositivo
-      const deviceId = await getBrowserFingerprint();
+      const deviceFingerprint = await getBrowserFingerprint();
+      const result = await sendVoteVerificationCode({
+        email,
+        deviceFingerprint,
+        captchaToken,
+        website,
+      });
 
-      // 3. Pequeña demora para efecto visual y prevenir spamming rápido
-      await new Promise((resolve) => setTimeout(resolve, 800));
-
-      const result = await castVote(email, video.id, video.title, video.artist, ip, deviceId);
       if (result.success) {
-        setStep("success");
-        setTimeout(() => {
-          onSuccess(email);
-          onClose();
-        }, 2500);
+        if (result.alreadyVerified) {
+          await submitVerifiedVote(deviceFingerprint);
+          return;
+        }
+
+        setStep("code");
+        setVerificationCode("");
+        setError("");
       } else {
-        setError(result.error || "Ocurrió un error");
+        setError(result.error || "No pudimos enviar el código.");
+        setCaptchaToken("");
+        captchaRef.current?.resetCaptcha();
       }
-    } catch (err) {
+    } catch {
+      setError("Error de conexión. Intenta de nuevo.");
+      setCaptchaToken("");
+      captchaRef.current?.resetCaptcha();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const submitVerifiedVote = async (deviceFingerprint?: string) => {
+    const fingerprint = deviceFingerprint || await getBrowserFingerprint();
+
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    const result = await castVote(email, video.id, fingerprint, website);
+    if (result.success) {
+      setStep("success");
+      setTimeout(() => {
+        onSuccess(email);
+        onClose();
+      }, 2500);
+      return;
+    }
+
+    setError(result.error || "Ocurrió un error");
+  };
+
+  const verifyCodeAndVote = async () => {
+    if (!validateEmailBeforeSubmit()) {
+      return;
+    }
+
+    if (!verificationCode.trim()) {
+      setError("Ingresa el código enviado a tu correo.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const verification = await verifyVoteEmailCode(email, verificationCode);
+      if (!verification.success) {
+        setError(verification.error || "Código incorrecto o expirado.");
+        return;
+      }
+
+      await submitVerifiedVote();
+    } catch {
       setError("Error de conexión. Intenta de nuevo.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const voteAfterMagicLink = async () => {
+    if (!validateEmailBeforeSubmit()) {
+      return;
+    }
+
+    setError("");
+    setLoading(true);
+
+    try {
+      await submitVerifiedVote();
+    } catch {
+      setError("Abre el enlace mágico desde este navegador y vuelve a intentar.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (step === "email") {
+      await requestEmailCode();
+      return;
+    }
+
+    await verifyCodeAndVote();
   };
 
   return (
@@ -138,7 +229,7 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
             <div>
               <h3 className="text-xl font-black mb-1 uppercase tracking-tighter" style={{ color: "var(--neon-yellow)" }}>¡Voto Registrado!</h3>
               <p className="text-[11px] uppercase tracking-widest px-4 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                Tu voto por <br/> <strong className="text-white">"{video.title}"</strong> <br/> fue enviado con éxito 🍕
+                Tu voto por <br/> <strong className="text-white">{`"${video.title}"`}</strong> <br/> fue enviado con éxito 🍕
               </p>
             </div>
           </div>
@@ -154,7 +245,7 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
                 Confirmar <br/> Voto
               </h2>
               <p className="text-[10px] tracking-widest uppercase truncate px-2" style={{ color: "var(--text-secondary)" }}>
-                "{video.title}"
+                {`"${video.title}"`}
               </p>
             </div>
 
@@ -169,23 +260,81 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
                   className="input-neon px-4 py-2.5 text-center text-[11px] w-full rounded-full uppercase tracking-wider"
                   required
                   autoFocus
+                  disabled={step === "code" || loading}
                 />
               </div>
 
-              {/* Captcha */}
-              <div className="w-full">
-                <p className="text-[9px] text-white/50 mb-1.5 font-bold uppercase tracking-widest">
-                  Anti-Bot: {captchaQ.q}
+              <input
+                type="text"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
+
+              {step === "code" && (
+                <div className="w-full">
+                  <p className="text-[9px] text-white/50 mb-1.5 font-bold uppercase tracking-widest">
+                    Código enviado por correo o usa el enlace mágico
+                  </p>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={verificationCode}
+                    onChange={(e) => setVerificationCode(e.target.value)}
+                    placeholder="000000"
+                    className="input-neon px-4 py-2.5 text-center text-[13px] w-full rounded-full uppercase tracking-[0.35em]"
+                    required
+                  />
+                </div>
+              )}
+
+              {step === "email" && HCAPTCHA_SITE_KEY && (
+                <div className="w-full flex justify-center scale-[0.78] origin-center -my-2">
+                  <HCaptcha
+                    ref={captchaRef}
+                    sitekey={HCAPTCHA_SITE_KEY}
+                    theme="dark"
+                    size="compact"
+                    onVerify={setCaptchaToken}
+                    onExpire={() => setCaptchaToken("")}
+                    onError={() => setCaptchaToken("")}
+                  />
+                </div>
+              )}
+
+              {step === "email" && !HCAPTCHA_SITE_KEY && (
+                <p className="text-[9px] text-white/40 text-center font-bold uppercase tracking-widest">
+                  Anti-bot activo en servidor
                 </p>
-                <input
-                  type="text"
-                  value={captchaAnswer}
-                  onChange={(e) => setCaptchaAnswer(e.target.value)}
-                  placeholder="Respuesta..."
-                  className="input-neon px-4 py-2.5 text-center text-[11px] w-full rounded-full uppercase tracking-wider"
-                  required
-                />
-              </div>
+              )}
+
+              {step === "code" && (
+                <div className="flex flex-col items-center gap-2">
+                  <button
+                    type="button"
+                    disabled={loading}
+                    onClick={voteAfterMagicLink}
+                    className="text-[9px] uppercase tracking-widest text-white/60 hover:text-white transition-colors"
+                  >
+                    Ya confirmé con el enlace
+                  </button>
+                  <button
+                    type="button"
+                    disabled={loading}
+                    onClick={() => {
+                      setStep("email");
+                      setCaptchaToken("");
+                      captchaRef.current?.resetCaptcha();
+                    }}
+                    className="text-[9px] uppercase tracking-widest text-white/40 hover:text-white transition-colors"
+                  >
+                    Cambiar correo
+                  </button>
+                </div>
+              )}
 
               {/* Error */}
               {error && (
@@ -200,7 +349,11 @@ export function VoteModal({ video, onClose, onSuccess }: VoteModalProps) {
                 disabled={loading}
                 className="btn-neon py-3 text-[11px] font-black w-full mt-2 rounded-full uppercase tracking-[0.2em]"
               >
-                {loading ? "Procesando..." : "🍕 Emitir Voto"}
+                {loading
+                  ? "Procesando..."
+                  : step === "email"
+                    ? "Enviar Código"
+                    : "🍕 Verificar y Votar"}
               </button>
             </form>
           </div>

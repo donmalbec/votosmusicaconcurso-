@@ -1,0 +1,3140 @@
+{
+  "summary": {
+    "generatedAt": "2026-05-19T05:26:25.790Z",
+    "source": "migquiivlhupijgmlbup public.votes via Supabase REST; PII values HMAC-redacted with an ephemeral salt not saved to disk",
+    "totals": {
+      "votes": 966,
+      "distinctEmails": 960,
+      "distinctDevices": 926,
+      "distinctIps": 761,
+      "invalidDeviceRows": 140,
+      "duplicateEmailGroups": 6,
+      "extraEmailVotes": 6,
+      "duplicateDeviceGroups": 32,
+      "extraDeviceVotes": 40,
+      "oldestVote": "2026-05-16T17:57:47.086915+00:00",
+      "newestVote": "2026-05-19T03:39:19.659849+00:00"
+    }
+  },
+  "leaderboard": [
+    {
+      "videoId": "v24",
+      "title": "Pizza Day",
+      "artist": "Keleven ft. Sielo",
+      "votes": 187,
+      "distinctEmails": 187,
+      "distinctDevices": 187,
+      "distinctIps": 170
+    },
+    {
+      "videoId": "v19",
+      "title": "Cariddi Records #1",
+      "artist": "Cariddi Crypto",
+      "votes": 175,
+      "distinctEmails": 175,
+      "distinctDevices": 175,
+      "distinctIps": 166
+    },
+    {
+      "videoId": "v13",
+      "title": "Pizza X",
+      "artist": "Brauxelion ft. YoungBleak",
+      "votes": 150,
+      "distinctEmails": 150,
+      "distinctDevices": 150,
+      "distinctIps": 131
+    },
+    {
+      "videoId": "v18",
+      "title": "Pizza DA0",
+      "artist": "FVST",
+      "votes": 120,
+      "distinctEmails": 120,
+      "distinctDevices": 120,
+      "distinctIps": 78
+    },
+    {
+      "videoId": "v16",
+      "title": "Tango, Pizza y Amigos",
+      "artist": "RGabrielDiaz",
+      "votes": 82,
+      "distinctEmails": 81,
+      "distinctDevices": 82,
+      "distinctIps": 41
+    },
+    {
+      "videoId": "v5",
+      "title": "Bitcoin Legend",
+      "artist": "Joan Barbosa",
+      "votes": 67,
+      "distinctEmails": 67,
+      "distinctDevices": 67,
+      "distinctIps": 45
+    },
+    {
+      "videoId": "v8",
+      "title": "Pizza Gratis",
+      "artist": "La Macabrita",
+      "votes": 54,
+      "distinctEmails": 54,
+      "distinctDevices": 54,
+      "distinctIps": 35
+    },
+    {
+      "videoId": "v9",
+      "title": "Solo unas Pizzas",
+      "artist": "Marco Crypto",
+      "votes": 37,
+      "distinctEmails": 37,
+      "distinctDevices": 37,
+      "distinctIps": 25
+    },
+    {
+      "videoId": "v11",
+      "title": "Masa Y Fuego",
+      "artist": "Sebastián Ceciliano",
+      "votes": 31,
+      "distinctEmails": 31,
+      "distinctDevices": 31,
+      "distinctIps": 27
+    },
+    {
+      "videoId": "v15",
+      "title": "Global Pizza Party",
+      "artist": "Herimax",
+      "votes": 18,
+      "distinctEmails": 18,
+      "distinctDevices": 18,
+      "distinctIps": 15
+    },
+    {
+      "videoId": "v1",
+      "title": "Esto es PizzaDao",
+      "artist": "MelitzagMusic y MHA",
+      "votes": 9,
+      "distinctEmails": 9,
+      "distinctDevices": 9,
+      "distinctIps": 8
+    },
+    {
+      "videoId": "v14",
+      "title": "Free Pizza",
+      "artist": "Blackjales",
+      "votes": 9,
+      "distinctEmails": 9,
+      "distinctDevices": 9,
+      "distinctIps": 9
+    },
+    {
+      "videoId": "v17",
+      "title": "Arcade Pizza Session II",
+      "artist": "MrRayius",
+      "votes": 6,
+      "distinctEmails": 6,
+      "distinctDevices": 6,
+      "distinctIps": 5
+    },
+    {
+      "videoId": "v4",
+      "title": "Shud b Free",
+      "artist": "Tony Sky x Davi Ruiz x Los Onchain",
+      "votes": 6,
+      "distinctEmails": 6,
+      "distinctDevices": 6,
+      "distinctIps": 5
+    },
+    {
+      "videoId": "v10",
+      "title": "PizzaDaoParty",
+      "artist": "Marco Crypto",
+      "votes": 5,
+      "distinctEmails": 5,
+      "distinctDevices": 5,
+      "distinctIps": 5
+    },
+    {
+      "videoId": "v21",
+      "title": "Ñam Ñam Ñam Ñam",
+      "artist": "Sandro B.",
+      "votes": 5,
+      "distinctEmails": 5,
+      "distinctDevices": 5,
+      "distinctIps": 5
+    },
+    {
+      "videoId": "v22",
+      "title": "PizzaDao x Cariddi Cowork",
+      "artist": "Wincoiner",
+      "votes": 2,
+      "distinctEmails": 2,
+      "distinctDevices": 2,
+      "distinctIps": 2
+    },
+    {
+      "videoId": "v7",
+      "title": "Apolo Bacco - GPP",
+      "artist": "Apolo Bacco ft. LuckyKid",
+      "votes": 2,
+      "distinctEmails": 2,
+      "distinctDevices": 2,
+      "distinctIps": 2
+    },
+    {
+      "videoId": "v23",
+      "title": "JOSHA * Muzza Boy",
+      "artist": "Joya",
+      "votes": 1,
+      "distinctEmails": 1,
+      "distinctDevices": 1,
+      "distinctIps": 1
+    }
+  ],
+  "duplicateEmails": [
+    {
+      "emailHash": "368e4ba0d7fd76b3",
+      "count": 2,
+      "firstVote": "2026-05-17T04:07:07.32395+00:00",
+      "lastVote": "2026-05-17T04:09:01.109588+00:00",
+      "videos": [
+        "v4",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "La Macabrita",
+        "Tony Sky x Davi Ruiz x Los Onchain"
+      ],
+      "ips": [
+        "e1277b17b12810d1"
+      ],
+      "devices": [
+        "0146ca4d61e89fbd"
+      ]
+    },
+    {
+      "emailHash": "436611d1182e3cbf",
+      "count": 2,
+      "firstVote": "2026-05-17T21:12:17.071878+00:00",
+      "lastVote": "2026-05-17T23:42:18.170066+00:00",
+      "videos": [
+        "v18",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "La Macabrita"
+      ],
+      "ips": [
+        "84e6ffcd8cf8e672"
+      ],
+      "devices": [
+        "abfea1a066cc030a"
+      ]
+    },
+    {
+      "emailHash": "fec6fe8b7540e954",
+      "count": 2,
+      "firstVote": "2026-05-17T04:22:19.030045+00:00",
+      "lastVote": "2026-05-17T22:58:15.36965+00:00",
+      "videos": [
+        "v13",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Brauxelion ft. YoungBleak",
+        "La Macabrita"
+      ],
+      "ips": [
+        "6cc7ff115a0194e4",
+        "7f7290d53beaa509"
+      ],
+      "devices": [
+        "e1688c95bfde2c5e"
+      ]
+    },
+    {
+      "emailHash": "793fcdf0755c5428",
+      "count": 2,
+      "firstVote": "2026-05-18T15:46:47.069754+00:00",
+      "lastVote": "2026-05-18T15:52:09.080665+00:00",
+      "videos": [
+        "v13",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Brauxelion ft. YoungBleak",
+        "Keleven ft. Sielo"
+      ],
+      "ips": [
+        "dce63476c9102385"
+      ],
+      "devices": [
+        "3ff5994b86f1b448",
+        "51543d435922aec0"
+      ]
+    },
+    {
+      "emailHash": "dd8e19425b7f8c61",
+      "count": 2,
+      "firstVote": "2026-05-18T12:18:44.097624+00:00",
+      "lastVote": "2026-05-18T12:19:16.916958+00:00",
+      "videos": [
+        "v16"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "RGabrielDiaz"
+      ],
+      "ips": [
+        "d8442b8c4f455cdf"
+      ],
+      "devices": [
+        "50244ad87ad36f22",
+        "705ab25da6c92dbd"
+      ]
+    },
+    {
+      "emailHash": "4c21920b2ae6c53f",
+      "count": 2,
+      "firstVote": "2026-05-17T12:11:07.507958+00:00",
+      "lastVote": "2026-05-17T16:44:57.933376+00:00",
+      "videos": [
+        "v13",
+        "v15"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Brauxelion ft. YoungBleak",
+        "Herimax"
+      ],
+      "ips": [
+        "b542dca95b476820"
+      ],
+      "devices": [
+        "23a74c38de5b6af4",
+        "90c0eddd03492f2c"
+      ]
+    }
+  ],
+  "duplicateDevices": [
+    {
+      "deviceHash": "b6279769ce2d8ea1",
+      "validSha256Format": true,
+      "count": 5,
+      "firstVote": "2026-05-17T00:00:33.259145+00:00",
+      "lastVote": "2026-05-18T16:02:04.12213+00:00",
+      "videos": [
+        "v16",
+        "v18",
+        "v19",
+        "v22",
+        "v24"
+      ],
+      "videoCount": 5,
+      "artists": [
+        "Cariddi Crypto",
+        "FVST",
+        "Keleven ft. Sielo",
+        "RGabrielDiaz",
+        "Wincoiner"
+      ],
+      "emails": [
+        "3a8b8024b33632c0",
+        "41ac506f71352059",
+        "a3208dd17165e764",
+        "a86b4113358968d2",
+        "caf200cd3670ba68"
+      ],
+      "ips": [
+        "36d0eca67eee131c",
+        "7b35d0713cd79ddc",
+        "ac64150c6b0c808b",
+        "bbb31b7e168b7fd1",
+        "d79696b350146412"
+      ]
+    },
+    {
+      "deviceHash": "90d7a5b0215caabd",
+      "validSha256Format": true,
+      "count": 4,
+      "firstVote": "2026-05-17T18:13:43.037875+00:00",
+      "lastVote": "2026-05-19T02:25:36.945058+00:00",
+      "videos": [
+        "v16",
+        "v18",
+        "v24",
+        "v9"
+      ],
+      "videoCount": 4,
+      "artists": [
+        "FVST",
+        "Keleven ft. Sielo",
+        "Marco Crypto",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "33ad1ac473fdb945",
+        "47c90aa3f21d903c",
+        "662260dc95d846f1",
+        "b96c9ea62aa2cf9e"
+      ],
+      "ips": [
+        "154070aff4bfedd7",
+        "3268b8e0776c33e1",
+        "cebe3eb5bf587727",
+        "eabd5dcab48502f2"
+      ]
+    },
+    {
+      "deviceHash": "2252749f15f939b9",
+      "validSha256Format": true,
+      "count": 3,
+      "firstVote": "2026-05-17T00:11:28.932391+00:00",
+      "lastVote": "2026-05-18T00:10:02.18896+00:00",
+      "videos": [
+        "v10",
+        "v18",
+        "v24"
+      ],
+      "videoCount": 3,
+      "artists": [
+        "FVST",
+        "Keleven ft. Sielo",
+        "Marco Crypto"
+      ],
+      "emails": [
+        "464ec2059f688b54",
+        "9f914a023f5b6886",
+        "a1d6224acea4acb3"
+      ],
+      "ips": [
+        "64889adc3654cbee",
+        "6fa3ca3c7d6efe92",
+        "77e6b2d0bf3a24bf"
+      ]
+    },
+    {
+      "deviceHash": "1f6e2aa184a10093",
+      "validSha256Format": true,
+      "count": 3,
+      "firstVote": "2026-05-17T16:49:36.860243+00:00",
+      "lastVote": "2026-05-18T18:28:13.769054+00:00",
+      "videos": [
+        "v16",
+        "v18",
+        "v24"
+      ],
+      "videoCount": 3,
+      "artists": [
+        "FVST",
+        "Keleven ft. Sielo",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "3ac12a58fe73f493",
+        "899e555b06548258",
+        "c12da4a3fc14a832"
+      ],
+      "ips": [
+        "3da030c09fe56c4b",
+        "41bca0eda07119c8",
+        "fede8c7a268a561a"
+      ]
+    },
+    {
+      "deviceHash": "5694a22d19ff70c8",
+      "validSha256Format": true,
+      "count": 3,
+      "firstVote": "2026-05-17T00:36:08.033285+00:00",
+      "lastVote": "2026-05-18T15:28:14.226754+00:00",
+      "videos": [
+        "v18",
+        "v19",
+        "v24"
+      ],
+      "videoCount": 3,
+      "artists": [
+        "Cariddi Crypto",
+        "FVST",
+        "Keleven ft. Sielo"
+      ],
+      "emails": [
+        "51f458c0af4daf53",
+        "764235e9d2a54e15",
+        "eac2e4707d9ae1a7"
+      ],
+      "ips": [
+        "5e843829d05237ba",
+        "86c30acd926f6870",
+        "952ba283b92863b3"
+      ]
+    },
+    {
+      "deviceHash": "0c56ff3feb6ac8cb",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T16:32:20.538847+00:00",
+      "lastVote": "2026-05-19T01:36:21.582639+00:00",
+      "videos": [
+        "v15",
+        "v9"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Herimax",
+        "Marco Crypto"
+      ],
+      "emails": [
+        "2b39cadd255147e7",
+        "ee46ba615be9b139"
+      ],
+      "ips": [
+        "0c3f7de65417ce9d"
+      ]
+    },
+    {
+      "deviceHash": "ab4778ec26fa0a77",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T03:41:33.548546+00:00",
+      "lastVote": "2026-05-17T04:32:40.972916+00:00",
+      "videos": [
+        "v24",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Keleven ft. Sielo",
+        "La Macabrita"
+      ],
+      "emails": [
+        "199ace823122c33e",
+        "7ddb5faf1c18570c"
+      ],
+      "ips": [
+        "50b92caff6d117b2",
+        "e1277b17b12810d1"
+      ]
+    },
+    {
+      "deviceHash": "745b791cf553350f",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T14:57:01.762539+00:00",
+      "lastVote": "2026-05-17T21:09:51.870414+00:00",
+      "videos": [
+        "v5",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Joan Barbosa",
+        "La Macabrita"
+      ],
+      "emails": [
+        "390c5b563a41d07d",
+        "b135caff940ed943"
+      ],
+      "ips": [
+        "69db5a06d0e9df84",
+        "89434b2daad8bab7"
+      ]
+    },
+    {
+      "deviceHash": "775ffc911f341117",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T12:54:26.201342+00:00",
+      "lastVote": "2026-05-17T19:18:06.443245+00:00",
+      "videos": [
+        "v16",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Keleven ft. Sielo",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "0f249f39226ab07a",
+        "f78651130e4ddc98"
+      ],
+      "ips": [
+        "865c2b09602a54d1",
+        "8bd0f10544112254"
+      ]
+    },
+    {
+      "deviceHash": "a8213a5ce1906234",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T02:42:55.404971+00:00",
+      "lastVote": "2026-05-17T02:46:26.134806+00:00",
+      "videos": [
+        "v18",
+        "v23"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Joya"
+      ],
+      "emails": [
+        "75351504da9ddcbe",
+        "b721ec1c07421104"
+      ],
+      "ips": [
+        "da5014f1f8ff4a96"
+      ]
+    },
+    {
+      "deviceHash": "f4f77a7f8cccaeb4",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T04:51:47.488658+00:00",
+      "lastVote": "2026-05-17T13:49:09.295759+00:00",
+      "videos": [
+        "v14",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Blackjales",
+        "La Macabrita"
+      ],
+      "emails": [
+        "ded93b43572b4909",
+        "f86cdaa6563b9088"
+      ],
+      "ips": [
+        "c122b49db0d618a5",
+        "f225a5b631a13b27"
+      ]
+    },
+    {
+      "deviceHash": "f8ba0c924407fa30",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T17:52:13.091642+00:00",
+      "lastVote": "2026-05-17T23:11:13.621617+00:00",
+      "videos": [
+        "v18",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Keleven ft. Sielo"
+      ],
+      "emails": [
+        "5948f84f51f2db81",
+        "fea4f2a59cb2e80f"
+      ],
+      "ips": [
+        "221a617b0686b003",
+        "4823bfafc2082e91"
+      ]
+    },
+    {
+      "deviceHash": "3465a21a24858381",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T18:02:01.580278+00:00",
+      "lastVote": "2026-05-18T03:44:36.9366+00:00",
+      "videos": [
+        "v16",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Keleven ft. Sielo",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "2185b66d284df756",
+        "ebaac64ddd31bbc1"
+      ],
+      "ips": [
+        "485e97b62588087a",
+        "78990e60a10f58ee"
+      ]
+    },
+    {
+      "deviceHash": "88f11fa623895af4",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T13:05:34.137941+00:00",
+      "lastVote": "2026-05-18T12:27:25.602586+00:00",
+      "videos": [
+        "v16",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Keleven ft. Sielo",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "1c89e6aa4dabc6d0",
+        "f9f11c1d56e6093c"
+      ],
+      "ips": [
+        "b5fe1912667ad2e1",
+        "d8442b8c4f455cdf"
+      ]
+    },
+    {
+      "deviceHash": "4481bb320cf59a19",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T17:03:34.617184+00:00",
+      "lastVote": "2026-05-17T17:20:13.963639+00:00",
+      "videos": [
+        "v16",
+        "v18"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "7161927ca0727998",
+        "fcb1b601b0800256"
+      ],
+      "ips": [
+        "4bd4e63d88fee8ef",
+        "9f3bfb9236cc9306"
+      ]
+    },
+    {
+      "deviceHash": "40ffd5871d7ae84f",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T23:06:43.380405+00:00",
+      "lastVote": "2026-05-18T12:36:44.161839+00:00",
+      "videos": [
+        "v13",
+        "v18"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Brauxelion ft. YoungBleak",
+        "FVST"
+      ],
+      "emails": [
+        "7433187f53552a83",
+        "7f54ab06715f166e"
+      ],
+      "ips": [
+        "ccb7b48b207394f1",
+        "ddc8cd80e10a5924"
+      ]
+    },
+    {
+      "deviceHash": "5cfd348a7a71beef",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T23:17:11.887778+00:00",
+      "lastVote": "2026-05-18T22:35:36.810612+00:00",
+      "videos": [
+        "v18",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "La Macabrita"
+      ],
+      "emails": [
+        "34bef400f1da19c3",
+        "7035dc8f254d9b42"
+      ],
+      "ips": [
+        "262e95ce11de6b67",
+        "f8b8dcf5d27d0373"
+      ]
+    },
+    {
+      "deviceHash": "e1688c95bfde2c5e",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T04:22:19.030045+00:00",
+      "lastVote": "2026-05-17T22:58:15.36965+00:00",
+      "videos": [
+        "v13",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Brauxelion ft. YoungBleak",
+        "La Macabrita"
+      ],
+      "emails": [
+        "fec6fe8b7540e954"
+      ],
+      "ips": [
+        "6cc7ff115a0194e4",
+        "7f7290d53beaa509"
+      ]
+    },
+    {
+      "deviceHash": "abfea1a066cc030a",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T21:12:17.071878+00:00",
+      "lastVote": "2026-05-17T23:42:18.170066+00:00",
+      "videos": [
+        "v18",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "La Macabrita"
+      ],
+      "emails": [
+        "436611d1182e3cbf"
+      ],
+      "ips": [
+        "84e6ffcd8cf8e672"
+      ]
+    },
+    {
+      "deviceHash": "78cae30611a67d3e",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T16:16:34.009486+00:00",
+      "lastVote": "2026-05-17T20:26:12.560254+00:00",
+      "videos": [
+        "v14",
+        "v5"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Blackjales",
+        "Joan Barbosa"
+      ],
+      "emails": [
+        "6293ca24924fbe84",
+        "92a6c9c4d79c3f1e"
+      ],
+      "ips": [
+        "218df73857f29e54",
+        "90bc943558cdff9a"
+      ]
+    },
+    {
+      "deviceHash": "ff176ffa69d4ef38",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T18:41:28.463643+00:00",
+      "lastVote": "2026-05-18T14:55:50.396965+00:00",
+      "videos": [
+        "v19",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Cariddi Crypto",
+        "Keleven ft. Sielo"
+      ],
+      "emails": [
+        "4554d90c6c56b085",
+        "4f97d19d3d779862"
+      ],
+      "ips": [
+        "1ca19a77ae48f85e",
+        "a5f217758ad9ef8c"
+      ]
+    },
+    {
+      "deviceHash": "df1a9bd1a6b9112c",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T17:06:10.550796+00:00",
+      "lastVote": "2026-05-18T00:39:44.509714+00:00",
+      "videos": [
+        "v18",
+        "v9"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Marco Crypto"
+      ],
+      "emails": [
+        "6133d8cc42b28a9b",
+        "c2bce3ff4d46a312"
+      ],
+      "ips": [
+        "7c83c142804b31ec",
+        "db4d11d0f57f361e"
+      ]
+    },
+    {
+      "deviceHash": "74cfbfc69a0b8caf",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T17:37:56.409241+00:00",
+      "lastVote": "2026-05-17T21:43:47.176154+00:00",
+      "videos": [
+        "v18",
+        "v4"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Tony Sky x Davi Ruiz x Los Onchain"
+      ],
+      "emails": [
+        "ae9ef80633865537",
+        "d29e2184901415be"
+      ],
+      "ips": [
+        "ae92123dce64426c",
+        "c91be24e9c19b16b"
+      ]
+    },
+    {
+      "deviceHash": "e969264b1cc6afb4",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T09:41:30.358793+00:00",
+      "lastVote": "2026-05-17T17:44:57.126354+00:00",
+      "videos": [
+        "v18",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Keleven ft. Sielo"
+      ],
+      "emails": [
+        "baf63708e29b9b4b",
+        "bdd985a9d9da759c"
+      ],
+      "ips": [
+        "208f39399c322c10",
+        "b96b1133b82617fd"
+      ]
+    },
+    {
+      "deviceHash": "b8374478621399d7",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T00:24:16.96753+00:00",
+      "lastVote": "2026-05-17T16:09:41.958027+00:00",
+      "videos": [
+        "v18",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Keleven ft. Sielo"
+      ],
+      "emails": [
+        "5fbb2f1a15a36a70",
+        "a4c13d63f1024961"
+      ],
+      "ips": [
+        "4cdd8ebcb658b058",
+        "826858a60aa8d7fd"
+      ]
+    },
+    {
+      "deviceHash": "3aaeed1fe332a607",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T17:24:47.357527+00:00",
+      "lastVote": "2026-05-18T00:34:30.171321+00:00",
+      "videos": [
+        "v16",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Keleven ft. Sielo",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "2463c569d66176f2",
+        "e306b403710d5315"
+      ],
+      "ips": [
+        "c4e7b75541ad51a3",
+        "ffc0a170d511aef6"
+      ]
+    },
+    {
+      "deviceHash": "e93e11a64a37c988",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T16:32:33.62607+00:00",
+      "lastVote": "2026-05-18T10:49:40.718041+00:00",
+      "videos": [
+        "v10",
+        "v16"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Marco Crypto",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "78f894594dd70786",
+        "7957dab1ed587f72"
+      ],
+      "ips": [
+        "4aa77661fbf6108f",
+        "83aaf7779af74b9c"
+      ]
+    },
+    {
+      "deviceHash": "ed7e60042eab1d05",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T18:35:06.544063+00:00",
+      "lastVote": "2026-05-17T20:56:51.066169+00:00",
+      "videos": [
+        "v16",
+        "v24"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Keleven ft. Sielo",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "0532cd8eb7acf970",
+        "3e48e494650e17a3"
+      ],
+      "ips": [
+        "820d8610893042b7",
+        "eabd5dcab48502f2"
+      ]
+    },
+    {
+      "deviceHash": "623e1ff92b5a08ef",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T04:22:33.313238+00:00",
+      "lastVote": "2026-05-17T04:23:41.164695+00:00",
+      "videos": [
+        "v18",
+        "v5"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Joan Barbosa"
+      ],
+      "emails": [
+        "5f237c16566b4af0",
+        "c78bbc03325c2293"
+      ],
+      "ips": [
+        "e52ac657005a30a3"
+      ]
+    },
+    {
+      "deviceHash": "fd52516d952acc54",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T17:33:00.286337+00:00",
+      "lastVote": "2026-05-17T18:39:57.423046+00:00",
+      "videos": [
+        "v16",
+        "v18"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "RGabrielDiaz"
+      ],
+      "emails": [
+        "56209b9075a8f34d",
+        "bc5a4e941381fd45"
+      ],
+      "ips": [
+        "14169b9cf01c03e0",
+        "ad13055003829726"
+      ]
+    },
+    {
+      "deviceHash": "70d1ca664195fd2d",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T15:20:35.156187+00:00",
+      "lastVote": "2026-05-17T20:07:41.671876+00:00",
+      "videos": [
+        "v5",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "Joan Barbosa",
+        "La Macabrita"
+      ],
+      "emails": [
+        "9c6c2b557a8f4370",
+        "b12060584974ee8f"
+      ],
+      "ips": [
+        "a8a65bfade479233",
+        "b3832bdd7dd6b2fa"
+      ]
+    },
+    {
+      "deviceHash": "0146ca4d61e89fbd",
+      "validSha256Format": true,
+      "count": 2,
+      "firstVote": "2026-05-17T04:07:07.32395+00:00",
+      "lastVote": "2026-05-17T04:09:01.109588+00:00",
+      "videos": [
+        "v4",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "La Macabrita",
+        "Tony Sky x Davi Ruiz x Los Onchain"
+      ],
+      "emails": [
+        "368e4ba0d7fd76b3"
+      ],
+      "ips": [
+        "e1277b17b12810d1"
+      ]
+    }
+  ],
+  "topIps": [
+    {
+      "ipHash": "73c33ae4c53b5fd7",
+      "count": 22,
+      "firstVote": "2026-05-17T03:36:19.72244+00:00",
+      "lastVote": "2026-05-17T20:35:34.377713+00:00",
+      "videos": [
+        "v1",
+        "v16"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "MelitzagMusic y MHA",
+        "RGabrielDiaz"
+      ],
+      "emails": 22,
+      "devices": 22
+    },
+    {
+      "ipHash": "e1277b17b12810d1",
+      "count": 18,
+      "firstVote": "2026-05-17T04:02:17.280342+00:00",
+      "lastVote": "2026-05-18T20:14:54.288226+00:00",
+      "videos": [
+        "v4",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "La Macabrita",
+        "Tony Sky x Davi Ruiz x Los Onchain"
+      ],
+      "emails": 17,
+      "devices": 17
+    },
+    {
+      "ipHash": "84e12310c437f6ec",
+      "count": 13,
+      "firstVote": "2026-05-17T16:18:59.885501+00:00",
+      "lastVote": "2026-05-19T03:39:19.659849+00:00",
+      "videos": [
+        "v9"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Marco Crypto"
+      ],
+      "emails": 13,
+      "devices": 13
+    },
+    {
+      "ipHash": "b7bd89404775b7d9",
+      "count": 12,
+      "firstVote": "2026-05-17T17:05:42.229719+00:00",
+      "lastVote": "2026-05-17T17:28:28.469168+00:00",
+      "videos": [
+        "v18"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "FVST"
+      ],
+      "emails": 12,
+      "devices": 12
+    },
+    {
+      "ipHash": "da5014f1f8ff4a96",
+      "count": 9,
+      "firstVote": "2026-05-17T02:12:20.042349+00:00",
+      "lastVote": "2026-05-17T02:46:26.134806+00:00",
+      "videos": [
+        "v18",
+        "v23"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Joya"
+      ],
+      "emails": 9,
+      "devices": 8
+    },
+    {
+      "ipHash": "e52ac657005a30a3",
+      "count": 7,
+      "firstVote": "2026-05-17T04:12:33.173694+00:00",
+      "lastVote": "2026-05-17T04:26:11.836167+00:00",
+      "videos": [
+        "v18",
+        "v5"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "Joan Barbosa"
+      ],
+      "emails": 7,
+      "devices": 6
+    },
+    {
+      "ipHash": "d8442b8c4f455cdf",
+      "count": 7,
+      "firstVote": "2026-05-18T12:18:44.097624+00:00",
+      "lastVote": "2026-05-18T12:27:25.602586+00:00",
+      "videos": [
+        "v16"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "RGabrielDiaz"
+      ],
+      "emails": 6,
+      "devices": 7
+    },
+    {
+      "ipHash": "220eb5bafff07ec2",
+      "count": 7,
+      "firstVote": "2026-05-17T18:56:41.104044+00:00",
+      "lastVote": "2026-05-17T19:10:22.617615+00:00",
+      "videos": [
+        "v16"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "RGabrielDiaz"
+      ],
+      "emails": 7,
+      "devices": 7
+    },
+    {
+      "ipHash": "4f168a570370a7b5",
+      "count": 6,
+      "firstVote": "2026-05-17T00:12:09.22133+00:00",
+      "lastVote": "2026-05-17T00:28:26.053824+00:00",
+      "videos": [
+        "v13"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Brauxelion ft. YoungBleak"
+      ],
+      "emails": 6,
+      "devices": 6
+    },
+    {
+      "ipHash": "221a617b0686b003",
+      "count": 6,
+      "firstVote": "2026-05-17T17:50:31.168902+00:00",
+      "lastVote": "2026-05-17T17:54:23.856284+00:00",
+      "videos": [
+        "v18"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "FVST"
+      ],
+      "emails": 6,
+      "devices": 6
+    },
+    {
+      "ipHash": "6338277591265c61",
+      "count": 6,
+      "firstVote": "2026-05-18T16:35:50.570942+00:00",
+      "lastVote": "2026-05-18T16:47:57.881271+00:00",
+      "videos": [
+        "v5"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Joan Barbosa"
+      ],
+      "emails": 6,
+      "devices": 6
+    },
+    {
+      "ipHash": "aa61430fc0911d24",
+      "count": 6,
+      "firstVote": "2026-05-17T17:04:16.667069+00:00",
+      "lastVote": "2026-05-17T17:10:16.494888+00:00",
+      "videos": [
+        "v18"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "FVST"
+      ],
+      "emails": 6,
+      "devices": 6
+    },
+    {
+      "ipHash": "7e132203285b6e50",
+      "count": 4,
+      "firstVote": "2026-05-17T03:19:46.742507+00:00",
+      "lastVote": "2026-05-17T03:33:09.393848+00:00",
+      "videos": [
+        "v5"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Joan Barbosa"
+      ],
+      "emails": 4,
+      "devices": 4
+    },
+    {
+      "ipHash": "d27f2d9b90207c24",
+      "count": 4,
+      "firstVote": "2026-05-17T17:59:43.561184+00:00",
+      "lastVote": "2026-05-17T18:05:47.51112+00:00",
+      "videos": [
+        "v18"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "FVST"
+      ],
+      "emails": 4,
+      "devices": 4
+    },
+    {
+      "ipHash": "a40d31c3bb0c5fb5",
+      "count": 4,
+      "firstVote": "2026-05-17T00:25:29.739006+00:00",
+      "lastVote": "2026-05-17T15:45:03.47576+00:00",
+      "videos": [
+        "v24"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Keleven ft. Sielo"
+      ],
+      "emails": 4,
+      "devices": 4
+    },
+    {
+      "ipHash": "279bb8030f5f290d",
+      "count": 4,
+      "firstVote": "2026-05-18T19:33:54.763874+00:00",
+      "lastVote": "2026-05-18T20:03:47.353112+00:00",
+      "videos": [
+        "v11"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Sebastián Ceciliano"
+      ],
+      "emails": 4,
+      "devices": 4
+    },
+    {
+      "ipHash": "f297ed952112885e",
+      "count": 4,
+      "firstVote": "2026-05-18T16:58:23.476473+00:00",
+      "lastVote": "2026-05-18T17:33:10.198537+00:00",
+      "videos": [
+        "v19"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Cariddi Crypto"
+      ],
+      "emails": 4,
+      "devices": 4
+    },
+    {
+      "ipHash": "f7b5f0a8dc3e0080",
+      "count": 4,
+      "firstVote": "2026-05-17T01:00:28.393223+00:00",
+      "lastVote": "2026-05-17T16:18:08.248929+00:00",
+      "videos": [
+        "v15"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Herimax"
+      ],
+      "emails": 4,
+      "devices": 4
+    },
+    {
+      "ipHash": "81f144de4bddb859",
+      "count": 3,
+      "firstVote": "2026-05-18T15:05:20.829573+00:00",
+      "lastVote": "2026-05-18T15:06:33.194788+00:00",
+      "videos": [
+        "v13"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Brauxelion ft. YoungBleak"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "b0ffc09b8fde01e9",
+      "count": 3,
+      "firstVote": "2026-05-17T04:45:05.727195+00:00",
+      "lastVote": "2026-05-17T04:51:47.85136+00:00",
+      "videos": [
+        "v18"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "FVST"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "452fd44c130d347f",
+      "count": 3,
+      "firstVote": "2026-05-18T15:02:03.802351+00:00",
+      "lastVote": "2026-05-18T15:06:38.063843+00:00",
+      "videos": [
+        "v19",
+        "v22",
+        "v24"
+      ],
+      "videoCount": 3,
+      "artists": [
+        "Cariddi Crypto",
+        "Keleven ft. Sielo",
+        "Wincoiner"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "118dd1c6d7832122",
+      "count": 3,
+      "firstVote": "2026-05-17T11:30:00.970534+00:00",
+      "lastVote": "2026-05-17T14:58:34.763897+00:00",
+      "videos": [
+        "v5"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Joan Barbosa"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "4703829a22d2d601",
+      "count": 3,
+      "firstVote": "2026-05-17T16:50:56.369003+00:00",
+      "lastVote": "2026-05-17T17:15:13.867735+00:00",
+      "videos": [
+        "v18"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "FVST"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "8fd29b05fbb4b442",
+      "count": 3,
+      "firstVote": "2026-05-17T03:09:40.069264+00:00",
+      "lastVote": "2026-05-17T03:42:21.814142+00:00",
+      "videos": [
+        "v5"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Joan Barbosa"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "84e6ffcd8cf8e672",
+      "count": 3,
+      "firstVote": "2026-05-17T21:12:17.071878+00:00",
+      "lastVote": "2026-05-18T15:24:19.675182+00:00",
+      "videos": [
+        "v18",
+        "v8"
+      ],
+      "videoCount": 2,
+      "artists": [
+        "FVST",
+        "La Macabrita"
+      ],
+      "emails": 2,
+      "devices": 2
+    },
+    {
+      "ipHash": "eabd5dcab48502f2",
+      "count": 3,
+      "firstVote": "2026-05-17T18:13:43.037875+00:00",
+      "lastVote": "2026-05-17T18:43:40.581046+00:00",
+      "videos": [
+        "v16"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "RGabrielDiaz"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "1ca19a77ae48f85e",
+      "count": 3,
+      "firstVote": "2026-05-17T18:33:38.99403+00:00",
+      "lastVote": "2026-05-17T18:41:28.463643+00:00",
+      "videos": [
+        "v24"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Keleven ft. Sielo"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "38c8db01a537a103",
+      "count": 3,
+      "firstVote": "2026-05-17T03:08:35.447672+00:00",
+      "lastVote": "2026-05-17T03:11:17.973655+00:00",
+      "videos": [
+        "v13"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Brauxelion ft. YoungBleak"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "eca3261c1daa5298",
+      "count": 3,
+      "firstVote": "2026-05-17T23:51:06.958199+00:00",
+      "lastVote": "2026-05-18T00:02:07.615598+00:00",
+      "videos": [
+        "v24"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Keleven ft. Sielo"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "ddc8cd80e10a5924",
+      "count": 3,
+      "firstVote": "2026-05-17T23:06:43.380405+00:00",
+      "lastVote": "2026-05-19T01:06:46.811726+00:00",
+      "videos": [
+        "v13"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Brauxelion ft. YoungBleak"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "21ce2a3f64c05914",
+      "count": 3,
+      "firstVote": "2026-05-17T01:46:07.597234+00:00",
+      "lastVote": "2026-05-17T19:11:30.819628+00:00",
+      "videos": [
+        "v13"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Brauxelion ft. YoungBleak"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "ffc0a170d511aef6",
+      "count": 3,
+      "firstVote": "2026-05-18T00:34:30.171321+00:00",
+      "lastVote": "2026-05-18T00:37:20.90378+00:00",
+      "videos": [
+        "v16"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "RGabrielDiaz"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "5598f24c59ddf5de",
+      "count": 3,
+      "firstVote": "2026-05-18T14:51:10.77145+00:00",
+      "lastVote": "2026-05-18T15:00:22.553394+00:00",
+      "videos": [
+        "v19"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Cariddi Crypto"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "10eceb4ced6cadb0",
+      "count": 3,
+      "firstVote": "2026-05-17T00:54:55.118699+00:00",
+      "lastVote": "2026-05-17T01:00:56.91827+00:00",
+      "videos": [
+        "v24"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Keleven ft. Sielo"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "174b580e2e964ec6",
+      "count": 3,
+      "firstVote": "2026-05-17T03:59:32.755001+00:00",
+      "lastVote": "2026-05-17T04:02:34.758954+00:00",
+      "videos": [
+        "v5"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Joan Barbosa"
+      ],
+      "emails": 3,
+      "devices": 3
+    },
+    {
+      "ipHash": "23e90ec9c0f44381",
+      "count": 3,
+      "firstVote": "2026-05-18T19:33:27.188309+00:00",
+      "lastVote": "2026-05-18T19:35:04.138575+00:00",
+      "videos": [
+        "v13"
+      ],
+      "videoCount": 1,
+      "artists": [
+        "Brauxelion ft. YoungBleak"
+      ],
+      "emails": 3,
+      "devices": 3
+    }
+  ],
+  "invalidDevices": [
+    {
+      "id": "bc1938f5-e4c1-42bd-a0cb-948591364c64",
+      "deviceHash": "a0565a4e8f9efa0c",
+      "deviceLength": 36,
+      "emailHash": "e2926bb73e9435d5",
+      "ipHash": "cbabb26a31a755c3",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "e147a353-ecc0-425c-8f36-9b53c19cc903",
+      "deviceHash": "9c9bf199a736dfee",
+      "deviceLength": 36,
+      "emailHash": "16aa6810e1b3200e",
+      "ipHash": "6c0a13c7ba30fd33",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "791cdb52-2298-48d1-aaf1-06343f624cd2",
+      "deviceHash": "07902436313810b0",
+      "deviceLength": 36,
+      "emailHash": "0e9916a7b296531c",
+      "ipHash": "27c705f682c33bf3",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "e0c17a03-c4bb-4716-b3dd-8df3aee9fb1f",
+      "deviceHash": "a2cd28699ce02027",
+      "deviceLength": 36,
+      "emailHash": "9fc90ef97ef3db08",
+      "ipHash": "be99921dbbe9cc20",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "58140571-abe1-41b7-a801-8b7ef4c4e28a",
+      "deviceHash": "4e42b5b437d2c2eb",
+      "deviceLength": 36,
+      "emailHash": "3e3e7d9f6ad2f585",
+      "ipHash": "056c2230df4da462",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "c7c74d19-1519-4467-bd5e-7fdb4012a1b0",
+      "deviceHash": "ee16fa80d5c0a647",
+      "deviceLength": 36,
+      "emailHash": "25fadb198185f96f",
+      "ipHash": "753cf11a4d33e9ca",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "998ff543-7599-4b5f-ab81-c4418ed3d838",
+      "deviceHash": "9f05f3ddfc9b0c55",
+      "deviceLength": 36,
+      "emailHash": "e4241f79f5b88312",
+      "ipHash": "84c8c464ba3f5d89",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "e4264cbb-5cf7-480b-8da9-ba2bcc079273",
+      "deviceHash": "3c88244a741e2e79",
+      "deviceLength": 36,
+      "emailHash": "bab3c460e9462f4e",
+      "ipHash": "c9f5ea9abacb55b9",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "b096813a-afd0-4ef2-9eff-586007caca2f",
+      "deviceHash": "fedf96155e48f556",
+      "deviceLength": 36,
+      "emailHash": "b1d6b4ecd0353e8f",
+      "ipHash": "f297ed952112885e",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "084ce78c-b537-4f95-b03a-db5050378fb8",
+      "deviceHash": "c0e716bcb3fed21e",
+      "deviceLength": 36,
+      "emailHash": "7d284a7bfdc7531d",
+      "ipHash": "3c802e7d7e6a3658",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:33:10.198537+00:00"
+    },
+    {
+      "id": "8cb980ce-1593-43ca-9ff4-ff5d3180fc66",
+      "deviceHash": "99526e91029738f4",
+      "deviceLength": 36,
+      "emailHash": "aa8c83934af96d41",
+      "ipHash": "21f583dcfa46a0d4",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "5d328ef6-9223-4a52-b68e-65b8b6baf5da",
+      "deviceHash": "64be0613d8a6a568",
+      "deviceLength": 36,
+      "emailHash": "e3008d2899e39fea",
+      "ipHash": "2fbede59caa30d07",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "63246008-a5c3-44e0-871f-280691cab451",
+      "deviceHash": "8c68afa59f5640ac",
+      "deviceLength": 36,
+      "emailHash": "94e08dd4971d34e2",
+      "ipHash": "ae9975ecc5464b92",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "e36043ac-1090-4897-a6a7-2fec933331cb",
+      "deviceHash": "81d1a67a5462e2c9",
+      "deviceLength": 36,
+      "emailHash": "33e5ea2e23ab2e30",
+      "ipHash": "63a2d19b80de9b05",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "54b56e92-8859-48de-9697-23a1fd9a506b",
+      "deviceHash": "28e3dc0641cb4fca",
+      "deviceLength": 36,
+      "emailHash": "b70844bbecf207bd",
+      "ipHash": "526bb7ca43b10e41",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "4412438b-4049-41b8-bc59-732c3d52b7d9",
+      "deviceHash": "c6374a051d45bc98",
+      "deviceLength": 36,
+      "emailHash": "de798cab5975b3ac",
+      "ipHash": "9e02c7199880f9eb",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "195b9dc4-6cb0-4b87-b976-8b28a3515572",
+      "deviceHash": "9e6efa64b3415579",
+      "deviceLength": 36,
+      "emailHash": "ffea4d09428fd014",
+      "ipHash": "af23eeec93f69d89",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "5c4f0d83-db18-4b6a-9ecd-8588f836fb2f",
+      "deviceHash": "d6ffe62897255e7d",
+      "deviceLength": 36,
+      "emailHash": "fa1646afaf1ee515",
+      "ipHash": "1a17185f886a8593",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "7e91d484-d891-49e8-b800-22c571307450",
+      "deviceHash": "ba773dee078b7624",
+      "deviceLength": 36,
+      "emailHash": "64113cd465d0051b",
+      "ipHash": "5d8a274088dc23e7",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "df7f957b-f66e-4396-a960-12e38aea964d",
+      "deviceHash": "126f140638cde6b6",
+      "deviceLength": 36,
+      "emailHash": "2f40e17b98b0a8d6",
+      "ipHash": "277af63dd9c25b73",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:36:08.211536+00:00"
+    },
+    {
+      "id": "0f81468a-ff0a-4d69-88ac-937f3ad228b9",
+      "deviceHash": "13448679c3a47098",
+      "deviceLength": 36,
+      "emailHash": "c3553d2e15b10a95",
+      "ipHash": "3fc8f69f0f4d0b50",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "4d3a8df2-696a-43bd-85ad-f6e10ce13e3e",
+      "deviceHash": "f597c64414b76351",
+      "deviceLength": 36,
+      "emailHash": "daa700b60fcb8f4f",
+      "ipHash": "5f9bfe393e505836",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "1b3c3583-7c0f-4ae7-9410-1a279cc2e1c9",
+      "deviceHash": "f75be23bf3df8513",
+      "deviceLength": 36,
+      "emailHash": "05b5a15488d2329b",
+      "ipHash": "c5c61e566e080125",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "28f56807-eaa5-40d9-8267-34068c8a5225",
+      "deviceHash": "1b5a87c5a4c9d234",
+      "deviceLength": 36,
+      "emailHash": "09c8392bf0e261e9",
+      "ipHash": "f6755a82281d9299",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "aceb3781-3404-4337-8e74-ae641651255e",
+      "deviceHash": "7611da7c4486da4e",
+      "deviceLength": 36,
+      "emailHash": "8e0eefecb6d8ab98",
+      "ipHash": "435fdcdd405efeed",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "616eb5a5-9e95-4e0e-8f78-6aed088f3d6d",
+      "deviceHash": "1b77330d1af4667e",
+      "deviceLength": 36,
+      "emailHash": "e68aa8d9489efcaf",
+      "ipHash": "5e158d50536b1928",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "3dc5c6a6-7e27-4ad7-bff1-d1dfabde7066",
+      "deviceHash": "7e9e02164fcf2b66",
+      "deviceLength": 36,
+      "emailHash": "63a9caf28c704621",
+      "ipHash": "9acb1da139ae2c77",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "43fc89b9-873e-47ab-966a-3fe266d7c219",
+      "deviceHash": "71ad276079f16051",
+      "deviceLength": 36,
+      "emailHash": "37ab5d9adee2335d",
+      "ipHash": "1924f72600b8de11",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "7555c94f-4169-4e6b-8d53-c73ba66cffe5",
+      "deviceHash": "d2a11191ef00f1df",
+      "deviceLength": 36,
+      "emailHash": "e505ea2e541d295d",
+      "ipHash": "b3e17f1655d15f16",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "58317451-522c-449e-884a-ba10d2d50698",
+      "deviceHash": "53ec40335b1de971",
+      "deviceLength": 36,
+      "emailHash": "1730dfe28086015e",
+      "ipHash": "aaab313f98248907",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "cde30739-8846-4ac1-9c2f-57c94eb674e4",
+      "deviceHash": "723d453c4d93b62e",
+      "deviceLength": 36,
+      "emailHash": "2b7caf85d5aa3a91",
+      "ipHash": "aa883d0cf5259f72",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "845c5868-ab81-4dac-bd93-8bceb95817fd",
+      "deviceHash": "239370f8aed24a90",
+      "deviceLength": 36,
+      "emailHash": "68129a3f795ba78c",
+      "ipHash": "43ec8ac27178413c",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "4f7fd8ec-79dd-4067-a5d5-50cde391f9ae",
+      "deviceHash": "65aa820c0d49c514",
+      "deviceLength": 36,
+      "emailHash": "68f5d5850d6d283f",
+      "ipHash": "874bba0ad2c9c57c",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "e679b648-f303-4e77-8d8c-232e26b22ef4",
+      "deviceHash": "ea08bb09531f4786",
+      "deviceLength": 36,
+      "emailHash": "c11a58962123c021",
+      "ipHash": "462dc862dfe7bbdb",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "83f18c45-e018-4d5e-981d-77e0f7f065aa",
+      "deviceHash": "1fc02ffc89d94b79",
+      "deviceLength": 36,
+      "emailHash": "c694524ea4c562a6",
+      "ipHash": "701a8f670f503a70",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "94e46aa4-b898-4193-89bb-da57b7357833",
+      "deviceHash": "6561f8675c54773c",
+      "deviceLength": 36,
+      "emailHash": "6abc3f9cb58e6cfb",
+      "ipHash": "466a178f1e7642ef",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "3a299b45-f4af-4fbb-b0f7-e7d6b21e0826",
+      "deviceHash": "0ff8b31c239a64de",
+      "deviceLength": 36,
+      "emailHash": "8f0a03c2536d5e7c",
+      "ipHash": "22a8c0bc0e1c971d",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "e80caa7a-6697-4419-b027-f3875458eaf3",
+      "deviceHash": "68d76072b21f1da2",
+      "deviceLength": 36,
+      "emailHash": "cdbac200f9279be0",
+      "ipHash": "c75d3d9f5b7a1df1",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "04af3adc-5447-4275-9719-07cd746bf24f",
+      "deviceHash": "534b71c5b2aff7e3",
+      "deviceLength": 36,
+      "emailHash": "325c7b77a96a3ba4",
+      "ipHash": "4b635467227aa9bf",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "6063e8e9-9625-4815-a0e3-7753dd1d9e6c",
+      "deviceHash": "a2390b6e6ac61327",
+      "deviceLength": 36,
+      "emailHash": "1797605a708b3082",
+      "ipHash": "9ba23a102765d0b4",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:44:29.199026+00:00"
+    },
+    {
+      "id": "604c4663-cd78-43f1-a4c2-2d78a2fedd9e",
+      "deviceHash": "3564c00bd2695bdf",
+      "deviceLength": 36,
+      "emailHash": "45a48b44ca24a7a6",
+      "ipHash": "498d78395de8f72c",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "a8bc1575-88ad-4e3e-b7b2-6a149251f2dc",
+      "deviceHash": "ea944ba6f6afa88b",
+      "deviceLength": 36,
+      "emailHash": "1b8184e3cdec887b",
+      "ipHash": "a2200706294615fd",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "a6ff70bc-c720-43d3-986a-8cc770d409d3",
+      "deviceHash": "e98f84d75f962904",
+      "deviceLength": 36,
+      "emailHash": "8016a25141335855",
+      "ipHash": "3865f20cc5a1a721",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "b1c7f1ab-93b4-4f86-800d-364a746f49bb",
+      "deviceHash": "a4101b7eff2f5a7b",
+      "deviceLength": 36,
+      "emailHash": "2238bb879b416c68",
+      "ipHash": "c35aec4d51c1b6ed",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "85769588-4251-439b-86c0-51a7140de03f",
+      "deviceHash": "457c275decb8ab58",
+      "deviceLength": 36,
+      "emailHash": "966365132c9e84a6",
+      "ipHash": "d39be38dfad17c3d",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "c80cf1c2-fc4a-451b-a080-fa0f22e9fbf3",
+      "deviceHash": "bf42c245c3a9660a",
+      "deviceLength": 36,
+      "emailHash": "a35ac14af088e7b0",
+      "ipHash": "d852ddd07ba2ef8e",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "48b455b6-b5cf-493b-bcbb-631a39c4d448",
+      "deviceHash": "6a608c8f6167a3ce",
+      "deviceLength": 36,
+      "emailHash": "0498ad9232bf7e32",
+      "ipHash": "6bc4565a64f27d48",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "a92c9f0a-7973-473e-bc60-485f546fd0d4",
+      "deviceHash": "a11a9cf8dc70f130",
+      "deviceLength": 36,
+      "emailHash": "e72f278dfd985586",
+      "ipHash": "b3ef29971d3b9410",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "eefc10b7-179d-4647-b355-abf6d58aba20",
+      "deviceHash": "aa659951b6c78c7c",
+      "deviceLength": 36,
+      "emailHash": "40711ffe5a755a90",
+      "ipHash": "c4f4705e06075138",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "c710fa28-aa7d-4237-a5e1-43a9fa6cd247",
+      "deviceHash": "015c40c9af47fe04",
+      "deviceLength": 36,
+      "emailHash": "69ab00177c873a39",
+      "ipHash": "3fe8ebdf0edca8a2",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "5150a0b6-4528-4ecf-9932-8db482b6de95",
+      "deviceHash": "492d96c0c3dc5b59",
+      "deviceLength": 36,
+      "emailHash": "9b2c5bace7ba5181",
+      "ipHash": "54304ea92ea5d5e9",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "891f742e-97f3-4f66-9eed-4c32b2ef6014",
+      "deviceHash": "c48e7daed18dde56",
+      "deviceLength": 36,
+      "emailHash": "4ab3506753cf607e",
+      "ipHash": "d5f68ddc6314bf73",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "67e6dd80-3337-46ef-b9a4-5203abdf055b",
+      "deviceHash": "ebf65b2b1a6e38f3",
+      "deviceLength": 36,
+      "emailHash": "b07646fbb2f5f2a0",
+      "ipHash": "bf3f693acf58add3",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "bb3813fe-f89d-438d-b972-d2f225fdb868",
+      "deviceHash": "dd8a54daac93b5c7",
+      "deviceLength": 36,
+      "emailHash": "740939d2182ec1d5",
+      "ipHash": "729dc00938360f4e",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "b8e154d0-726a-456d-8435-1a673aa8ac86",
+      "deviceHash": "38da7fd61fd33b27",
+      "deviceLength": 36,
+      "emailHash": "074724f83eb9d829",
+      "ipHash": "91a05e9ca374f5f6",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "6aee008c-f89f-4888-bb24-8148af8aec73",
+      "deviceHash": "4af6ec52721306a4",
+      "deviceLength": 36,
+      "emailHash": "993ceb1fcef0da67",
+      "ipHash": "d92185221b208e05",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "3750ecce-53a2-4372-b8e0-5b15c0607b1b",
+      "deviceHash": "bea7e585ca957b27",
+      "deviceLength": 36,
+      "emailHash": "7c3965945db8a35d",
+      "ipHash": "01135c69cad2891b",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "11d760de-6f6a-41b7-b3b8-1c36c8a92856",
+      "deviceHash": "a4669774b2401e72",
+      "deviceLength": 36,
+      "emailHash": "bd625873229a316a",
+      "ipHash": "0d2ab17914482418",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "add9f91d-e5dd-41c4-bed0-38ac933a6bc2",
+      "deviceHash": "dbfda9563f932496",
+      "deviceLength": 36,
+      "emailHash": "14cfd85cea31f2d9",
+      "ipHash": "1e202cb4483dbbba",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "68475d92-4fb2-4c05-a387-8b3845655acb",
+      "deviceHash": "1f0d78cb3ab2bad6",
+      "deviceLength": 36,
+      "emailHash": "8f6fc13c4551b549",
+      "ipHash": "aec9a6f977e005db",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T17:47:38.575873+00:00"
+    },
+    {
+      "id": "50d9852e-921a-46a5-8999-a9cf8071c633",
+      "deviceHash": "66040b38fc9b608a",
+      "deviceLength": 36,
+      "emailHash": "6c0df8759d0682c1",
+      "ipHash": "e7a09c548b5c8f1c",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "f0252a9d-aabb-48eb-a408-9879b2bda759",
+      "deviceHash": "fafe9a42060f6f46",
+      "deviceLength": 36,
+      "emailHash": "161edfe733d6c7a7",
+      "ipHash": "bbd2e9a9d60d23e3",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "8a95a7d0-f65a-4a35-9f71-19a3fa21e80d",
+      "deviceHash": "12d44b983f2e5d16",
+      "deviceLength": 36,
+      "emailHash": "a8a4fbb1deabd86e",
+      "ipHash": "a634744e2a914763",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "7adf61b9-a143-4676-86d0-6c12d2c18aac",
+      "deviceHash": "2febee37fb4d7a8a",
+      "deviceLength": 36,
+      "emailHash": "6a6343f6c522a2e0",
+      "ipHash": "1980f6c4f37e9562",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "d622af07-db8a-43f9-b125-ee3f17783712",
+      "deviceHash": "12aabd789d0f714c",
+      "deviceLength": 36,
+      "emailHash": "e9bf01114c5800ac",
+      "ipHash": "1c7f05d8067aa7d8",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "87c3ea12-6282-4b3b-b218-654a9456166e",
+      "deviceHash": "a690179478de4f35",
+      "deviceLength": 36,
+      "emailHash": "2b0262b9d7043c00",
+      "ipHash": "4cffbbab4931124f",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "2b8f33e7-b390-4ebd-be7b-1cf55d464852",
+      "deviceHash": "81fc611e89375138",
+      "deviceLength": 36,
+      "emailHash": "38804f9a5ccdb977",
+      "ipHash": "2763115b1bdfa346",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "8741d999-7261-4152-99ee-ca17aac5e712",
+      "deviceHash": "bcc62f8e23d303d1",
+      "deviceLength": 36,
+      "emailHash": "5e0aa9fd38b78c34",
+      "ipHash": "bd83a2c2bc1a2b5f",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "5bdc2d5a-b96e-4242-aaf4-6ebeed69eee4",
+      "deviceHash": "128762aa0e0c82ac",
+      "deviceLength": 36,
+      "emailHash": "9ce253eec29a3964",
+      "ipHash": "311330938d84cee0",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "137f44de-e1f5-475e-b0e3-2a8a8f18e13b",
+      "deviceHash": "42ad4c02beb5f96f",
+      "deviceLength": 36,
+      "emailHash": "0244446b1befc210",
+      "ipHash": "4fc792ade0ae725f",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "590b79d4-e590-451e-ac73-791b8520ee77",
+      "deviceHash": "6f0d46a74c653707",
+      "deviceLength": 36,
+      "emailHash": "1099f353c7052b55",
+      "ipHash": "6272cbc5c6954bb6",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "badf1e94-d4c9-41c3-85aa-b8200c28bad0",
+      "deviceHash": "d49339ebb7ac8764",
+      "deviceLength": 36,
+      "emailHash": "491c401dbf35b01f",
+      "ipHash": "191b51fb4a23a3a6",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "5ec5fec3-cd4d-4068-8d66-583618ac48c3",
+      "deviceHash": "f436d59a5484402f",
+      "deviceLength": 36,
+      "emailHash": "2700df7326db418d",
+      "ipHash": "ee3ab9d4609dc8f4",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "2dbb7187-e265-42d9-9283-aae7a15fa48f",
+      "deviceHash": "d64f15d034b159dc",
+      "deviceLength": 36,
+      "emailHash": "a871188c209176e1",
+      "ipHash": "76b3705b5409fb40",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "e1627568-4a65-4633-bb5f-2d1fd1406672",
+      "deviceHash": "68d41d4b1c45557a",
+      "deviceLength": 36,
+      "emailHash": "e69c11be5878cb97",
+      "ipHash": "ce44c9fdf44957e9",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "3501a673-de9f-4a46-8dd3-dbfcbd116fec",
+      "deviceHash": "43dc2d9b80f6d81b",
+      "deviceLength": 36,
+      "emailHash": "daf5230fd0997db6",
+      "ipHash": "74bb480810ad055d",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "0a07de56-870a-4a97-afbd-8a2ccc7fa6b6",
+      "deviceHash": "2fa77b05afa67ac9",
+      "deviceLength": 36,
+      "emailHash": "df5b6281c510d4e3",
+      "ipHash": "b4e77e1fea7a38d2",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "6832b608-2386-4bc1-bf09-1a5ab3ecb2e0",
+      "deviceHash": "183d661cf1366cc4",
+      "deviceLength": 36,
+      "emailHash": "2398aa1b65f15e28",
+      "ipHash": "0a78de4c3928f4db",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "05596daa-38e7-41e2-8112-e5085c3feb02",
+      "deviceHash": "27e94331819d2c4c",
+      "deviceLength": 36,
+      "emailHash": "6fcb84bd25120c98",
+      "ipHash": "ed4d3826035ace38",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "ac8333ae-90cc-4bb9-9479-f4bdffb4a2ee",
+      "deviceHash": "352ae17909838016",
+      "deviceLength": 36,
+      "emailHash": "2d54d14a042db5c4",
+      "ipHash": "9f04873f2977e7d9",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:38:11.906956+00:00"
+    },
+    {
+      "id": "7fd2e014-2bf5-4feb-99c0-1015c0609727",
+      "deviceHash": "61d4d19080fcfc44",
+      "deviceLength": 36,
+      "emailHash": "b3f7bbf3a26e167d",
+      "ipHash": "86ce910a22c3c427",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "05661b55-c14f-4000-a495-4061fc972cbf",
+      "deviceHash": "8b72afc8e0b95e4c",
+      "deviceLength": 36,
+      "emailHash": "a65a16fe071f6efd",
+      "ipHash": "5eb938f4b5e3e891",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "9bf137ab-9f25-4f88-b05a-6c593eeb42db",
+      "deviceHash": "c9f2b9acff05a796",
+      "deviceLength": 36,
+      "emailHash": "e01912939b3ee971",
+      "ipHash": "787bb7f8a1b734af",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "d220c438-c81d-4a20-97fc-77de9e0895f2",
+      "deviceHash": "9d3bbee606696bde",
+      "deviceLength": 36,
+      "emailHash": "90312f8b1c6a5c16",
+      "ipHash": "c2a3ac0cdfb065c2",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "77f53fad-a735-45a3-ab62-c3616e20523a",
+      "deviceHash": "e6d12a80700c2dca",
+      "deviceLength": 36,
+      "emailHash": "04cb7bc6e99f4f14",
+      "ipHash": "e2be4bf246d510ec",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "d0fb4f20-4672-4f65-befa-70b710a8e2ec",
+      "deviceHash": "6fce476cdb37b9a4",
+      "deviceLength": 36,
+      "emailHash": "c468c995f9979073",
+      "ipHash": "5de0add720b2f0ad",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "b2d43c4d-ddd5-4ef3-ac1f-a7a1d0cda1ca",
+      "deviceHash": "993446da33f71743",
+      "deviceLength": 36,
+      "emailHash": "3fe7f87e91623467",
+      "ipHash": "caed6d2b8ba1a4e2",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "2257611f-9a1c-4a29-ad85-edd8fdb93dc0",
+      "deviceHash": "32ed16ddbcc80448",
+      "deviceLength": 36,
+      "emailHash": "45b35f7081956438",
+      "ipHash": "1bd3bbbab6bafa63",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "8bf97a8c-81bb-446f-85e8-fa2395af508f",
+      "deviceHash": "47028a1928457dda",
+      "deviceLength": 36,
+      "emailHash": "aac13ba5f8272289",
+      "ipHash": "3892441832979b8e",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "c515ed61-5d61-4484-9467-f8f0abcf3d70",
+      "deviceHash": "e5fb2f366978ffc8",
+      "deviceLength": 36,
+      "emailHash": "ff0a80e09c8a33cc",
+      "ipHash": "9afe710894af0daf",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "ca4467a6-c53f-4d91-bc3e-384ed8fe9909",
+      "deviceHash": "151f0cb55b9f3728",
+      "deviceLength": 36,
+      "emailHash": "9c57a52f5b0b44e5",
+      "ipHash": "4dc57788972056cd",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "9e8b5f04-a1d7-4acd-b897-e7aaa4ac527e",
+      "deviceHash": "adddd4ebc61d56b5",
+      "deviceLength": 36,
+      "emailHash": "47abc212b010b0e8",
+      "ipHash": "df021603f5539c8b",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "a0acc1e2-8720-49ae-88e6-a8368b3d2ffd",
+      "deviceHash": "0b06ef187a4e0930",
+      "deviceLength": 36,
+      "emailHash": "46757be7c21425c3",
+      "ipHash": "f19c8e1c9d07477a",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "22bec224-1eb2-4eba-888c-e596627be6ab",
+      "deviceHash": "4d1717a29da9159d",
+      "deviceLength": 36,
+      "emailHash": "873e7088f09eda00",
+      "ipHash": "f3bdecf6014da9a9",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "4972c244-1a46-4ee7-9c62-573b0d5547bb",
+      "deviceHash": "1baa29eeeec288e7",
+      "deviceLength": 36,
+      "emailHash": "ccd34ccdccdea7a1",
+      "ipHash": "780bf0873a238e55",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "c2f17448-6a26-4a1c-8adb-636120806219",
+      "deviceHash": "787546405b136cec",
+      "deviceLength": 36,
+      "emailHash": "4fcc8810b02cacd4",
+      "ipHash": "a8f9739ca31172e0",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "02dd8638-bc07-422d-8ea8-bdf9589482e2",
+      "deviceHash": "b1c8e473e93ad98d",
+      "deviceLength": 36,
+      "emailHash": "9a063f7543daf5f6",
+      "ipHash": "2296eb1caadd6083",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "c95a4659-a5ee-46d8-a5d3-819e73012268",
+      "deviceHash": "56761d4f10243061",
+      "deviceLength": 36,
+      "emailHash": "0a3e82ab2135e09d",
+      "ipHash": "6567038ba4428315",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "1434db60-eae1-49e3-a619-939f9d03563c",
+      "deviceHash": "dc09ab85693e970b",
+      "deviceLength": 36,
+      "emailHash": "fc03e6a452931ba9",
+      "ipHash": "c814c065576f794a",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "9257fb87-86f0-4f3a-824f-4b0f3baee9d2",
+      "deviceHash": "e8e42070c826823b",
+      "deviceLength": 36,
+      "emailHash": "e392f20a20adf1e2",
+      "ipHash": "55f6fe1554e687a2",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T18:41:51.422765+00:00"
+    },
+    {
+      "id": "cede7de6-bd9d-4236-90be-e665dff1a0cf",
+      "deviceHash": "1472adcf41630836",
+      "deviceLength": 36,
+      "emailHash": "d6b134245740063f",
+      "ipHash": "dd4f28a2d94c734e",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "1c94b25c-9248-4514-8e2d-ae50ce2e007d",
+      "deviceHash": "b5ea9f0884805c32",
+      "deviceLength": 36,
+      "emailHash": "a0b20e2964ef0a9a",
+      "ipHash": "c45287c813d185fb",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "ca334fa0-9fc9-44c2-8b33-f1697bf2e3d1",
+      "deviceHash": "a0bf5c161b151737",
+      "deviceLength": 36,
+      "emailHash": "f7f5068a3ba62fe5",
+      "ipHash": "f0e15e7ab1a7b41b",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "76c32737-f07c-4382-a881-38499c10ec91",
+      "deviceHash": "b67d6ae03764c36e",
+      "deviceLength": 36,
+      "emailHash": "f3b5244706f85dab",
+      "ipHash": "8ceebee9ddd40dfb",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "7abe7986-b91f-4e7a-881c-36549a256c2b",
+      "deviceHash": "65c823c950a13a8b",
+      "deviceLength": 36,
+      "emailHash": "354ef0309cb64268",
+      "ipHash": "4df888e4356b0e46",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "256933d7-bb81-49dd-97a5-8a5a473fa605",
+      "deviceHash": "855712d874f32f2b",
+      "deviceLength": 36,
+      "emailHash": "bd9c1e6a3a215688",
+      "ipHash": "4e6dfaf34baf07e7",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "99be4818-36e5-47a6-affe-78c42b783df1",
+      "deviceHash": "d1334fb9198d1c28",
+      "deviceLength": 36,
+      "emailHash": "2d401b3d466c3ed6",
+      "ipHash": "f36dc0a434a420fa",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "8387bc53-f45d-47d1-9d9f-7808cb02506e",
+      "deviceHash": "8a2bc0508e387638",
+      "deviceLength": 36,
+      "emailHash": "e871fc9d6c38b53d",
+      "ipHash": "f3cbe1b238a8b238",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "085cf887-dfe7-48af-b976-c9d754590dcc",
+      "deviceHash": "0a06176b6d7b36ea",
+      "deviceLength": 36,
+      "emailHash": "ff4e8c482ce868d9",
+      "ipHash": "1c2c4f1c6700de5b",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "86160732-9b99-4e50-a789-91e5c0fe83ef",
+      "deviceHash": "7d7cf51f34f78f74",
+      "deviceLength": 36,
+      "emailHash": "91fa3191061d4ef5",
+      "ipHash": "2355cc2b364221ca",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "ade10f51-04f7-4457-a11a-dc3449acffee",
+      "deviceHash": "968f871957390064",
+      "deviceLength": 36,
+      "emailHash": "2d7e429331dd3f86",
+      "ipHash": "de533c96c3457ec2",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "24769e7a-552f-4bba-a86a-3e5ae4fd24e7",
+      "deviceHash": "e5b078a9f1088b90",
+      "deviceLength": 36,
+      "emailHash": "9a39fe271809c181",
+      "ipHash": "4a48527d345976f2",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "5c40af45-4637-4f67-b45a-24e659acd6b3",
+      "deviceHash": "fd03bd38cfde54a4",
+      "deviceLength": 36,
+      "emailHash": "8f1fab80ad4b0b8c",
+      "ipHash": "bb414df12cb441d6",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "39417f6e-555f-44d7-9b78-2b83854e201c",
+      "deviceHash": "a06bf0a3e900812f",
+      "deviceLength": 36,
+      "emailHash": "43343879e475f1df",
+      "ipHash": "41738c735bac71e7",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "a4fa68c2-7d71-4b1c-b092-3cdc2ee83d24",
+      "deviceHash": "2523751eebe6cb50",
+      "deviceLength": 36,
+      "emailHash": "ddc617e051f8ef60",
+      "ipHash": "6078ef1abdd88892",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "1683cc3d-8e2a-4638-8705-cdb29ef91d3f",
+      "deviceHash": "093f4d975f42cfd4",
+      "deviceLength": 36,
+      "emailHash": "d60b46b85b0b8469",
+      "ipHash": "4a2e89614bf0bbec",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "5e1b6efb-7bb6-4e93-aa23-e72c87be7868",
+      "deviceHash": "e66dfc9ed4257f58",
+      "deviceLength": 36,
+      "emailHash": "03860022cf4156b0",
+      "ipHash": "b1368725aadde492",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "1b11a1df-23ee-498d-a6bd-ea5549ec3f68",
+      "deviceHash": "6dbb06a4e0d4d138",
+      "deviceLength": 36,
+      "emailHash": "25f702919d2787a6",
+      "ipHash": "b6b73d313cefea8c",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "252d7110-854a-408e-9546-e36acb7f01bd",
+      "deviceHash": "d0d5fe1a0bc37a1e",
+      "deviceLength": 36,
+      "emailHash": "1ebb2e3ca9093d33",
+      "ipHash": "83f7e052c435a880",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "af54d9fe-e90a-4233-87c9-f75d69f83626",
+      "deviceHash": "4d6ecfdf32f94bda",
+      "deviceLength": 36,
+      "emailHash": "abf2ae9ed2cc1944",
+      "ipHash": "5688979c88fa9445",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T20:07:58.004544+00:00"
+    },
+    {
+      "id": "ecf70838-3369-4c78-8410-3ad49a1d29f1",
+      "deviceHash": "fc3e8dfa70e98bca",
+      "deviceLength": 36,
+      "emailHash": "aa7c17a48446ee16",
+      "ipHash": "0f6663a0afd4f32e",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "946fd22c-aa0c-4a7c-844a-a8fb55e4afd2",
+      "deviceHash": "a33ed94b25bc4008",
+      "deviceLength": 36,
+      "emailHash": "b0fadf654bdc53e2",
+      "ipHash": "4c199115292582f0",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "e03c561f-4bfa-4aff-8e57-99956312869f",
+      "deviceHash": "8404756e51c81244",
+      "deviceLength": 36,
+      "emailHash": "1da32bc16dd77bea",
+      "ipHash": "4bb93135057d5063",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "7de3c339-fa96-4f2b-98fb-89a697d886cc",
+      "deviceHash": "4a1859fd9e984bf5",
+      "deviceLength": 36,
+      "emailHash": "8f0db105ddadd157",
+      "ipHash": "bf4520d382281b06",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "496444e1-1c84-4187-975e-c4a64d9adcc8",
+      "deviceHash": "4901bd9156053a35",
+      "deviceLength": 36,
+      "emailHash": "1b0db0042c70575f",
+      "ipHash": "4519df5107f557eb",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "293a63da-8126-4184-bedd-12181cba7305",
+      "deviceHash": "3b1aa5e9d5e3c127",
+      "deviceLength": 36,
+      "emailHash": "43a0b8c2dbc5aa7d",
+      "ipHash": "8add56ef39a2e159",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "07b3b12a-1292-419c-b3c3-b733520f2cba",
+      "deviceHash": "3cebd4bd54a0fe09",
+      "deviceLength": 36,
+      "emailHash": "a72082aff9ec520c",
+      "ipHash": "5a6c7307c2a9f0ed",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "599685d8-fd4b-4607-bd3b-212727d3692c",
+      "deviceHash": "842e1a00d94aa743",
+      "deviceLength": 36,
+      "emailHash": "f4f591a5592923c3",
+      "ipHash": "95a8cc9fa1a0ccfb",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "0c146b1e-9149-4cdb-b931-c9e70d369db0",
+      "deviceHash": "c693621f770ea10c",
+      "deviceLength": 36,
+      "emailHash": "c41687100fd9a883",
+      "ipHash": "a9c2bd68d1019a5b",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "a1f43916-a730-4a30-a390-b5f86cb805e6",
+      "deviceHash": "c68b8eeceaec488e",
+      "deviceLength": 36,
+      "emailHash": "2ac9362f8559b217",
+      "ipHash": "e2a138e91cc4a727",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "983e1e6e-224d-43bd-920c-cfed3f3b700e",
+      "deviceHash": "6e8ceebc8fbbccaa",
+      "deviceLength": 36,
+      "emailHash": "0f5e0d3655610d2c",
+      "ipHash": "07614d40cc9d8bda",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "46cfb658-6d75-40d1-b489-76e801a896c5",
+      "deviceHash": "555472021a42809a",
+      "deviceLength": 36,
+      "emailHash": "1d5acf271bcbb688",
+      "ipHash": "7d01f003a9066192",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "e331656d-2b3a-444d-8433-112baf614a9c",
+      "deviceHash": "98d7fae6a3c693d7",
+      "deviceLength": 36,
+      "emailHash": "cfc4df08c04b79ea",
+      "ipHash": "ac40f70e66341272",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "2779bed5-024f-4328-b1f1-51558d733a21",
+      "deviceHash": "568501c7004905f2",
+      "deviceLength": 36,
+      "emailHash": "8e25ece098aaaa5b",
+      "ipHash": "d4ff4aae4f3abb0e",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "ace1d1a1-a98e-42b4-aafa-88d6672cc0ce",
+      "deviceHash": "bdd04802758a670e",
+      "deviceLength": 36,
+      "emailHash": "64f4471ffaeb2808",
+      "ipHash": "836458fe61b366c0",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "917a5c40-0718-4981-a673-83834d780233",
+      "deviceHash": "576df409b2fe22a1",
+      "deviceLength": 36,
+      "emailHash": "eb2263c288503ca8",
+      "ipHash": "9aa8be8387b6dbb5",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "7efa7a8c-f5be-489e-b0e1-71172efd80f7",
+      "deviceHash": "579c21d0a350aa8f",
+      "deviceLength": 36,
+      "emailHash": "1b6df956dd3f8d81",
+      "ipHash": "11ea43ed2a783e5f",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "6c098c2e-3f21-4504-923f-f68efe78aa6d",
+      "deviceHash": "ee688963252b4cef",
+      "deviceLength": 36,
+      "emailHash": "4ce6ebd498d78b0c",
+      "ipHash": "a2564e3d1b79f4ae",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "5ec9d87b-748b-427c-b880-3975506eeafd",
+      "deviceHash": "632c433f45187ffa",
+      "deviceLength": 36,
+      "emailHash": "b43dbb9f4a534fbe",
+      "ipHash": "0a21306a113f04e5",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    },
+    {
+      "id": "f37f7691-371e-45bc-b164-95996224f602",
+      "deviceHash": "dcd7d61b4543cd5d",
+      "deviceLength": 36,
+      "emailHash": "3294805fece392a8",
+      "ipHash": "8dd380d361d3fbe2",
+      "videoId": "v19",
+      "createdAt": "2026-05-18T21:20:22.029607+00:00"
+    }
+  ],
+  "votesByHour": [
+    {
+      "hour": "2026-05-16T17:00:00Z",
+      "count": 1
+    },
+    {
+      "hour": "2026-05-17T00:00:00Z",
+      "count": 47
+    },
+    {
+      "hour": "2026-05-17T01:00:00Z",
+      "count": 23
+    },
+    {
+      "hour": "2026-05-17T02:00:00Z",
+      "count": 24
+    },
+    {
+      "hour": "2026-05-17T03:00:00Z",
+      "count": 26
+    },
+    {
+      "hour": "2026-05-17T04:00:00Z",
+      "count": 39
+    },
+    {
+      "hour": "2026-05-17T05:00:00Z",
+      "count": 6
+    },
+    {
+      "hour": "2026-05-17T06:00:00Z",
+      "count": 1
+    },
+    {
+      "hour": "2026-05-17T07:00:00Z",
+      "count": 3
+    },
+    {
+      "hour": "2026-05-17T08:00:00Z",
+      "count": 1
+    },
+    {
+      "hour": "2026-05-17T09:00:00Z",
+      "count": 3
+    },
+    {
+      "hour": "2026-05-17T10:00:00Z",
+      "count": 2
+    },
+    {
+      "hour": "2026-05-17T11:00:00Z",
+      "count": 3
+    },
+    {
+      "hour": "2026-05-17T12:00:00Z",
+      "count": 6
+    },
+    {
+      "hour": "2026-05-17T13:00:00Z",
+      "count": 24
+    },
+    {
+      "hour": "2026-05-17T14:00:00Z",
+      "count": 26
+    },
+    {
+      "hour": "2026-05-17T15:00:00Z",
+      "count": 20
+    },
+    {
+      "hour": "2026-05-17T16:00:00Z",
+      "count": 46
+    },
+    {
+      "hour": "2026-05-17T17:00:00Z",
+      "count": 66
+    },
+    {
+      "hour": "2026-05-17T18:00:00Z",
+      "count": 44
+    },
+    {
+      "hour": "2026-05-17T19:00:00Z",
+      "count": 40
+    },
+    {
+      "hour": "2026-05-17T20:00:00Z",
+      "count": 39
+    },
+    {
+      "hour": "2026-05-17T21:00:00Z",
+      "count": 28
+    },
+    {
+      "hour": "2026-05-17T22:00:00Z",
+      "count": 14
+    },
+    {
+      "hour": "2026-05-17T23:00:00Z",
+      "count": 40
+    },
+    {
+      "hour": "2026-05-18T00:00:00Z",
+      "count": 29
+    },
+    {
+      "hour": "2026-05-18T01:00:00Z",
+      "count": 16
+    },
+    {
+      "hour": "2026-05-18T02:00:00Z",
+      "count": 9
+    },
+    {
+      "hour": "2026-05-18T03:00:00Z",
+      "count": 7
+    },
+    {
+      "hour": "2026-05-18T04:00:00Z",
+      "count": 2
+    },
+    {
+      "hour": "2026-05-18T05:00:00Z",
+      "count": 1
+    },
+    {
+      "hour": "2026-05-18T06:00:00Z",
+      "count": 1
+    },
+    {
+      "hour": "2026-05-18T08:00:00Z",
+      "count": 1
+    },
+    {
+      "hour": "2026-05-18T10:00:00Z",
+      "count": 2
+    },
+    {
+      "hour": "2026-05-18T11:00:00Z",
+      "count": 1
+    },
+    {
+      "hour": "2026-05-18T12:00:00Z",
+      "count": 15
+    },
+    {
+      "hour": "2026-05-18T13:00:00Z",
+      "count": 8
+    },
+    {
+      "hour": "2026-05-18T14:00:00Z",
+      "count": 16
+    },
+    {
+      "hour": "2026-05-18T15:00:00Z",
+      "count": 29
+    },
+    {
+      "hour": "2026-05-18T16:00:00Z",
+      "count": 18
+    },
+    {
+      "hour": "2026-05-18T17:00:00Z",
+      "count": 67
+    },
+    {
+      "hour": "2026-05-18T18:00:00Z",
+      "count": 54
+    },
+    {
+      "hour": "2026-05-18T19:00:00Z",
+      "count": 32
+    },
+    {
+      "hour": "2026-05-18T20:00:00Z",
+      "count": 40
+    },
+    {
+      "hour": "2026-05-18T21:00:00Z",
+      "count": 21
+    },
+    {
+      "hour": "2026-05-18T22:00:00Z",
+      "count": 4
+    },
+    {
+      "hour": "2026-05-18T23:00:00Z",
+      "count": 2
+    },
+    {
+      "hour": "2026-05-19T00:00:00Z",
+      "count": 4
+    },
+    {
+      "hour": "2026-05-19T01:00:00Z",
+      "count": 7
+    },
+    {
+      "hour": "2026-05-19T02:00:00Z",
+      "count": 5
+    },
+    {
+      "hour": "2026-05-19T03:00:00Z",
+      "count": 3
+    }
+  ]
+}

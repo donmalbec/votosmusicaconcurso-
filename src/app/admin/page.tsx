@@ -6,7 +6,7 @@ import { Download, Trash2, Mail, ShieldAlert, Lock } from "lucide-react";
 import { verifyAdminPassword } from "@/app/actions";
 
 export default function AdminPage() {
-  const { voteRecords, deleteVoteRecord, exportCSV, getTotalVotes, fetchVotes } = useVoteStore();
+  const { voteRecords, deleteVoteRecord, exportCSV, getTotalVotes, fetchAdminVotes } = useVoteStore();
   const [isLoaded, setIsLoaded] = useState(false);
   
   // Auth State
@@ -17,9 +17,24 @@ export default function AdminPage() {
 
   // Evita el error de hidratación en Next.js esperando al cliente
   useEffect(() => {
-    setIsLoaded(true);
-    fetchVotes();
-  }, [fetchVotes]);
+    let cancelled = false;
+
+    queueMicrotask(() => {
+      if (!cancelled) {
+        setIsLoaded(true);
+      }
+    });
+
+    fetchAdminVotes().then((result) => {
+      if (!cancelled && result.success) {
+        setIsAuthenticated(true);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [fetchAdminVotes]);
 
   if (!isLoaded) return <div className="min-h-screen bg-black" />;
 
@@ -37,13 +52,14 @@ export default function AdminPage() {
           <form onSubmit={async (e) => {
             e.preventDefault();
             setLoading(true);
-            const isValid = await verifyAdminPassword(password);
+            const result = await verifyAdminPassword(password);
             setLoading(false);
             
-            if (isValid) {
+            if (result.success) {
               setIsAuthenticated(true);
+              await fetchAdminVotes();
             } else {
-              setError("Contraseña incorrecta. Acceso denegado.");
+              setError(result.error);
               setPassword("");
             }
           }} className="flex flex-col gap-4">
@@ -158,7 +174,11 @@ export default function AdminPage() {
                         <button
                           onClick={() => {
                             if (window.confirm("¿Estás 100% seguro de que quieres anular este voto? Esto descontará 1 voto del ranking en vivo.")) {
-                              deleteVoteRecord(record.id);
+                              deleteVoteRecord(record.id).then((result) => {
+                                if (!result.success) {
+                                  setError(result.error || "No se pudo eliminar el voto.");
+                                }
+                              });
                             }
                           }}
                           className="text-white/20 hover:text-red-500 p-2 rounded-full hover:bg-red-500/10 transition-colors inline-flex"

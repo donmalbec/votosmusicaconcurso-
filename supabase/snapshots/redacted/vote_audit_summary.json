@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-05-19T05:26:25.790Z",
+  "source": "migquiivlhupijgmlbup public.votes via Supabase REST; PII values HMAC-redacted with an ephemeral salt not saved to disk",
+  "totals": {
+    "votes": 966,
+    "distinctEmails": 960,
+    "distinctDevices": 926,
+    "distinctIps": 761,
+    "invalidDeviceRows": 140,
+    "duplicateEmailGroups": 6,
+    "extraEmailVotes": 6,
+    "duplicateDeviceGroups": 32,
+    "extraDeviceVotes": 40,
+    "oldestVote": "2026-05-16T17:57:47.086915+00:00",
+    "newestVote": "2026-05-19T03:39:19.659849+00:00"
+  }
+}

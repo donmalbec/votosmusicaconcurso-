@@ -1,34 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useVoteStore } from "@/lib/store";
 import {
   Shield, Download, Trash2, LogOut, Users, Vote,
   TrendingUp, AlertTriangle, Lock, Eye, EyeOff
 } from "lucide-react";
 import { VIDEOS } from "@/lib/data";
-
-const ADMIN_PASSWORD = "PizzaDAO2026#Admin!";
+import { logoutAdmin, verifyAdminPassword } from "@/app/actions";
 
 export default function AdminPortal() {
   const [authenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [filterEmail, setFilterEmail] = useState("");
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
   const {
-    voteRecords, votes, deleteVoteRecord, getTotalVotes, getTotalEmails, exportCSV
+    voteRecords, votes, deleteVoteRecord, fetchAdminVotes, fetchVotes, getTotalVotes, getTotalEmails, exportCSV
   } = useVoteStore();
 
-  const handleLogin = (e: React.FormEvent) => {
+  useEffect(() => {
+    fetchAdminVotes().then((result) => {
+      if (result.success) {
+        setAuthenticated(true);
+      }
+    });
+  }, [fetchAdminVotes]);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
+    setAuthError("");
+    setLoading(true);
+
+    const result = await verifyAdminPassword(password);
+    setLoading(false);
+
+    if (result.success) {
       setAuthenticated(true);
+      setPassword("");
       setAuthError("");
+      await fetchAdminVotes();
     } else {
-      setAuthError("Contraseña incorrecta. Acceso denegado.");
+      setAuthError(result.error);
     }
   };
 
@@ -43,9 +59,12 @@ export default function AdminPortal() {
     URL.revokeObjectURL(url);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirmDelete === id) {
-      deleteVoteRecord(id);
+      const result = await deleteVoteRecord(id);
+      if (!result.success) {
+        setAuthError(result.error || "No se pudo eliminar el voto.");
+      }
       setConfirmDelete(null);
     } else {
       setConfirmDelete(id);
@@ -108,9 +127,9 @@ export default function AdminPortal() {
             {authError && (
               <p className="text-xs" style={{ color: "var(--danger)" }}>{authError}</p>
             )}
-            <button type="submit" className="btn-neon py-3 text-sm w-full">
+            <button type="submit" disabled={loading} className="btn-neon py-3 text-sm w-full">
               <Shield size={14} className="inline mr-2" />
-              Ingresar
+              {loading ? "Verificando..." : "Ingresar"}
             </button>
           </form>
           <p className="mt-4 text-xs" style={{ color: "var(--text-muted)" }}>🍕 Solo personal autorizado</p>
@@ -144,7 +163,11 @@ export default function AdminPortal() {
               Exportar CSV
             </button>
             <button
-              onClick={() => setAuthenticated(false)}
+              onClick={() => {
+                logoutAdmin();
+                setAuthenticated(false);
+                fetchVotes();
+              }}
               className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-lg transition-colors"
               style={{ color: "var(--text-muted)" }}
             >
