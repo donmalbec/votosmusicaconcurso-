@@ -25,14 +25,22 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-space-grotesk), sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(255, 230, 0, 0.18);
+}
+
+button,
+a,
+input {
+  touch-action: manipulation;
 }
 
 /* Scrollbar */
@@ -54,7 +62,11 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
@@ -69,11 +81,11 @@ body {
   background: var(--neon-yellow);
   color: #000000;
   font-weight: 700;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-space-grotesk), sans-serif;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -101,8 +113,8 @@ body {
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: 'Space Grotesk', sans-serif;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  font-family: var(--font-space-grotesk), sans-serif;
   font-weight: 500;
 }
 
@@ -117,10 +129,11 @@ body {
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
   color: var(--text-primary);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-space-grotesk), sans-serif;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
   outline: none;
+  color-scheme: dark;
 }
 
 .input-neon:focus {
@@ -134,7 +147,7 @@ body {
 
 /* AI badge */
 .ai-badge {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-space-mono), monospace;
   font-size: 0.7rem;
   padding: 3px 8px;
   border-radius: 20px;
@@ -177,7 +190,7 @@ body {
 
 /* Vote count animation */
 .vote-counter {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-space-mono), monospace;
   font-variant-numeric: tabular-nums;
 }
 
@@ -198,11 +211,12 @@ body {
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  overscroll-behavior: contain;
 }
 
 /* Rank badge */
 .rank-badge {
-  font-family: 'Space Mono', monospace;
+  font-family: var(--font-space-mono), monospace;
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -247,4 +261,19 @@ body {
 
 .thumb-container:hover .play-btn {
   transform: scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
