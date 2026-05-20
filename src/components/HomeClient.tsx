@@ -301,6 +301,8 @@ export function HomeClient() {
                       width={260}
                       height={64}
                       className="h-14 w-auto brightness-110"
+                      priority
+                      unoptimized
                     />
                   </a>
                 </div>
