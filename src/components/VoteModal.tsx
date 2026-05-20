@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useId } from "react";
+import Image from "next/image";
 import { X, ShieldCheck, CheckCircle2, Link2, MailCheck, Loader2 } from "lucide-react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Video } from "@/lib/data";
@@ -327,8 +328,17 @@ export function VoteModal({
       return;
     }
 
-    if (showCodeInput && verificationCode.trim()) {
+    if (showCodeInput) {
+      if (!verificationCode.trim()) {
+        setError("Ingresa el código enviado a tu correo.");
+        return;
+      }
+
       await verifyCodeAndVote();
+      return;
+    }
+
+    if (!verifiedByMagicLink) {
       return;
     }
 
@@ -338,14 +348,22 @@ export function VoteModal({
   const primaryButtonLabel = loading
     ? "Procesando…"
     : step === "email"
-      ? "Enviar enlace mágico"
-      : showCodeInput && verificationCode.trim()
-        ? "Verificar y votar"
-        : "Ya abrí el enlace";
+      ? "Enviar enlace seguro"
+      : verifiedByMagicLink
+        ? "Finalizar voto"
+        : showCodeInput
+          ? verificationCode.trim()
+            ? "Verificar y votar"
+            : "Ingresa el código"
+          : "Abre el enlace del correo";
+
+  const primaryButtonDisabled =
+    loading ||
+    (step === "code" && !verifiedByMagicLink && (!showCodeInput || !verificationCode.trim()));
 
   return (
     <div
-      className="fixed inset-0 modal-backdrop z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4"
+      className="fixed inset-0 modal-backdrop z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-3 sm:p-4"
       onClick={(e) => e.target === e.currentTarget && onClose()}
       role="dialog"
       aria-modal="true"
@@ -353,10 +371,10 @@ export function VoteModal({
       aria-describedby={modalDescriptionId}
     >
       <div
-        className="relative w-full max-w-[440px] rounded-lg border border-neon-yellow/30 bg-black/95 p-5 text-left shadow-[0_0_80px_rgba(255,230,0,0.12)] backdrop-blur-2xl animate-fade-up sm:p-6"
+        className="relative max-h-[calc(100vh-1.5rem)] w-full max-w-[520px] overflow-y-auto rounded-lg border border-neon-yellow/30 bg-black/95 p-4 text-left shadow-[0_0_80px_rgba(255,230,0,0.12)] backdrop-blur-2xl animate-fade-up sm:max-h-[calc(100vh-2rem)] sm:p-6"
       >
         <div
-          className="pointer-events-none absolute inset-0 rounded-lg opacity-5"
+          className="pointer-events-none absolute inset-0 rounded-lg opacity-[0.04]"
           style={{
             backgroundImage: "url('https://globalpizza.party/assets/pizzadao-logo-DYYagcIv.png')",
             backgroundSize: "cover",
@@ -397,24 +415,47 @@ export function VoteModal({
                   Voto seguro
                 </span>
               </div>
-              <h2 id={modalTitleId} className="mb-2 text-3xl font-black uppercase leading-none text-white">
+              <h2 id={modalTitleId} className="mb-2 text-2xl font-black uppercase leading-none text-white sm:text-3xl">
                 Confirmar voto
               </h2>
-              <p id={modalDescriptionId} className="truncate text-[11px] font-bold uppercase tracking-widest" style={{ color: "var(--text-secondary)" }}>
-                {`"${video.title}"`}
+              <p id={modalDescriptionId} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: "var(--text-secondary)" }}>
+                Verifica tu correo para registrar este voto
               </p>
             </div>
 
+            <div className="mb-5 flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3">
+              <Image
+                src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                alt={video.title}
+                width={80}
+                height={80}
+                className="h-14 w-14 shrink-0 rounded-lg border border-white/10 object-cover"
+              />
+              <div className="min-w-0">
+                <p className="mb-1 text-[9px] font-black uppercase tracking-[0.22em] text-neon-yellow/85">
+                  Canción elegida
+                </p>
+                <p className="truncate text-sm font-black uppercase leading-tight text-white">
+                  {video.title}
+                </p>
+                <p className="mt-1 truncate text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">
+                  {video.artist}
+                </p>
+              </div>
+            </div>
+
             <div className="mb-5 grid grid-cols-3 gap-2 text-center text-[9px] font-black uppercase tracking-widest text-white/35">
-              <span className={`rounded-full border px-2 py-1.5 ${step === "email" ? "border-neon-yellow bg-neon-yellow/10 text-neon-yellow" : "border-white/10"}`}>
-                Correo
-              </span>
-              <span className={`rounded-full border px-2 py-1.5 ${step === "code" ? "border-neon-yellow bg-neon-yellow/10 text-neon-yellow" : "border-white/10"}`}>
-                Enlace
-              </span>
-              <span className="rounded-full border border-white/10 px-2 py-1.5">
-                Voto
-              </span>
+              {["Correo", "Enlace", "Voto"].map((label, index) => {
+                const active = (step === "email" && index === 0) || (step === "code" && index === 1);
+                return (
+                  <span
+                    key={label}
+                    className={`rounded-lg border px-2 py-2 ${active ? "border-neon-yellow bg-neon-yellow/10 text-neon-yellow" : "border-white/10 bg-white/[0.02]"}`}
+                  >
+                    {label}
+                  </span>
+                );
+              })}
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -437,6 +478,11 @@ export function VoteModal({
                   aria-invalid={Boolean(error)}
                   aria-describedby={error ? errorId : undefined}
                 />
+                {step === "email" && (
+                  <p className="mt-2 text-[11px] font-bold leading-relaxed text-white/45">
+                    El enlace del correo confirma y registra el voto automáticamente.
+                  </p>
+                )}
               </div>
 
               <input
@@ -451,7 +497,7 @@ export function VoteModal({
               />
 
               {step === "code" && (
-                <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+                <div className="rounded-lg border border-neon-yellow/20 bg-neon-yellow/[0.055] p-4">
                   <div className="mb-3 flex items-start gap-3">
                     <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neon-yellow/10 text-neon-yellow">
                       {verifiedByMagicLink ? <Link2 size={18} aria-hidden="true" /> : <MailCheck size={18} aria-hidden="true" />}
@@ -462,18 +508,22 @@ export function VoteModal({
                       </p>
                       <p className="mt-1 text-xs leading-relaxed text-white/55">
                         {verifiedByMagicLink
-                          ? "Ya puedes confirmar el voto en este navegador."
-                          : "Abre el enlace mágico y vuelve a esta ventana para finalizar."}
+                          ? "Si el voto no se registró automáticamente, finaliza aquí."
+                          : "Toca Confirmar y votar en el email. Volverás al sitio con el voto registrado."}
                       </p>
                     </div>
                   </div>
                   <button
                     type="button"
                     disabled={loading}
-                    onClick={() => setShowCodeInput((visible) => !visible)}
+                    onClick={() => {
+                      setError("");
+                      setVerificationCode("");
+                      setShowCodeInput((visible) => !visible);
+                    }}
                     className="text-[10px] font-black uppercase tracking-widest text-white/50 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
                   >
-                    {showCodeInput ? "Usar enlace mágico" : "Tengo un código numérico"}
+                    {showCodeInput ? "Usar enlace del correo" : "Tengo un código numérico"}
                   </button>
                   {showCodeInput && (
                     <div className="mt-3">
@@ -524,7 +574,9 @@ export function VoteModal({
                     disabled={loading}
                     onClick={() => {
                       setStep("email");
+                      setError("");
                       setCaptchaToken("");
+                      clearPendingMagicVote();
                       captchaRef.current?.resetCaptcha();
                     }}
                     className="text-[10px] font-black uppercase tracking-widest text-white/40 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
@@ -542,8 +594,8 @@ export function VoteModal({
 
               <button
                 type="submit"
-                disabled={loading}
-                className="btn-neon mt-1 flex w-full items-center justify-center gap-2 rounded-lg py-3 text-[12px] font-black uppercase tracking-[0.2em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                disabled={primaryButtonDisabled}
+                className="btn-neon mt-1 flex min-h-11 w-full items-center justify-center gap-2 rounded-lg px-3 py-3 text-[12px] font-black uppercase tracking-[0.16em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
                 {loading && <Loader2 size={15} className="animate-spin" aria-hidden="true" />}
                 {primaryButtonLabel}

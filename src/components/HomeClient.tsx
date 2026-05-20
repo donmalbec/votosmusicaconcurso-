@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useMemo } from "react";
-import { AlertTriangle, CheckCircle2, X } from "lucide-react";
+import { AlertTriangle, ArrowDown, BarChart3, CheckCircle2, X } from "lucide-react";
 import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
 import { VoteModal } from "@/components/VoteModal";
@@ -197,14 +197,14 @@ export function HomeClient() {
         </div>
       )}
 
-      <main className="w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 flex flex-col items-center relative z-10">
+      <main className="w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 flex flex-col items-center relative z-10">
 
         {/* Concurso principal */}
         <section className="w-full max-w-6xl animate-fade-up">
-          <div className="bg-black/68 backdrop-blur-2xl border border-white/10 rounded-lg p-6 text-center shadow-[0_24px_90px_rgba(0,0,0,0.48)] sm:p-8 md:p-12">
+          <div className="bg-black/72 backdrop-blur-2xl border border-white/10 rounded-lg p-5 text-center shadow-[0_24px_90px_rgba(0,0,0,0.48)] sm:p-8 md:p-10">
 
-            <div className="mb-12 md:mb-14">
-              <div className="mb-8 flex items-center justify-center gap-4 sm:gap-6">
+            <div className="mb-9 md:mb-10">
+              <div className="mb-7 flex items-center justify-center gap-4 sm:gap-6">
                 <div className="w-[76px] h-16 md:w-[96px] md:h-20 overflow-hidden relative flex items-center justify-start">
                   <Image
                     src="https://globalpizza.party/assets/pizzadao-logo-DYYagcIv.png"
@@ -227,13 +227,29 @@ export function HomeClient() {
                 />
               </div>
 
-              <h1 className="mb-6 text-4xl font-black uppercase leading-[0.95] text-white sm:text-5xl md:text-7xl">
+              <h1 className="mx-auto mb-5 max-w-5xl text-4xl font-black uppercase leading-[0.95] text-white sm:text-5xl md:text-7xl">
                 Música y Pizzas <br />
                 <span style={{ color: "var(--neon-yellow)" }}>en Español</span>
               </h1>
-              <p className="font-mono text-sm font-bold uppercase tracking-[0.32em] text-neon-yellow sm:text-base md:text-lg">
+              <p className="font-mono text-xs font-bold uppercase tracking-[0.28em] text-neon-yellow sm:text-sm md:text-base">
                 PizzaDAO x MusicaW3
               </p>
+              <div className="mx-auto mt-7 flex max-w-xl flex-col gap-3 sm:flex-row sm:justify-center">
+                <a
+                  href="#participantes"
+                  className="btn-neon inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-[12px] font-black uppercase tracking-[0.18em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  <ArrowDown size={15} aria-hidden="true" />
+                  Votar ahora
+                </a>
+                <a
+                  href="#ranking"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/[0.04] px-6 py-3 text-[12px] font-black uppercase tracking-[0.18em] text-white/75 transition-colors hover:border-neon-yellow/50 hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
+                >
+                  <BarChart3 size={15} aria-hidden="true" />
+                  Ver ranking
+                </a>
+              </div>
             </div>
 
             {VOTING_PAUSED && (
@@ -251,22 +267,22 @@ export function HomeClient() {
               </div>
             )}
 
-            <div className="mb-10 border-y border-neon-yellow/20 bg-white/[0.025] py-8 shadow-[0_0_50px_rgba(255,230,0,0.05)] sm:mb-12 sm:py-10">
-              <h3 className="mb-8 text-[11px] font-black uppercase tracking-[0.48em] text-white/60">
+            <div className="mb-8 border-y border-neon-yellow/20 bg-white/[0.025] py-6 shadow-[0_0_50px_rgba(255,230,0,0.05)] sm:mb-10 sm:py-8">
+              <h3 className="mb-7 text-[11px] font-black uppercase tracking-[0.38em] text-white/60">
                 Premios del Concurso
               </h3>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10">
+              <div className="grid grid-cols-3 gap-2 sm:gap-6 md:gap-10">
                 <div className="flex flex-col">
-                  <span className="mb-3 text-5xl font-black text-white md:text-6xl">$200</span>
-                  <span className="text-[11px] uppercase tracking-[0.4em] text-white/60 font-bold">1er Lugar</span>
+                  <span className="mb-2 text-3xl font-black text-white sm:text-5xl md:text-6xl">$200</span>
+                  <span className="text-[8px] uppercase tracking-[0.22em] text-white/60 font-bold sm:text-[11px] sm:tracking-[0.34em]">1er Lugar</span>
                 </div>
-                <div className="flex flex-col border-y border-neon-yellow/10 py-8 md:border-x md:border-y-0 md:py-0">
-                  <span className="mb-3 text-5xl font-black text-white md:text-6xl">$100</span>
-                  <span className="text-[11px] uppercase tracking-[0.4em] text-white/60 font-bold">2do Lugar</span>
+                <div className="flex flex-col border-x border-neon-yellow/10 px-2">
+                  <span className="mb-2 text-3xl font-black text-white sm:text-5xl md:text-6xl">$100</span>
+                  <span className="text-[8px] uppercase tracking-[0.22em] text-white/60 font-bold sm:text-[11px] sm:tracking-[0.34em]">2do Lugar</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="mb-3 text-5xl font-black text-white md:text-6xl">$50</span>
-                  <span className="text-[11px] uppercase tracking-[0.4em] text-white/60 font-bold">3er Lugar</span>
+                  <span className="mb-2 text-3xl font-black text-white sm:text-5xl md:text-6xl">$50</span>
+                  <span className="text-[8px] uppercase tracking-[0.22em] text-white/60 font-bold sm:text-[11px] sm:tracking-[0.34em]">3er Lugar</span>
                 </div>
               </div>
             </div>
@@ -289,7 +305,7 @@ export function HomeClient() {
                   </a>
                 </div>
 
-                <div id="participantes" className="flex flex-col items-center md:items-end text-center md:text-right">
+                <div className="flex flex-col items-center md:items-end text-center md:text-right">
                   <h2 className="mb-3 text-2xl font-black uppercase leading-none text-white md:text-4xl">
                     {VOTING_PAUSED ? (
                       <>
@@ -317,7 +333,7 @@ export function HomeClient() {
         <div className="h-14 w-full flex-shrink-0 pointer-events-none sm:h-20" />
 
         {/* Ranking en vivo */}
-        <section className="w-full max-w-4xl relative z-10 animate-fade-up" style={{ animationDelay: '200ms' }}>
+        <section id="ranking" className="w-full max-w-4xl scroll-mt-24 relative z-10 animate-fade-up" style={{ animationDelay: '200ms' }}>
           <div className="bg-black/68 backdrop-blur-xl border border-white/10 rounded-lg p-4 shadow-[0_24px_80px_rgba(0,0,0,0.55)] sm:p-6 md:p-8">
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 border-b border-white/5 pb-6">
@@ -371,7 +387,7 @@ export function HomeClient() {
         <div className="h-16 w-full flex-shrink-0 pointer-events-none sm:h-24" />
 
         {/* Participantes */}
-        <section className="mb-24 grid w-full grid-cols-2 justify-items-center gap-x-5 gap-y-14 sm:grid-cols-3 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-12">
+        <section id="participantes" className="mb-24 grid w-full scroll-mt-24 grid-cols-2 justify-items-center gap-x-4 gap-y-12 sm:grid-cols-3 sm:gap-x-7 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-10">
           {sortedVideos.map((video, i) => (
             <VideoCard
               key={video.id}
