@@ -93,21 +93,27 @@ https://canciondepizza.fun
 2. En la lista permitida de redirects, agregar estas URLs:
 
 ```txt
+https://canciondepizza.fun
+https://canciondepizza.fun/**
+https://www.canciondepizza.fun
+https://www.canciondepizza.fun/**
+https://votosmusicaconcurso.vercel.app
+https://votosmusicaconcurso.vercel.app/**
 https://canciondepizza.fun/auth/confirm
 https://www.canciondepizza.fun/auth/confirm
 https://votosmusicaconcurso.vercel.app/auth/confirm
 https://*-feliramis-projects.vercel.app/**
+http://localhost:3000
+http://localhost:3000/**
 http://localhost:3000/auth/confirm
 ```
 
-3. Configurar los templates de Confirmation y Magic Link con `supabase/templates/vote-confirm.html`:
+3. Configurar los templates de correo:
 
-```html
-<h2>Confirma tu voto</h2>
-<p>Tu codigo de verificacion es: <strong>{{ .Token }}</strong></p>
-<p>Haz clic aqui para confirmar tu correo y registrar tu voto:</p>
-<p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Confirmar y votar</a></p>
-```
+- Confirmation: `supabase/templates/vote-confirm.html`
+- Magic Link: `supabase/templates/vote-magic-link.html`
+
+El template debe usar `{{ .RedirectTo }}` con `token_hash`, no `{{ .ConfirmationURL }}`. Esto evita que Supabase mande al usuario a `127.0.0.1` o entregue el token en el fragmento `#access_token`.
 
 El enlace del correo entra a `/auth/confirm`, valida el email con Supabase y registra el voto pendiente con una cookie httpOnly firmada. Si el navegador no conserva esa cookie, el sitio cae al flujo anterior: deja el correo verificado por unos minutos y permite finalizar desde el modal.
 
