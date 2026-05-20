@@ -111,6 +111,8 @@ http://localhost:3000/auth/confirm
 
 El usuario puede votar ingresando el codigo o abriendo el enlace magico desde el mismo navegador.
 
+Si aparece `over_email_send_rate_limit` o los correos dejan de salir por unos minutos, no es un error del formulario: Supabase esta limitando el proveedor de correo integrado. Para votaciones en produccion conviene configurar un SMTP propio en Supabase Auth para mejorar entregabilidad y aumentar el margen de envio.
+
 ## Desarrollo local
 
 Instalar dependencias:
