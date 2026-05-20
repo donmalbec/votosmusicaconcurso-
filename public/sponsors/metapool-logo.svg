@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" role="img" aria-labelledby="title">
+  <title id="title">Meta Pool</title>
+  <g transform="translate(2 16) scale(2)">
+    <path fill="#ceff1a" d="m4.6 15.3 5.1-5.1 5.2 5.1 5.1-5.1 5.1 5.1 5.1-5.1L20 0l-5.1 5.1L9.7 0-.5 10.2z"/>
+  </g>
+  <text x="80" y="41" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="-0.4">
+    Meta Pool
+  </text>
+</svg>

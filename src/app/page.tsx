@@ -182,7 +182,7 @@ export default function HomePage() {
                   </p>
                   <a href="https://metapool.app/" target="_blank" rel="noopener noreferrer" className="group flex items-center hover:scale-105 transition-transform">
                     <img 
-                      src="https://www.metapool.app/metalogo-w-green.svg" 
+                      src="/sponsors/metapool-logo.svg" 
                       alt="MetaPool Logo" 
                       className="h-14 w-auto brightness-110"
                     />
