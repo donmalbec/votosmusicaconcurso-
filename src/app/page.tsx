@@ -6,6 +6,11 @@ import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
 import { VoteModal } from "@/components/VoteModal";
 import { VIDEOS, type Video } from "@/lib/data";
+import {
+  VOTING_PAUSED,
+  VOTING_PAUSED_MESSAGE,
+  VOTING_PAUSED_TITLE,
+} from "@/lib/maintenance";
 import { useVoteStore } from "@/lib/store";
 
 const PENDING_MAGIC_VOTE_KEY = "pizza_pending_magic_vote";
@@ -47,7 +52,7 @@ export default function HomePage() {
     const emailVerified = url.searchParams.get("email_verified") === "1";
     const voteError = url.searchParams.get("vote_error") === "1";
 
-    if (emailVerified) {
+    if (emailVerified && !VOTING_PAUSED) {
       try {
         const pending = JSON.parse(
           window.localStorage.getItem(PENDING_MAGIC_VOTE_KEY) || "null"
@@ -150,6 +155,21 @@ export default function HomePage() {
               </p>
             </div>
 
+            {VOTING_PAUSED && (
+              <div
+                role="status"
+                aria-live="polite"
+                className="mb-10 border-y border-neon-yellow/35 bg-neon-yellow/10 px-4 py-5 text-center shadow-[0_0_40px_rgba(255,230,0,0.08)] sm:px-6"
+              >
+                <p className="mb-2 text-[11px] font-black uppercase tracking-[0.34em] text-neon-yellow">
+                  {VOTING_PAUSED_TITLE}
+                </p>
+                <p className="mx-auto max-w-3xl text-sm font-bold leading-relaxed text-white/85 sm:text-base">
+                  {VOTING_PAUSED_MESSAGE}
+                </p>
+              </div>
+            )}
+
             <div className="mb-10 border-y border-neon-yellow/20 bg-white/[0.025] py-8 shadow-[0_0_50px_rgba(255,230,0,0.05)] sm:mb-12 sm:py-10">
               <h3 className="mb-8 text-[11px] font-black uppercase tracking-[0.48em] text-white/60">
                 Premios del Concurso
@@ -190,9 +210,21 @@ export default function HomePage() {
 
                 <div id="participantes" className="flex flex-col items-center md:items-end text-center md:text-right">
                   <h2 className="mb-3 text-2xl font-black uppercase leading-none text-white md:text-4xl">
-                    Vota por el <span style={{ color: "var(--neon-yellow)" }}>Ganador</span>
+                    {VOTING_PAUSED ? (
+                      <>
+                        Votación <span style={{ color: "var(--neon-yellow)" }}>Pausada</span>
+                      </>
+                    ) : (
+                      <>
+                        Vota por el <span style={{ color: "var(--neon-yellow)" }}>Ganador</span>
+                      </>
+                    )}
                   </h2>
-                  <p className="text-[11px] uppercase tracking-[0.42em] opacity-40">Selecciona tu canción favorita abajo</p>
+                  <p className="text-[11px] uppercase tracking-[0.42em] opacity-40">
+                    {VOTING_PAUSED
+                      ? "Votos en pausa por mantenimiento"
+                      : "Selecciona tu canción favorita abajo"}
+                  </p>
                 </div>
 
               </div>
@@ -266,8 +298,10 @@ export default function HomePage() {
               voteCount={votes[video.id] || 0}
               rank={rankByVideoId.get(video.id) || 0}
               hasVoted={hasVoted}
+              votingPaused={VOTING_PAUSED}
               isLeading={video.id === leadingVideoId && (votes[leadingVideoId] || 0) > 0}
               onVote={(candidate) => {
+                if (VOTING_PAUSED) return;
                 setVerifiedMagicVideoId(null);
                 setSelectedVideo(candidate);
               }}
@@ -288,6 +322,7 @@ export default function HomePage() {
       <VoteModal
         video={selectedVideo}
         verifiedByMagicLink={selectedVideo?.id === verifiedMagicVideoId}
+        votingPaused={VOTING_PAUSED}
         onClose={() => {
           setVerifiedMagicVideoId(null);
           setSelectedVideo(null);

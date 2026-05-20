@@ -9,6 +9,7 @@ interface VideoCardProps {
   voteCount: number;
   rank: number;
   hasVoted: boolean;
+  votingPaused: boolean;
   isLeading: boolean;
   onVote: (video: Video) => void;
   delay?: number;
@@ -19,10 +20,19 @@ export function VideoCard({
   voteCount,
   rank,
   hasVoted,
+  votingPaused,
   isLeading,
   onVote,
   delay = 0,
 }: VideoCardProps) {
+  const voteDisabled = hasVoted || votingPaused;
+  const voteLabel = votingPaused ? "Votación pausada" : hasVoted ? "Voto registrado" : "Votar";
+  const voteAriaLabel = votingPaused
+    ? "La votación está pausada por mantenimiento"
+    : hasVoted
+      ? "Ya registraste un voto"
+      : `Votar por ${video.title}`;
+
   return (
     <article
       className="group w-full min-w-0 flex flex-col items-center animate-fade-up opacity-0"
@@ -83,15 +93,15 @@ export function VideoCard({
         <button
           type="button"
           onClick={() => onVote(video)}
-          disabled={hasVoted}
-          aria-label={hasVoted ? "Ya registraste un voto" : `Votar por ${video.title}`}
+          disabled={voteDisabled}
+          aria-label={voteAriaLabel}
           className={`w-full rounded-lg py-3.5 text-[10px] font-black uppercase tracking-[0.14em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black
-            ${hasVoted
+            ${voteDisabled
               ? 'cursor-not-allowed border border-white/10 bg-white/[0.02] text-white/25'
               : 'border border-neon-yellow/40 text-neon-yellow hover:bg-neon-yellow hover:text-black'
             }`}
         >
-          {hasVoted ? 'Voto registrado' : 'Votar'}
+          {voteLabel}
         </button>
       </div>
     </article>

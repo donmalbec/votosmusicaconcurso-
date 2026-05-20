@@ -11,6 +11,7 @@ import {
   isValidEmail,
   normalizeEmail,
 } from "@/lib/security";
+import { VOTING_PAUSED, VOTING_PAUSED_ERROR } from "@/lib/maintenance";
 import { getSupabaseAdminClient, getSupabaseAuthClient } from "@/lib/supabase";
 import {
   clearVerifiedEmailCookie,
@@ -315,6 +316,10 @@ export async function fetchPublicVoteCounts(): Promise<ActionResult<{ counts: Vo
 
 export async function sendVoteVerificationCode(input: VerificationInput): Promise<VerificationActionResult> {
   try {
+    if (VOTING_PAUSED) {
+      return { success: false, error: VOTING_PAUSED_ERROR };
+    }
+
     if (input.website) {
       return { success: false, error: "No pudimos validar el correo." };
     }
@@ -386,6 +391,10 @@ export async function sendVoteVerificationCode(input: VerificationInput): Promis
 
 export async function verifyVoteEmailCode(emailInput: string, tokenInput: string): Promise<EmptyActionResult> {
   try {
+    if (VOTING_PAUSED) {
+      return { success: false, error: VOTING_PAUSED_ERROR };
+    }
+
     const email = normalizeEmail(emailInput);
     const token = tokenInput.trim().replace(/\s+/g, "");
 
@@ -418,6 +427,10 @@ export async function verifyVoteEmailCode(emailInput: string, tokenInput: string
 
 export async function castVote(input: CastVoteInput): Promise<ActionResult<{ counts: VoteCounts; email: string; videoId: string }>> {
   try {
+    if (VOTING_PAUSED) {
+      return { success: false, error: VOTING_PAUSED_ERROR };
+    }
+
     if (input.website) {
       return { success: false, error: "No pudimos validar el voto." };
     }

@@ -15,12 +15,12 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://canciondepizza.fun"),
-  title: "PizzaDAO × MusicaW3 — Vota por tu Canción Favorita",
-  description: "Vota por los mejores artistas hispanohablantes en el primer concurso musical de PizzaDAO y MusicaW3. Un solo voto por correo. Cierra pronto.",
+  title: "PizzaDAO × MusicaW3 — Votaciones Pausadas",
+  description: "Las votaciones están pausadas temporalmente por mantenimiento del sitio. El ranking sigue visible mientras volvemos.",
   keywords: ["PizzaDAO", "MusicaW3", "concurso musical", "Web3", "votación", "música latina"],
   openGraph: {
-    title: "PizzaDAO × MusicaW3 — Vota Ahora",
-    description: "El primer concurso musical cripto en español. Vota por tu artista favorito.",
+    title: "PizzaDAO × MusicaW3 — Votaciones Pausadas",
+    description: "Estamos haciendo mantenimiento del sitio. Las votaciones se reactivarán pronto.",
     url: "https://canciondepizza.fun",
     type: "website",
   },

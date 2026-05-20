@@ -4,6 +4,10 @@ import { useState, useEffect, useRef, useId } from "react";
 import { X, ShieldCheck, CheckCircle2, Link2, MailCheck, Loader2 } from "lucide-react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Video } from "@/lib/data";
+import {
+  VOTING_PAUSED_MESSAGE,
+  VOTING_PAUSED_TITLE,
+} from "@/lib/maintenance";
 import { useVoteStore } from "@/lib/store";
 import { getBrowserFingerprint, isDisposableEmail, normalizeEmail } from "@/lib/security";
 import { sendVoteVerificationCode, verifyVoteEmailCode } from "@/app/actions";
@@ -13,6 +17,7 @@ interface VoteModalProps {
   onClose: () => void;
   onSuccess: (email: string) => void;
   verifiedByMagicLink?: boolean;
+  votingPaused?: boolean;
 }
 
 const HCAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY;
@@ -66,7 +71,13 @@ function clearPendingMagicVote() {
   } catch {}
 }
 
-export function VoteModal({ video, onClose, onSuccess, verifiedByMagicLink = false }: VoteModalProps) {
+export function VoteModal({
+  video,
+  onClose,
+  onSuccess,
+  verifiedByMagicLink = false,
+  votingPaused = false,
+}: VoteModalProps) {
   const modalTitleId = useId();
   const modalDescriptionId = useId();
   const emailInputId = useId();
@@ -117,6 +128,51 @@ export function VoteModal({ video, onClose, onSuccess, verifiedByMagicLink = fal
   }, [loading, onClose]);
 
   if (!video) return null;
+
+  if (votingPaused) {
+    return (
+      <div
+        className="fixed inset-0 modal-backdrop z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4"
+        onClick={(e) => e.target === e.currentTarget && onClose()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={modalTitleId}
+        aria-describedby={modalDescriptionId}
+      >
+        <div className="relative w-full max-w-[440px] rounded-lg border border-neon-yellow/30 bg-black/95 p-5 text-center shadow-[0_0_80px_rgba(255,230,0,0.12)] backdrop-blur-2xl animate-fade-up sm:p-6">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Cerrar aviso de mantenimiento"
+            className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
+          >
+            <X size={18} aria-hidden="true" />
+          </button>
+
+          <div className="relative z-10 flex flex-col items-center gap-5 py-8">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-neon-yellow bg-neon-yellow/10">
+              <ShieldCheck size={32} aria-hidden="true" style={{ color: "var(--neon-yellow)" }} />
+            </div>
+            <div>
+              <h2 id={modalTitleId} className="mb-3 text-2xl font-black uppercase leading-none text-white">
+                {VOTING_PAUSED_TITLE}
+              </h2>
+              <p id={modalDescriptionId} className="text-sm font-bold leading-relaxed text-white/65">
+                {VOTING_PAUSED_MESSAGE}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn-neon mt-2 rounded-lg px-8 py-3 text-[12px] font-black uppercase tracking-[0.2em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const validateEmail = (e: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
