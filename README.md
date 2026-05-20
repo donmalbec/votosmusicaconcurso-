@@ -58,7 +58,8 @@ En produccion hay que configurar estas variables:
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
-NEXT_PUBLIC_SITE_URL=
+NEXT_PUBLIC_SITE_URL=https://canciondepizza.fun
+SITE_URL=https://canciondepizza.fun
 
 ADMIN_PASSWORD=
 ADMIN_SESSION_SECRET=
@@ -83,13 +84,23 @@ Recomendaciones:
 
 Para que el magic link funcione bien:
 
-1. En Supabase Dashboard, agregar esta URL a la lista permitida de redirects:
+1. En Supabase Dashboard, configurar `Site URL`:
 
 ```txt
-NEXT_PUBLIC_SITE_URL/auth/confirm
+https://canciondepizza.fun
 ```
 
-2. Configurar el template de Magic Link para incluir codigo y enlace:
+2. En la lista permitida de redirects, agregar estas URLs:
+
+```txt
+https://canciondepizza.fun/auth/confirm
+https://www.canciondepizza.fun/auth/confirm
+https://votosmusicaconcurso.vercel.app/auth/confirm
+https://*-feliramis-projects.vercel.app/**
+http://localhost:3000/auth/confirm
+```
+
+3. Configurar el template de Magic Link para incluir codigo y enlace:
 
 ```html
 <h2>Codigo de verificacion</h2>
