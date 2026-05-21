@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Register the brand yellow as a Tailwind v4 theme color so the existing
+   text-/bg-/border-neon-yellow utilities (and their /opacity variants) compile.
+   Same #FFE600 token used by the CSS vars below. */
+@theme {
+  --color-neon-yellow: #FFE600;
+}
+
 :root {
   --neon-yellow: #FFE600;
   --neon-yellow-dim: #FFE60066;
@@ -41,6 +48,13 @@ button,
 a,
 input {
   touch-action: manipulation;
+}
+
+/* Global keyboard focus indicator. Elements that opt out with
+   `focus-visible:outline-none` (and supply their own ring) override this. */
+:focus-visible {
+  outline: 2px solid var(--neon-yellow);
+  outline-offset: 2px;
 }
 
 /* Scrollbar */
