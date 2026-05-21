@@ -255,65 +255,61 @@ export function HomeClient() {
             )}
 
             <div className="mb-8 border-y border-neon-yellow/20 bg-white/[0.025] py-6 shadow-[0_0_50px_rgba(255,230,0,0.05)] sm:mb-10 sm:py-8">
-              <h3 className="mb-7 text-[11px] font-black uppercase tracking-[0.38em] text-white/60">
+              <h3 className="mb-7 px-2 text-[10px] font-black uppercase tracking-[0.28em] text-white/60 sm:text-[11px] sm:tracking-[0.38em]">
                 Premios del Concurso
               </h3>
-              <div className="grid grid-cols-3 gap-2 sm:gap-6 md:gap-10">
-                <div className="flex flex-col">
+              <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-[480px]:grid min-[480px]:snap-none min-[480px]:grid-cols-3 min-[480px]:gap-6 min-[480px]:overflow-visible min-[480px]:px-0 min-[480px]:pb-0 md:gap-10">
+                <div className="flex min-w-[62%] shrink-0 snap-center flex-col min-[480px]:min-w-0">
                   <span className="mb-2 text-3xl font-black text-white sm:text-5xl md:text-6xl">$200</span>
-                  <span className="text-[8px] uppercase tracking-[0.22em] text-white/60 font-bold sm:text-[11px] sm:tracking-[0.34em]">1er Lugar</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/70 sm:text-sm sm:tracking-[0.18em]">1er Lugar</span>
                 </div>
-                <div className="flex flex-col border-x border-neon-yellow/10 px-2">
+                <div className="flex min-w-[62%] shrink-0 snap-center flex-col border-neon-yellow/10 min-[480px]:min-w-0 min-[480px]:border-x min-[480px]:px-2">
                   <span className="mb-2 text-3xl font-black text-white sm:text-5xl md:text-6xl">$100</span>
-                  <span className="text-[8px] uppercase tracking-[0.22em] text-white/60 font-bold sm:text-[11px] sm:tracking-[0.34em]">2do Lugar</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/70 sm:text-sm sm:tracking-[0.18em]">2do Lugar</span>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex min-w-[62%] shrink-0 snap-center flex-col min-[480px]:min-w-0">
                   <span className="mb-2 text-3xl font-black text-white sm:text-5xl md:text-6xl">$50</span>
-                  <span className="text-[8px] uppercase tracking-[0.22em] text-white/60 font-bold sm:text-[11px] sm:tracking-[0.34em]">3er Lugar</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/70 sm:text-sm sm:tracking-[0.18em]">3er Lugar</span>
                 </div>
               </div>
             </div>
 
-            <div className="w-full border-t border-white/5 pt-8">
-              <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+            {/* Sponsor — its own slim row below the prize block */}
+            <div className="mt-8 flex flex-col items-center gap-4 border-t border-white/5 pt-7">
+              <p className="text-[10px] font-black uppercase tracking-[0.42em] text-white/50">
+                Auspiciado por
+              </p>
+              <a href="https://metapool.app/" target="_blank" rel="noopener noreferrer" className="group flex items-center rounded-md transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-4 focus-visible:ring-offset-black">
+                <Image
+                  src="/sponsors/metapool-logo.svg"
+                  alt="MetaPool Logo"
+                  width={260}
+                  height={64}
+                  className="h-14 w-auto brightness-110"
+                  priority
+                  unoptimized
+                />
+              </a>
+            </div>
 
-                <div className="flex flex-col items-center md:items-start">
-                  <p className="mb-5 text-[11px] font-black uppercase tracking-[0.42em] text-white/60">
-                    Auspiciado por
-                  </p>
-                  <a href="https://metapool.app/" target="_blank" rel="noopener noreferrer" className="group flex items-center hover:scale-105 transition-transform">
-                    <Image
-                      src="/sponsors/metapool-logo.svg"
-                      alt="MetaPool Logo"
-                      width={260}
-                      height={64}
-                      className="h-14 w-auto brightness-110"
-                      priority
-                      unoptimized
-                    />
-                  </a>
-                </div>
-
-                <div className="flex flex-col items-center md:items-end text-center md:text-right">
-                  <h2 className="mb-3 text-2xl font-black uppercase leading-none text-white md:text-4xl">
-                    {VOTING_PAUSED ? (
-                      <>
-                        Votación <span style={{ color: "var(--neon-yellow)" }}>Pausada</span>
-                      </>
-                    ) : (
-                      <>
-                        Vota por el <span style={{ color: "var(--neon-yellow)" }}>Ganador</span>
-                      </>
-                    )}
-                  </h2>
-                  <p className="text-[11px] uppercase tracking-[0.42em] opacity-40">
-                    {VOTING_PAUSED
-                      ? "Votos en pausa por mantenimiento"
-                      : "Selecciona tu canción favorita abajo"}
-                  </p>
-                </div>
-
-              </div>
+            {/* Transition to participants */}
+            <div className="mt-9 text-center">
+              <h2 className="mb-3 text-2xl font-black uppercase leading-none text-white md:text-4xl">
+                {VOTING_PAUSED ? (
+                  <>
+                    Votación <span style={{ color: "var(--neon-yellow)" }}>Pausada</span>
+                  </>
+                ) : (
+                  <>
+                    Vota por el <span style={{ color: "var(--neon-yellow)" }}>Ganador</span>
+                  </>
+                )}
+              </h2>
+              <p className="text-[11px] uppercase tracking-[0.42em] opacity-40">
+                {VOTING_PAUSED
+                  ? "Votos en pausa por mantenimiento"
+                  : "Selecciona tu canción favorita abajo"}
+              </p>
             </div>
 
           </div>
