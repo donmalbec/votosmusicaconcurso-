@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useMemo } from "react";
-import { AlertTriangle, ArrowDown, BarChart3, CheckCircle2, X } from "lucide-react";
+import { AlertTriangle, ArrowDown, BarChart3, CheckCircle2, MailCheck, MousePointerClick, ShieldCheck, X } from "lucide-react";
 import { Header } from "@/components/Header";
 import { VideoCard } from "@/components/VideoCard";
 import { VoteModal } from "@/components/VoteModal";
@@ -211,6 +211,9 @@ export function HomeClient() {
               <p className="font-mono text-xs font-bold uppercase tracking-[0.28em] text-neon-yellow sm:text-sm md:text-base">
                 PizzaDAO x MusicaW3
               </p>
+              <p className="mx-auto mt-4 max-w-2xl text-sm font-bold leading-relaxed text-white/70 sm:text-base">
+                Escucha las canciones, elige tu favorita y confirma tu voto desde el enlace que llegará a tu correo.
+              </p>
               <div className="mx-auto mt-7 flex max-w-xl flex-col gap-3 sm:flex-row sm:justify-center">
                 <a
                   href="#participantes"
@@ -309,6 +312,54 @@ export function HomeClient() {
           </div>
         </section>
 
+        <section aria-labelledby="como-votar" className="mt-8 w-full max-w-6xl animate-fade-up" style={{ animationDelay: '120ms' }}>
+          <div className="rounded-lg border border-neon-yellow/25 bg-black/78 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-6">
+            <div className="mb-5 text-center">
+              <p className="mb-2 text-[10px] font-black uppercase tracking-[0.32em] text-neon-yellow/80">
+                Antes de votar
+              </p>
+              <h2 id="como-votar" className="text-2xl font-black uppercase leading-none text-white sm:text-3xl">
+                Cómo registrar tu voto
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-sm font-bold leading-relaxed text-white/60">
+                El voto cuenta solo cuando haces clic en el enlace de confirmación que enviamos a tu correo.
+              </p>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-3">
+              {[
+                {
+                  icon: MousePointerClick,
+                  title: "1. Elige una canción",
+                  copy: "Toca VOTAR en tu canción favorita. Puedes escucharla en YouTube antes de elegir.",
+                },
+                {
+                  icon: ShieldCheck,
+                  title: "2. Verifica que eres humano",
+                  copy: "Ingresa tu correo y completa hCaptcha. Esto evita votos automáticos o abuso.",
+                },
+                {
+                  icon: MailCheck,
+                  title: "3. Confirma desde tu email",
+                  copy: "Abre el correo y toca Confirmar y votar. Ahí recién queda registrado el voto.",
+                },
+              ].map(({ icon: Icon, title, copy }) => (
+                <div key={title} className="rounded-lg border border-white/10 bg-white/[0.035] p-4 text-left">
+                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-neon-yellow/10 text-neon-yellow">
+                    <Icon size={19} aria-hidden="true" />
+                  </div>
+                  <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-white">
+                    {title}
+                  </h3>
+                  <p className="text-xs font-bold leading-relaxed text-white/55">
+                    {copy}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <div className="h-14 w-full flex-shrink-0 pointer-events-none sm:h-20" />
 
         {/* Ranking en vivo */}
@@ -366,23 +417,37 @@ export function HomeClient() {
         <div className="h-16 w-full flex-shrink-0 pointer-events-none sm:h-24" />
 
         {/* Participantes */}
-        <section id="participantes" className="mb-24 grid w-full scroll-mt-24 grid-cols-2 justify-items-center gap-x-4 gap-y-12 sm:grid-cols-3 sm:gap-x-7 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-10">
-          {sortedVideos.map((video, i) => (
-            <VideoCard
-              key={video.id}
-              video={video}
-              voteCount={votes[video.id] || 0}
-              rank={rankByVideoId.get(video.id) || 0}
-              hasVoted={hasVoted}
-              votingPaused={VOTING_PAUSED}
-              isLeading={video.id === leadingVideoId && (votes[leadingVideoId] || 0) > 0}
-              onVote={(candidate) => {
-                if (VOTING_PAUSED) return;
-                setSelectedVideo(candidate);
-              }}
-              delay={i * 60}
-            />
-          ))}
+        <section id="participantes" className="mb-24 w-full scroll-mt-24">
+          <div className="mb-8 rounded-lg border border-white/10 bg-black/70 p-4 text-center shadow-[0_20px_70px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:p-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.32em] text-neon-yellow/80">
+              Participantes
+            </p>
+            <h2 className="mt-2 text-2xl font-black uppercase leading-none text-white sm:text-3xl">
+              Toca VOTAR en una sola canción
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-xs font-bold leading-relaxed text-white/55 sm:text-sm">
+              Después de enviar tu correo, busca el mensaje de Canción de Pizza y confirma el enlace para que el voto cuente.
+            </p>
+          </div>
+
+          <div className="grid w-full grid-cols-2 justify-items-center gap-x-4 gap-y-12 sm:grid-cols-3 sm:gap-x-7 md:grid-cols-4 lg:grid-cols-5 xl:gap-x-10">
+            {sortedVideos.map((video, i) => (
+              <VideoCard
+                key={video.id}
+                video={video}
+                voteCount={votes[video.id] || 0}
+                rank={rankByVideoId.get(video.id) || 0}
+                hasVoted={hasVoted}
+                votingPaused={VOTING_PAUSED}
+                isLeading={video.id === leadingVideoId && (votes[leadingVideoId] || 0) > 0}
+                onVote={(candidate) => {
+                  if (VOTING_PAUSED) return;
+                  setSelectedVideo(candidate);
+                }}
+                delay={i * 60}
+              />
+            ))}
+          </div>
         </section>
 
         {/* Footer */}

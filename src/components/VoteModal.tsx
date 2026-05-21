@@ -241,7 +241,7 @@ export function VoteModal({
   const primaryButtonLabel = loading
     ? "Procesando…"
     : step === "email"
-      ? "Enviar enlace seguro"
+      ? "Enviar enlace a mi correo"
       : "Revisa tu correo";
 
   const primaryButtonDisabled = loading || step === "code";
@@ -304,7 +304,7 @@ export function VoteModal({
                 Confirmar voto
               </h2>
               <p id={modalDescriptionId} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: "var(--text-secondary)" }}>
-                Verifica tu correo para registrar este voto
+                3 pasos: correo, anti-bot y confirmación por email
               </p>
             </div>
 
@@ -330,14 +330,18 @@ export function VoteModal({
             </div>
 
             <div className="mb-5 grid grid-cols-3 gap-2 text-center text-[9px] font-black uppercase tracking-widest text-white/35">
-              {["Correo", "Enlace", "Voto"].map((label, index) => {
-                const active = (step === "email" && index === 0) || (step === "code" && index === 1);
+              {[
+                { label: "Correo", done: step === "code" },
+                { label: "Anti-bot", done: step === "code" },
+                { label: "Email", done: false },
+              ].map(({ label, done }, index) => {
+                const active = step === "email" ? index <= 1 : index === 2;
                 return (
                   <span
                     key={label}
                     className={`rounded-lg border px-2 py-2 ${active ? "border-neon-yellow bg-neon-yellow/10 text-neon-yellow" : "border-white/10 bg-white/[0.02]"}`}
                   >
-                    {label}
+                    {done ? "✓ " : ""}{label}
                   </span>
                 );
               })}
@@ -365,7 +369,7 @@ export function VoteModal({
                 />
                 {step === "email" && (
                   <p className="mt-2 text-[11px] font-bold leading-relaxed text-white/45">
-                    El enlace del correo confirma y registra el voto automáticamente.
+                    Usa un correo real: recibirás un botón <strong className="text-white">Confirmar y votar</strong>. El voto no cuenta hasta que abras ese enlace.
                   </p>
                 )}
               </div>
@@ -392,7 +396,10 @@ export function VoteModal({
                         Revisa tu correo
                       </p>
                       <p className="mt-1 text-xs leading-relaxed text-white/55">
-                        Te enviamos un enlace seguro. Toca <strong className="text-white">Confirmar y votar</strong> en el email: el voto se registrará automáticamente y verás una página confirmando que tu voto fue registrado.
+                        Te enviamos un email a <strong className="text-white">{email}</strong>. Ábrelo y toca <strong className="text-white">Confirmar y votar</strong>. Si no lo ves, revisa Promociones o Spam.
+                      </p>
+                      <p className="mt-3 rounded-md border border-white/10 bg-black/35 px-3 py-2 text-[11px] font-bold leading-relaxed text-neon-yellow/80">
+                        Importante: cerrar esta ventana no cancela nada. Tu voto quedará registrado cuando confirmes desde el correo.
                       </p>
                     </div>
                   </div>
@@ -400,16 +407,21 @@ export function VoteModal({
               )}
 
               {step === "email" && HCAPTCHA_SITE_KEY && (
-                <div className="flex w-full justify-center rounded-lg border border-white/10 bg-white/[0.02] py-3">
-                  <HCaptcha
-                    ref={captchaRef}
-                    sitekey={HCAPTCHA_SITE_KEY}
-                    theme="dark"
-                    size="compact"
-                    onVerify={setCaptchaToken}
-                    onExpire={() => setCaptchaToken("")}
-                    onError={() => setCaptchaToken("")}
-                  />
+                <div className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+                  <p className="mb-3 text-center text-[10px] font-black uppercase tracking-widest text-white/45">
+                    Paso 2: completa la verificación anti-bot
+                  </p>
+                  <div className="flex w-full justify-center">
+                    <HCaptcha
+                      ref={captchaRef}
+                      sitekey={HCAPTCHA_SITE_KEY}
+                      theme="dark"
+                      size="compact"
+                      onVerify={setCaptchaToken}
+                      onExpire={() => setCaptchaToken("")}
+                      onError={() => setCaptchaToken("")}
+                    />
+                  </div>
                 </div>
               )}
 
