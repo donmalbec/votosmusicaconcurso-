@@ -503,8 +503,63 @@ export function HomeClient() {
         </section>
 
         {/* Footer */}
-        <footer className="mt-16 w-full border-t border-white/10 pb-20 pt-10 text-center">
-          <p className="text-[10px] uppercase tracking-[0.36em] opacity-30">
+        <footer className="mt-16 w-full border-t border-white/10 pb-20 pt-10">
+          <nav
+            aria-label="Enlaces del pie"
+            className="mb-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/50"
+          >
+            <a href="https://globalpizza.party/" target="_blank" rel="noopener noreferrer" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              PizzaDAO
+            </a>
+            <a href="https://www.musicaw3.com/" target="_blank" rel="noopener noreferrer" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              MusicaW3
+            </a>
+            <a href="https://metapool.app/" target="_blank" rel="noopener noreferrer" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              Meta Pool
+            </a>
+            {/* TODO: enlazar a la página de reglas del concurso cuando exista */}
+            <a href="#" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              Reglas del concurso
+            </a>
+            {/* TODO: enlazar a la licencia CC0 (creativecommons.org) cuando se confirme */}
+            <a href="#" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              CC0
+            </a>
+          </nav>
+
+          <div className="mb-8 flex items-center justify-center gap-5 text-white/45">
+            {/* TODO: reemplazar "#" con la URL real de X/Twitter */}
+            <a href="#" aria-label="X (Twitter)" title="X (Twitter)" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            {/* TODO: reemplazar "#" con la URL real de Farcaster */}
+            <a href="#" aria-label="Farcaster" title="Farcaster" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M4 6h4M16 6h4" />
+                <path d="M5 6v13M19 6v13" />
+                <path d="M9 19v-6a3 3 0 0 1 6 0v6" />
+                <path d="M3 19h4M17 19h4" />
+              </svg>
+            </a>
+            {/* TODO: reemplazar "#" con la URL real de Telegram */}
+            <a href="#" aria-label="Telegram" title="Telegram" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.22.22-.42.42-.83.42z" />
+              </svg>
+            </a>
+            {/* TODO: reemplazar "#" con la URL real de Instagram */}
+            <a href="#" aria-label="Instagram" title="Instagram" className="rounded transition-colors hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+          </div>
+
+          <p className="text-center text-[10px] uppercase tracking-[0.36em] opacity-30">
             PizzaDAO × MusicaW3 · 2026 · CC0 License
           </p>
         </footer>
