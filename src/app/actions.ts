@@ -288,15 +288,16 @@ function mapVoteRecord(row: VoteRow): VoteRecord {
 
 async function readVoteCounts(): Promise<VoteCounts> {
   const supabase = getSupabaseAdminClient();
-  const { data, error } = await supabase.from("votes").select("video_id");
+  // Aggregate in the database (one row per song) so the PostgREST 1000-row cap
+  // never applies — a plain select("video_id") undercounts past 1000 votes.
+  const { data, error } = await supabase.rpc("get_public_vote_counts");
 
   if (error) {
     throw error;
   }
 
-  return (data || []).reduce<VoteCounts>((counts, row) => {
-    const videoId = String(row.video_id);
-    counts[videoId] = (counts[videoId] || 0) + 1;
+  return ((data || []) as { video_id: string; votes: number }[]).reduce<VoteCounts>((counts, row) => {
+    counts[String(row.video_id)] = Number(row.votes) || 0;
     return counts;
   }, {});
 }
