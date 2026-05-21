@@ -24,9 +24,9 @@
   --success: #00FF88;
 }
 
-/* No custom `* { margin:0; padding:0 }` reset here on purpose. Tailwind v4
-   Preflight already applies that reset inside @layer base; an unlayered copy
-   would outrank (and silently disable) every p-*/m-*/mx-auto utility. */
+/* Intentionally no universal margin/padding reset here. Tailwind v4 Preflight
+   already applies that reset in @layer base; adding an unlayered copy would
+   outrank and silently disable the padding and margin utilities. */
 
 html {
   scroll-behavior: smooth;
