@@ -329,7 +329,12 @@ export function HomeClient() {
               </p>
             </div>
 
-            <div className="grid gap-3 md:grid-cols-3">
+            <div className="relative mt-2 grid grid-cols-1 gap-0 md:grid-cols-3 md:gap-6">
+              {/* Desktop: dashed line connecting the numerals horizontally */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute left-[16.6%] right-[16.6%] top-5 hidden border-t-2 border-dashed border-neon-yellow/40 md:block"
+              />
               {[
                 {
                   icon: MousePointerClick,
@@ -346,17 +351,28 @@ export function HomeClient() {
                   title: "3. Confirma desde tu email",
                   copy: "Abre el correo y toca Confirmar y votar. Ahí recién queda registrado el voto.",
                 },
-              ].map(({ icon: Icon, title, copy }) => (
-                <div key={title} className="rounded-lg border border-white/10 bg-white/[0.035] p-4 text-left">
-                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-neon-yellow/10 text-neon-yellow">
-                    <Icon size={19} aria-hidden="true" />
+              ].map(({ icon: Icon, title, copy }, i, arr) => (
+                <div key={title} className="relative flex gap-4 md:flex-col md:items-center md:gap-3 md:text-center">
+                  <div className="flex flex-col items-center md:contents">
+                    <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neon-yellow font-mono text-lg font-black text-black shadow-[0_0_18px_rgba(255,230,0,0.35)]">
+                      {i + 1}
+                    </div>
+                    {/* Mobile: dashed line dropping to the next numeral */}
+                    {i < arr.length - 1 && (
+                      <div className="my-2 w-0 flex-1 border-l-2 border-dashed border-neon-yellow/40 md:hidden" />
+                    )}
                   </div>
-                  <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-white">
-                    {title}
-                  </h3>
-                  <p className="text-xs font-bold leading-relaxed text-white/55">
-                    {copy}
-                  </p>
+                  <div className={`min-w-0 md:pb-0 ${i < arr.length - 1 ? "pb-9" : ""}`}>
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-neon-yellow/10 text-neon-yellow md:mx-auto">
+                      <Icon size={19} aria-hidden="true" />
+                    </div>
+                    <h3 className="mb-2 text-sm font-black uppercase tracking-[0.12em] text-white">
+                      {title}
+                    </h3>
+                    <p className="text-xs font-bold leading-relaxed text-white/55">
+                      {copy}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
