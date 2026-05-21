@@ -60,7 +60,7 @@ function MaintenanceHomePage() {
               <div className="relative mx-auto mb-6 max-w-5xl">
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute -inset-x-6 -inset-y-4"
+                  className="pointer-events-none absolute inset-x-0 -inset-y-4"
                   style={{ background: "radial-gradient(ellipse at center, rgba(0,0,0,0.55), transparent 70%)" }}
                 />
                 <h1 className="relative text-[clamp(2rem,8vw,4.5rem)] font-black uppercase leading-[0.95] text-white">
