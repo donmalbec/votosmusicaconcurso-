@@ -204,10 +204,17 @@ export function HomeClient() {
                 />
               </div>
 
-              <h1 className="mx-auto mb-5 max-w-5xl text-4xl font-black uppercase leading-[0.95] text-white sm:text-5xl md:text-7xl">
-                Música y Pizzas <br />
-                <span style={{ color: "var(--neon-yellow)" }}>en Español</span>
-              </h1>
+              <div className="relative mx-auto mb-5 max-w-5xl">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-x-6 -inset-y-4"
+                  style={{ background: "radial-gradient(ellipse at center, rgba(0,0,0,0.55), transparent 70%)" }}
+                />
+                <h1 className="relative text-[clamp(2rem,8vw,4.5rem)] font-black uppercase leading-[0.95] text-white">
+                  Música y Pizzas <br />
+                  <span style={{ color: "var(--neon-yellow)" }}>en Español</span>
+                </h1>
+              </div>
               <p className="font-mono text-xs font-bold uppercase tracking-[0.28em] text-neon-yellow sm:text-sm md:text-base">
                 PizzaDAO x MusicaW3
               </p>
@@ -217,14 +224,14 @@ export function HomeClient() {
               <div className="mx-auto mt-7 flex max-w-xl flex-col gap-3 sm:flex-row sm:justify-center">
                 <a
                   href="#participantes"
-                  className="btn-neon inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-[12px] font-black uppercase tracking-[0.18em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-neon-yellow px-7 py-3.5 text-[12px] font-black uppercase tracking-[0.18em] text-black shadow-[0_4px_20px_rgba(255,230,0,0.18)] transition duration-200 hover:-translate-y-px hover:shadow-[0_8px_28px_rgba(255,230,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <ArrowDown size={15} aria-hidden="true" />
                   Votar ahora
                 </a>
                 <a
                   href="#ranking"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/[0.04] px-6 py-3 text-[12px] font-black uppercase tracking-[0.18em] text-white/75 transition-colors hover:border-neon-yellow/50 hover:text-neon-yellow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] border-neon-yellow bg-transparent px-7 py-3.5 text-[12px] font-black uppercase tracking-[0.18em] text-neon-yellow transition duration-200 hover:-translate-y-px hover:bg-neon-yellow/10 hover:shadow-[0_8px_28px_rgba(255,230,0,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <BarChart3 size={15} aria-hidden="true" />
                   Ver ranking
