@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Play } from "lucide-react";
+import { ChevronRight, Pizza, Play } from "lucide-react";
 import { Video } from "@/lib/data";
 
 interface VideoCardProps {
@@ -33,9 +33,22 @@ export function VideoCard({
       ? "Ya registraste un voto"
       : `Votar por ${video.title}`;
 
+  const isTop3 = rank >= 1 && rank <= 3;
+  const isTop10 = rank >= 1 && rank <= 10;
+  const rankBadgeClass = isTop3
+    ? "border-transparent bg-neon-yellow text-black"
+    : isTop10
+      ? "border-neon-yellow/40 bg-black/85 text-neon-yellow"
+      : "border-white/10 bg-black/80 text-white/70";
+  const rankSizeClass = isTop3
+    ? "px-2.5 py-1 text-[11px]"
+    : isTop10
+      ? "px-2.5 py-1 text-[10px]"
+      : "px-2 py-0.5 text-[8px]";
+
   return (
     <article
-      className="group w-full min-w-0 flex flex-col items-center animate-fade-up opacity-0"
+      className="group flex w-full min-w-0 flex-col items-center rounded-xl opacity-0 animate-fade-up focus-within:[outline:2px_solid_var(--neon-yellow)] focus-within:[outline-offset:4px]"
       style={{ animationDelay: `${delay}ms`, animationFillMode: 'forwards' }}
     >
       <div className={`relative mb-4 aspect-square w-full overflow-hidden rounded-lg border bg-white/[0.03] shadow-[0_18px_46px_rgba(0,0,0,0.35)] transition-colors duration-300 group-hover:border-neon-yellow/45 group-focus-within:border-neon-yellow/60 ${isLeading ? "border-neon-yellow/45" : "border-white/10"}`}>
@@ -49,7 +62,8 @@ export function VideoCard({
         />
 
         <div className="absolute left-0 top-0 p-2.5 sm:p-3">
-          <div className="rounded-md border border-white/10 bg-black/80 px-2.5 py-1 text-[8px] font-black uppercase tracking-widest text-white/75 backdrop-blur-sm">
+          <div className={`flex items-center rounded-md border font-black uppercase tracking-widest backdrop-blur-sm ${rankBadgeClass} ${rankSizeClass}`}>
+            {isTop3 && <Pizza size={11} aria-hidden="true" className="mr-1 -ml-0.5" />}
             #{rank}
           </div>
         </div>
@@ -78,7 +92,7 @@ export function VideoCard({
       </div>
 
       <div className="w-full min-w-0 px-2 text-center">
-        <h3 className="mb-2 min-h-[2.5em] text-[10px] font-black uppercase leading-tight tracking-[0.1em] text-white/95 line-clamp-2 sm:text-[11px]">
+        <h3 className="mb-2 min-h-[2.5em] text-[11px] font-black uppercase leading-tight tracking-[0.1em] text-white line-clamp-2 sm:text-[12px]">
           {video.title}
         </h3>
         <p className="mb-4 min-h-[1.2em] truncate text-[9px] font-medium uppercase tracking-[0.1em] text-white/45">
@@ -87,8 +101,8 @@ export function VideoCard({
 
         <div className="mb-4 flex items-center justify-center">
           <div className="flex min-w-20 flex-col items-center rounded-lg border border-white/10 bg-white/[0.025] px-4 py-2">
-            <span className="vote-counter text-[14px] font-black text-neon-yellow">{voteCount}</span>
-            <span className="text-[8px] uppercase tracking-widest text-white/20">Votos</span>
+            <span className="vote-counter text-[15px] font-black leading-none text-neon-yellow">{voteCount}</span>
+            <span className="mt-1 text-[8px] uppercase tracking-widest text-white/30">Votos</span>
           </div>
         </div>
 
@@ -97,13 +111,20 @@ export function VideoCard({
           onClick={() => onVote(video)}
           disabled={voteDisabled}
           aria-label={voteAriaLabel}
-          className={`h-11 w-full rounded-lg text-[10px] font-black uppercase tracking-[0.14em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black
+          className={`flex h-11 w-full items-center justify-center gap-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.14em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black
             ${voteDisabled
               ? 'cursor-not-allowed border border-white/10 bg-white/[0.02] text-white/25'
-              : 'border border-neon-yellow/50 bg-neon-yellow/5 text-neon-yellow hover:bg-neon-yellow hover:text-black'
+              : 'border border-neon-yellow/60 bg-neon-yellow/10 text-neon-yellow hover:border-neon-yellow hover:bg-neon-yellow hover:text-black focus-visible:border-neon-yellow focus-visible:bg-neon-yellow focus-visible:text-black'
             }`}
         >
           {voteLabel}
+          {!voteDisabled && (
+            <ChevronRight
+              size={13}
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-0.5"
+            />
+          )}
         </button>
       </div>
     </article>
