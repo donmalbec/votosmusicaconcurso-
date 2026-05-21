@@ -29,7 +29,7 @@ function MaintenanceHomePage() {
 
       <Header />
 
-      <main className="below-fixed-header w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 flex flex-col items-center relative z-10">
+      <main className="w-full max-w-7xl px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 flex flex-col items-center relative z-10">
         <section className="w-full max-w-6xl animate-fade-up">
           <div className="bg-black/68 backdrop-blur-2xl border border-white/10 rounded-lg p-6 text-center shadow-[0_24px_90px_rgba(0,0,0,0.48)] sm:p-8 md:p-12">
             <div className="mb-12 md:mb-14">

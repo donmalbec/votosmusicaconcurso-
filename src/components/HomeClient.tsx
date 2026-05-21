@@ -180,7 +180,7 @@ export function HomeClient() {
         </div>
       )}
 
-      <main className="below-fixed-header w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 flex flex-col items-center relative z-10">
+      <main className="w-full max-w-7xl px-4 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-32 flex flex-col items-center relative z-10">
 
         {/* Concurso principal */}
         <section className="w-full max-w-6xl animate-fade-up">
