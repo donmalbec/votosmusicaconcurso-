@@ -30,6 +30,14 @@
   padding: 0;
 }
 
+/* The site header is position:fixed (80px tall), so page content needs a top
+   offset or it hides under the nav. Declared unlayered (and as a class, so it
+   outranks the `* { padding: 0 }` reset above) because Tailwind's pt-* utilities
+   are layered and lose to that reset. See the known-issue note in the PR. */
+.below-fixed-header {
+  padding-top: 6.5rem;
+}
+
 html {
   scroll-behavior: smooth;
   color-scheme: dark;

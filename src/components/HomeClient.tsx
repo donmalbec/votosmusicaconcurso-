@@ -180,7 +180,7 @@ export function HomeClient() {
         </div>
       )}
 
-      <main className="w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 flex flex-col items-center relative z-10">
+      <main className="below-fixed-header w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 flex flex-col items-center relative z-10">
 
         {/* Concurso principal */}
         <section className="w-full max-w-6xl animate-fade-up">
@@ -344,17 +344,17 @@ export function HomeClient() {
               {[
                 {
                   icon: MousePointerClick,
-                  title: "1. Elige una canción",
+                  title: "Elige una canción",
                   copy: "Toca VOTAR en tu canción favorita. Puedes escucharla en YouTube antes de elegir.",
                 },
                 {
                   icon: ShieldCheck,
-                  title: "2. Verifica que eres humano",
+                  title: "Verifica que eres humano",
                   copy: "Ingresa tu correo y completa hCaptcha. Esto evita votos automáticos o abuso.",
                 },
                 {
                   icon: MailCheck,
-                  title: "3. Confirma desde tu email",
+                  title: "Confirma desde tu email",
                   copy: "Abre el correo y toca Confirmar y votar. Ahí recién queda registrado el voto.",
                 },
               ].map(({ icon: Icon, title, copy }, i, arr) => (
