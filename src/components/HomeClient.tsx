@@ -112,6 +112,12 @@ export function HomeClient() {
     [voteNotice?.videoId]
   );
 
+  const liveTop = useMemo(() => sortedVideos.slice(0, 5), [sortedVideos]);
+  const liveMaxVotes = useMemo(
+    () => Math.max(1, ...liveTop.map((video) => votes[video.id] || 0)),
+    [liveTop, votes]
+  );
+
   if (!isLoaded && !VOTING_PAUSED) return <div className="min-h-screen bg-black" />;
 
   return (
@@ -396,38 +402,65 @@ export function HomeClient() {
             </div>
 
             <div className="flex flex-col gap-3 relative">
-              {sortedVideos.slice(0, 5).map((video, index) => (
-                <div
-                  key={video.id}
-                  className="group flex items-center justify-between rounded-lg border border-white/5 bg-white/[0.03] p-3 transition-colors duration-300 hover:border-neon-yellow/30 hover:bg-white/10 sm:p-4"
-                >
-                  <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-                    <span className={`min-w-9 text-center text-2xl font-black md:text-3xl ${index === 0 ? 'text-neon-yellow drop-shadow-[0_0_10px_rgba(255,230,0,0.5)]' : 'text-white/20'}`}>
-                      #{index + 1}
-                    </span>
-                    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-                      <Image
-                        src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
-                        alt={video.title}
-                        width={96}
-                        height={96}
-                        className="w-12 h-12 rounded-lg object-cover border border-white/10 grayscale-[50%] transition duration-300 group-hover:grayscale-0"
-                      />
-                      <div className="flex min-w-0 flex-col justify-center">
-                        <h4 className="mb-1 truncate text-[11px] font-black uppercase tracking-[0.12em] text-white md:text-xs">{video.title}</h4>
-                        <p className="truncate text-[9px] uppercase tracking-[0.12em] text-white/40">{video.artist}</p>
+              {liveTop.map((video, index) => {
+                const rowVotes = votes[video.id] || 0;
+                const share = Math.round((rowVotes / liveMaxVotes) * 100);
+                const isPodium = index < 3;
+                const medal = ["🥇", "🥈", "🥉"][index];
+                return (
+                  <div
+                    key={video.id}
+                    className={`group rounded-lg border transition-colors duration-300 hover:border-neon-yellow/30 hover:bg-white/10 ${
+                      isPodium
+                        ? "border-neon-yellow/20 bg-neon-yellow/[0.04] p-4 sm:p-5"
+                        : "border-white/5 bg-white/[0.03] p-3 sm:p-4"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex min-w-0 items-center gap-3 sm:gap-5">
+                        <div className="flex min-w-9 flex-col items-center justify-center sm:min-w-11">
+                          {isPodium ? (
+                            <>
+                              <span className="text-2xl leading-none md:text-3xl" aria-hidden="true">{medal}</span>
+                              <span className="mt-0.5 text-[9px] font-black text-white/40">#{index + 1}</span>
+                            </>
+                          ) : (
+                            <span className="text-xl font-black text-white/20 md:text-2xl">#{index + 1}</span>
+                          )}
+                        </div>
+                        <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+                          <Image
+                            src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                            alt={video.title}
+                            width={96}
+                            height={96}
+                            className="w-12 h-12 rounded-lg object-cover border border-white/10 grayscale-[50%] transition duration-300 group-hover:grayscale-0"
+                          />
+                          <div className="flex min-w-0 flex-col justify-center">
+                            <h4 className="mb-1 truncate text-[11px] font-black uppercase tracking-[0.12em] text-white md:text-xs">{video.title}</h4>
+                            <p className="truncate text-[9px] uppercase tracking-[0.12em] text-white/40">{video.artist}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="ml-3 flex shrink-0 flex-col items-end justify-center">
+                        <span className="text-xl md:text-2xl font-black text-white group-hover:text-neon-yellow transition-colors leading-none mb-1">
+                          {rowVotes}
+                        </span>
+                        <span className="text-[8px] uppercase tracking-[0.3em] text-white/30 font-bold">Votos</span>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="ml-3 flex shrink-0 flex-col items-end justify-center">
-                    <span className="text-xl md:text-2xl font-black text-white group-hover:text-neon-yellow transition-colors leading-none mb-1">
-                      {votes[video.id] || 0}
-                    </span>
-                    <span className="text-[8px] uppercase tracking-[0.3em] text-white/30 font-bold">Votos</span>
+                    {/* Vote share relative to #1 (CSS width only) */}
+                    <div aria-hidden="true" className="mt-3 h-1 w-full overflow-hidden rounded-full bg-white/5">
+                      <div
+                        className="h-full rounded-full bg-neon-yellow transition-[width] duration-500"
+                        style={{ width: `${share}%` }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
           </div>
