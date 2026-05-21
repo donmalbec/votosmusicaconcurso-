@@ -2,22 +2,20 @@
 
 import { useState, useEffect, useRef, useId } from "react";
 import Image from "next/image";
-import { X, ShieldCheck, CheckCircle2, Link2, MailCheck, Loader2 } from "lucide-react";
+import { X, ShieldCheck, CheckCircle2, MailCheck, Loader2 } from "lucide-react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Video } from "@/lib/data";
 import {
   VOTING_PAUSED_MESSAGE,
   VOTING_PAUSED_TITLE,
 } from "@/lib/maintenance";
-import { useVoteStore } from "@/lib/store";
 import { getBrowserFingerprint, isDisposableEmail, normalizeEmail } from "@/lib/security";
-import { sendVoteVerificationCode, verifyVoteEmailCode } from "@/app/actions";
+import { sendVoteVerificationCode } from "@/app/actions";
 
 interface VoteModalProps {
   video: Video | null;
   onClose: () => void;
   onSuccess: (email: string) => void;
-  verifiedByMagicLink?: boolean;
   votingPaused?: boolean;
 }
 
@@ -75,26 +73,19 @@ function clearPendingMagicVote() {
 export function VoteModal({
   video,
   onClose,
-  onSuccess,
-  verifiedByMagicLink = false,
   votingPaused = false,
 }: VoteModalProps) {
   const modalTitleId = useId();
   const modalDescriptionId = useId();
   const emailInputId = useId();
-  const codeInputId = useId();
   const errorId = useId();
   const [email, setEmail] = useState("");
   const [captchaToken, setCaptchaToken] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
   const [website, setWebsite] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState<"email" | "code" | "success">("email");
-  const [showCodeInput, setShowCodeInput] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
-
-  const { castVote } = useVoteStore();
 
   useEffect(() => {
     let cancelled = false;
@@ -102,11 +93,9 @@ export function VoteModal({
     queueMicrotask(() => {
       if (cancelled) return;
       const pendingVote = getPendingMagicVote(video?.id);
-      setStep(pendingVote && verifiedByMagicLink ? "code" : "email");
+      setStep(pendingVote ? "code" : "email");
       setEmail(pendingVote?.email || "");
       setCaptchaToken("");
-      setVerificationCode("");
-      setShowCodeInput(false);
       setWebsite("");
       setError("");
       captchaRef.current?.resetCaptcha();
@@ -115,7 +104,7 @@ export function VoteModal({
     return () => {
       cancelled = true;
     };
-  }, [video?.id, verifiedByMagicLink]);
+  }, [video?.id]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -223,15 +212,8 @@ export function VoteModal({
       });
 
       if (result.success) {
-        if (result.alreadyVerified) {
-          await submitVerifiedVote(deviceFingerprint, normalizedEmail);
-          return;
-        }
-
         savePendingMagicVote(normalizedEmail, video.id);
         setStep("code");
-        setVerificationCode("");
-        setShowCodeInput(false);
         setError("");
       } else {
         setError(result.error || "No pudimos enviar el enlace.");
@@ -247,119 +229,22 @@ export function VoteModal({
     }
   };
 
-  const submitVerifiedVote = async (deviceFingerprint?: string, emailOverride = email) => {
-    const fingerprint = deviceFingerprint || await getBrowserFingerprint();
-    const normalizedEmail = normalizeEmail(emailOverride);
-
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    const result = await castVote(normalizedEmail, video.id, fingerprint, website);
-    if (result.success) {
-      clearPendingMagicVote();
-      setStep("success");
-      setTimeout(() => {
-        onSuccess(normalizedEmail);
-        onClose();
-      }, 2500);
-      return;
-    }
-
-    setError(
-      result.error === "Verifica tu correo antes de votar."
-        ? "Abre el enlace mágico desde este navegador y vuelve a intentar."
-        : result.error || "Ocurrió un error"
-    );
-  };
-
-  const verifyCodeAndVote = async () => {
-    const normalizedEmail = validateEmailBeforeSubmit();
-
-    if (!normalizedEmail) {
-      return;
-    }
-
-    if (!verificationCode.trim()) {
-      setError("Ingresa el código enviado a tu correo.");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const verification = await verifyVoteEmailCode(normalizedEmail, verificationCode);
-      if (!verification.success) {
-        setError(verification.error || "Código incorrecto o expirado.");
-        return;
-      }
-
-      await submitVerifiedVote(undefined, normalizedEmail);
-    } catch {
-      setError("Error de conexión. Intenta de nuevo.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const voteAfterMagicLink = async () => {
-    const normalizedEmail = validateEmailBeforeSubmit();
-
-    if (!normalizedEmail) {
-      return;
-    }
-
-    setError("");
-    setLoading(true);
-
-    try {
-      await submitVerifiedVote(undefined, normalizedEmail);
-    } catch {
-      setError("Abre el enlace mágico desde este navegador y vuelve a intentar.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     if (step === "email") {
       await requestEmailCode();
-      return;
     }
-
-    if (showCodeInput) {
-      if (!verificationCode.trim()) {
-        setError("Ingresa el código enviado a tu correo.");
-        return;
-      }
-
-      await verifyCodeAndVote();
-      return;
-    }
-
-    if (!verifiedByMagicLink) {
-      return;
-    }
-
-    await voteAfterMagicLink();
   };
 
   const primaryButtonLabel = loading
     ? "Procesando…"
     : step === "email"
       ? "Enviar enlace seguro"
-      : verifiedByMagicLink
-        ? "Finalizar voto"
-        : showCodeInput
-          ? verificationCode.trim()
-            ? "Verificar y votar"
-            : "Ingresa el código"
-          : "Abre el enlace del correo";
+      : "Revisa tu correo";
 
-  const primaryButtonDisabled =
-    loading ||
-    (step === "code" && !verifiedByMagicLink && (!showCodeInput || !verificationCode.trim()));
+  const primaryButtonDisabled = loading || step === "code";
 
   return (
     <div
@@ -498,52 +383,19 @@ export function VoteModal({
 
               {step === "code" && (
                 <div className="rounded-lg border border-neon-yellow/20 bg-neon-yellow/[0.055] p-4">
-                  <div className="mb-3 flex items-start gap-3">
+                  <div className="flex items-start gap-3">
                     <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neon-yellow/10 text-neon-yellow">
-                      {verifiedByMagicLink ? <Link2 size={18} aria-hidden="true" /> : <MailCheck size={18} aria-hidden="true" />}
+                      <MailCheck size={18} aria-hidden="true" />
                     </div>
                     <div>
                       <p className="text-sm font-black uppercase leading-tight text-white">
-                        {verifiedByMagicLink ? "Correo verificado" : "Revisa tu correo"}
+                        Revisa tu correo
                       </p>
                       <p className="mt-1 text-xs leading-relaxed text-white/55">
-                        {verifiedByMagicLink
-                          ? "Si el voto no se registró automáticamente, finaliza aquí."
-                          : "Toca Confirmar y votar en el email. Volverás al sitio con el voto registrado."}
+                        Te enviamos un enlace seguro. Toca <strong className="text-white">Confirmar y votar</strong> en el email: el voto se registrará automáticamente y verás una página confirmando que tu voto fue registrado.
                       </p>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    disabled={loading}
-                    onClick={() => {
-                      setError("");
-                      setVerificationCode("");
-                      setShowCodeInput((visible) => !visible);
-                    }}
-                    className="text-[10px] font-black uppercase tracking-widest text-white/50 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
-                  >
-                    {showCodeInput ? "Usar enlace del correo" : "Tengo un código numérico"}
-                  </button>
-                  {showCodeInput && (
-                    <div className="mt-3">
-                      <label htmlFor={codeInputId} className="mb-2 block text-[10px] font-black uppercase tracking-widest text-white/50">
-                        Código numérico
-                      </label>
-                      <input
-                        id={codeInputId}
-                        name="verificationCode"
-                        type="text"
-                        inputMode="numeric"
-                        autoComplete="one-time-code"
-                        spellCheck={false}
-                        value={verificationCode}
-                        onChange={(e) => setVerificationCode(e.target.value)}
-                        placeholder="000000"
-                        className="input-neon w-full rounded-lg px-4 py-3 text-center text-[16px] tracking-[0.35em]"
-                      />
-                    </div>
-                  )}
                 </div>
               )}
 

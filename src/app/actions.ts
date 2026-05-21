@@ -12,7 +12,14 @@ import {
   normalizeEmail,
 } from "@/lib/security";
 import { VOTING_PAUSED, VOTING_PAUSED_ERROR } from "@/lib/maintenance";
+import { sendVoteConfirmationEmail } from "@/lib/resend";
 import { getSupabaseAdminClient, getSupabaseAuthClient } from "@/lib/supabase";
+import {
+  createVoteConfirmationToken,
+  hashVoteConfirmationToken,
+  readVoteConfirmationToken,
+  VOTE_CONFIRMATION_DURATION_SECONDS,
+} from "@/lib/vote-confirmation-tokens";
 import {
   clearVerifiedEmailCookie,
   clearPendingMagicVoteCookie,
@@ -21,7 +28,6 @@ import {
   getVerifiedVoteDevice,
   hash,
   safeEqual,
-  setPendingMagicVoteCookie,
   setVerifiedEmailCookie,
 } from "@/lib/vote-security";
 
@@ -372,23 +378,41 @@ export async function sendVoteVerificationCode(input: VerificationInput): Promis
       return { success: false, error: "Este dispositivo ya registró un voto en el concurso." };
     }
 
-    if ((await getVerifiedEmail()) === email) {
-      return { success: true, alreadyVerified: true };
-    }
-
-    await setPendingMagicVoteCookie(email, video.id, voteDevice.deviceId);
-
-    const auth = getSupabaseAuthClient();
-    const { error } = await auth.auth.signInWithOtp({
+    const token = createVoteConfirmationToken({
       email,
-      options: {
-        shouldCreateUser: true,
-        emailRedirectTo: `${origin}/auth/confirm?vote=${encodeURIComponent(video.id)}`,
-      },
+      videoId: video.id,
+      deviceId: voteDevice.deviceId,
+    });
+    const tokenHash = hashVoteConfirmationToken(token);
+    const expiresAt = new Date(Date.now() + VOTE_CONFIRMATION_DURATION_SECONDS * 1000).toISOString();
+
+    const supabase = getSupabaseAdminClient();
+    const { error: verificationError } = await supabase.from("vote_verifications").insert({
+      email,
+      video_id: video.id,
+      device_id: voteDevice.deviceId,
+      token_hash: tokenHash,
+      ip_address: ip,
+      expires_at: expiresAt,
     });
 
-    if (error) {
-      await clearPendingMagicVoteCookie();
+    if (verificationError) {
+      console.error("[vote-auth] verification insert failed", {
+        code: verificationError.code,
+        message: verificationError.message,
+      });
+      return { success: false, error: "No pudimos crear el enlace de votación." };
+    }
+
+    try {
+      await sendVoteConfirmationEmail({
+        to: email,
+        confirmUrl: `${origin}/vote/confirm?token=${encodeURIComponent(token)}`,
+        videoTitle: video.title,
+        artist: video.artist,
+      });
+    } catch (error) {
+      await supabase.from("vote_verifications").delete().eq("token_hash", tokenHash);
       logVerificationEmailError(error);
       return { success: false, error: getVerificationEmailError(error) };
     }
@@ -525,6 +549,111 @@ export async function castVote(input: CastVoteInput): Promise<ActionResult<{ cou
     };
   } catch {
     return { success: false, error: "Error de conexión con la base de datos." };
+  }
+}
+
+type ConfirmVoteResult =
+  | { success: true; email: string; videoTitle: string; artist: string }
+  | { success: false; error: string; alreadyCounted?: boolean };
+
+export async function confirmVoteFromEmailToken(token: string, ip: string): Promise<ConfirmVoteResult> {
+  try {
+    if (VOTING_PAUSED) {
+      return { success: false, error: VOTING_PAUSED_ERROR };
+    }
+
+    const payload = readVoteConfirmationToken(token);
+    if (!payload) {
+      return { success: false, error: "El enlace de votación es inválido o expiró." };
+    }
+
+    const video = VIDEOS.find((candidate) => candidate.id === payload.videoId);
+    if (!video) {
+      return { success: false, error: "La canción seleccionada no es válida." };
+    }
+
+    const tokenHash = hashVoteConfirmationToken(token);
+    const supabase = getSupabaseAdminClient();
+    const { data: verification, error: verificationError } = await supabase
+      .from("vote_verifications")
+      .select("id,email,video_id,device_id,expires_at,used_at")
+      .eq("token_hash", tokenHash)
+      .maybeSingle();
+
+    if (verificationError) {
+      throw verificationError;
+    }
+
+    if (!verification) {
+      return { success: false, error: "Este enlace de votación no existe o ya no es válido." };
+    }
+
+    if (verification.used_at) {
+      return { success: false, error: "Este enlace ya fue usado. Tu voto ya fue procesado.", alreadyCounted: true };
+    }
+
+    if (new Date(String(verification.expires_at)).getTime() < Date.now()) {
+      return { success: false, error: "Este enlace de votación expiró. Vuelve a solicitar uno." };
+    }
+
+    const email = normalizeEmail(String(verification.email));
+    const deviceId = String(verification.device_id);
+    if (email !== payload.email || String(verification.video_id) !== payload.videoId || deviceId !== payload.deviceId) {
+      return { success: false, error: "El enlace de votación no coincide con la solicitud original." };
+    }
+
+    const identityStatus = await readVoteIdentityStatus(email, deviceId, deviceId);
+    if (identityStatus.emailExists || identityStatus.deviceExists) {
+      await supabase
+        .from("vote_verifications")
+        .update({ used_at: new Date().toISOString(), confirm_ip_address: ip })
+        .eq("id", verification.id);
+      return { success: false, error: "Este correo o dispositivo ya registró un voto.", alreadyCounted: true };
+    }
+
+    const { error: insertError } = await supabase.from("votes").insert({
+      email,
+      video_id: video.id,
+      video_title: video.title,
+      artist: video.artist,
+      ip_address: ip,
+      device_id: deviceId,
+    });
+
+    if (insertError) {
+      if (insertError.code === "23505") {
+        await supabase
+          .from("vote_verifications")
+          .update({ used_at: new Date().toISOString(), confirm_ip_address: ip })
+          .eq("id", verification.id);
+        return { success: false, error: "Este voto ya estaba registrado.", alreadyCounted: true };
+      }
+
+      console.error("[vote-confirm] insert failed", {
+        code: insertError.code,
+        message: insertError.message,
+        videoId: video.id,
+      });
+      throw insertError;
+    }
+
+    const { error: updateError } = await supabase
+      .from("vote_verifications")
+      .update({ used_at: new Date().toISOString(), confirm_ip_address: ip })
+      .eq("id", verification.id)
+      .is("used_at", null);
+
+    if (updateError) {
+      console.error("[vote-confirm] token mark-used failed", {
+        code: updateError.code,
+        message: updateError.message,
+      });
+    }
+
+    return { success: true, email, videoTitle: video.title, artist: video.artist };
+  } catch (error) {
+    console.error("[vote-confirm] failed", error);
+    return { success: false, error: "No pudimos registrar el voto. Intenta nuevamente." };
   }
 }
 

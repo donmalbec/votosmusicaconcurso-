@@ -15,12 +15,10 @@ import {
 import { useVoteStore } from "@/lib/store";
 
 const PENDING_MAGIC_VOTE_KEY = "pizza_pending_magic_vote";
-const PENDING_MAGIC_VOTE_MAX_AGE_MS = 20 * 60 * 1000;
 
 export function HomeClient() {
   const { votes, fetchVotes, userVotedEmail } = useVoteStore();
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-  const [verifiedMagicVideoId, setVerifiedMagicVideoId] = useState<string | null>(null);
   const [completedMagicVideoId, setCompletedMagicVideoId] = useState<string | null>(null);
   const [voteNotice, setVoteNotice] = useState<{
     type: "success" | "duplicate" | "error";
@@ -55,7 +53,6 @@ export function HomeClient() {
     if (!isLoaded || typeof window === "undefined") return;
 
     const url = new URL(window.location.href);
-    const emailVerified = url.searchParams.get("email_verified") === "1";
     const voteSuccess = url.searchParams.get("vote_success") === "1";
     const voteError = url.searchParams.get("vote_error");
     const videoId = url.searchParams.get("video_id") || undefined;
@@ -85,27 +82,7 @@ export function HomeClient() {
       });
     }
 
-    if (emailVerified && !VOTING_PAUSED) {
-      try {
-        const pending = JSON.parse(
-          window.localStorage.getItem(PENDING_MAGIC_VOTE_KEY) || "null"
-        ) as { videoId?: string; createdAt?: number } | null;
-        const isFresh = pending?.createdAt && Date.now() - pending.createdAt < PENDING_MAGIC_VOTE_MAX_AGE_MS;
-        const pendingVideo = isFresh
-          ? VIDEOS.find((video) => video.id === pending?.videoId)
-          : null;
-
-        if (pendingVideo) {
-          queueMicrotask(() => {
-            setVerifiedMagicVideoId(pendingVideo.id);
-            setSelectedVideo(pendingVideo);
-          });
-        }
-      } catch {}
-    }
-
-    if (emailVerified || voteSuccess || voteError) {
-      url.searchParams.delete("email_verified");
+    if (voteSuccess || voteError) {
       url.searchParams.delete("vote_success");
       url.searchParams.delete("vote_error");
       url.searchParams.delete("video_id");
@@ -401,7 +378,6 @@ export function HomeClient() {
               isLeading={video.id === leadingVideoId && (votes[leadingVideoId] || 0) > 0}
               onVote={(candidate) => {
                 if (VOTING_PAUSED) return;
-                setVerifiedMagicVideoId(null);
                 setSelectedVideo(candidate);
               }}
               delay={i * 60}
@@ -420,14 +396,11 @@ export function HomeClient() {
       {/* Vote Modal */}
       <VoteModal
         video={selectedVideo}
-        verifiedByMagicLink={selectedVideo?.id === verifiedMagicVideoId}
         votingPaused={VOTING_PAUSED}
         onClose={() => {
-          setVerifiedMagicVideoId(null);
           setSelectedVideo(null);
         }}
         onSuccess={() => {
-          setVerifiedMagicVideoId(null);
           setSelectedVideo(null);
         }}
       />
