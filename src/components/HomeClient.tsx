@@ -35,6 +35,18 @@ export function HomeClient() {
     fetchVotes();
   }, [fetchVotes]);
 
+  // Light polling so the live ranking and vote counts update without a manual
+  // reload. Skips while the tab is hidden to avoid needless background requests.
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (typeof document === "undefined" || document.visibilityState === "visible") {
+        fetchVotes();
+      }
+    }, 20000);
+
+    return () => clearInterval(interval);
+  }, [fetchVotes]);
+
   useEffect(() => {
     let cancelled = false;
 
