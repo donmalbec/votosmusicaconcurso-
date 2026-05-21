@@ -506,6 +506,11 @@ export async function castVote(input: CastVoteInput): Promise<ActionResult<{ cou
         return { success: false, error: "Voto duplicado detectado." };
       }
 
+      console.error("[vote] insert failed", {
+        code: error.code,
+        message: error.message,
+        videoId: video.id,
+      });
       throw error;
     }
 

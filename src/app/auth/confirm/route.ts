@@ -154,6 +154,7 @@ export async function GET(request: NextRequest) {
       console.error("[vote-auth] magic link vote insert failed", {
         code: error.code,
         message: error.message,
+        videoId: pendingVideo.id,
       });
     } catch (error) {
       console.error("[vote-auth] magic link vote completion failed", error);
