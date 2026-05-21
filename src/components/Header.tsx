@@ -12,24 +12,31 @@ export function Header() {
             href="https://www.musicaw3.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="opacity-80 transition hover:scale-110 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
+            title="MusicaW3"
             aria-label="Abrir MusicaW3"
+            className="group flex flex-col items-center gap-1.5 rounded-md px-2 py-1 opacity-80 transition hover:scale-110 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
-            <Image
-              src="https://www.musicaw3.com/logo-mw3.png"
-              alt="MusicaW3"
-              width={128}
-              height={64}
-              className="h-6 md:h-8 w-auto object-contain"
-            />
+            <span className="flex h-8 items-center md:h-10">
+              <Image
+                src="https://www.musicaw3.com/logo-mw3.png"
+                alt="MusicaW3"
+                width={128}
+                height={64}
+                className="h-6 md:h-8 w-auto object-contain"
+              />
+            </span>
+            <span className="hidden text-[9px] font-bold uppercase tracking-[0.18em] text-white/55 transition-colors group-hover:text-neon-yellow md:block">
+              MusicaW3
+            </span>
           </a>
           
           <a
             href="https://globalpizza.party/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center opacity-80 transition hover:scale-110 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
+            title="PizzaDAO"
             aria-label="Abrir PizzaDAO"
+            className="group flex flex-col items-center gap-1.5 rounded-md px-2 py-1 opacity-80 transition hover:scale-110 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             {/* Cropped PizzaDAO Logo (Only Symbol) for header - Adjusted width to prevent cutoff */}
             <div className="w-[38px] h-8 md:w-[48px] md:h-10 overflow-hidden relative flex items-center justify-start">
@@ -41,6 +48,9 @@ export function Header() {
                 className="absolute left-0 h-full w-auto max-w-none"
               />
             </div>
+            <span className="hidden text-[9px] font-bold uppercase tracking-[0.18em] text-white/55 transition-colors group-hover:text-neon-yellow md:block">
+              PizzaDAO
+            </span>
           </a>
         </nav>
       </div>
