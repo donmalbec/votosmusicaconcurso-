@@ -26,9 +26,9 @@ export function VideoCard({
   delay = 0,
 }: VideoCardProps) {
   const voteDisabled = hasVoted || votingPaused;
-  const voteLabel = votingPaused ? "Votación pausada" : hasVoted ? "Voto registrado" : "Votar";
+  const voteLabel = votingPaused ? "Votación cerrada" : hasVoted ? "Voto registrado" : "Votar";
   const voteAriaLabel = votingPaused
-    ? "La votación está pausada por mantenimiento"
+    ? "La votación ya terminó"
     : hasVoted
       ? "Ya registraste un voto"
       : `Votar por ${video.title}`;

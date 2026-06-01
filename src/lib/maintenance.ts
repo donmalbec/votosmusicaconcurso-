@@ -1,9 +1,9 @@
-export const VOTING_PAUSED = false;
+export const VOTING_PAUSED = true;
 
-export const VOTING_PAUSED_TITLE = "Votaciones pausadas temporalmente";
+export const VOTING_PAUSED_TITLE = "Votaciones cerradas";
 
 export const VOTING_PAUSED_MESSAGE =
-  "Por el momento las votaciones están pausadas mientras hacemos mantenimiento del sitio. El ranking seguirá visible y avisaremos cuando puedas votar nuevamente.";
+  "La recepción de votos terminó. El ranking seguirá visible mientras revisamos y anunciamos los resultados finales.";
 
 export const VOTING_PAUSED_ERROR =
-  "Las votaciones están pausadas temporalmente por mantenimiento del sitio.";
+  "La recepción de votos ya terminó y no se aceptan nuevos votos.";

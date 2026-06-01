@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { VIDEOS } from "@/lib/data";
+import { VOTING_PAUSED } from "@/lib/maintenance";
 import { isValidEmail, normalizeEmail } from "@/lib/security";
 import { getSupabaseAdminClient, getSupabaseAuthClient } from "@/lib/supabase";
 import {
@@ -24,7 +25,7 @@ interface VoteIdentityStatus {
 
 function getSafeRedirectUrl(
   request: NextRequest,
-  status: "ok" | "error" | "success" | "duplicate",
+  status: "ok" | "error" | "success" | "duplicate" | "closed",
   videoId?: string
 ) {
   const redirectUrl = new URL("/", request.url);
@@ -32,6 +33,8 @@ function getSafeRedirectUrl(
     redirectUrl.searchParams.set("vote_success", "1");
   } else if (status === "duplicate") {
     redirectUrl.searchParams.set("vote_error", "duplicate");
+  } else if (status === "closed") {
+    redirectUrl.searchParams.set("vote_error", "closed");
   } else {
     redirectUrl.searchParams.set(status === "ok" ? "email_verified" : "vote_error", "1");
   }
@@ -82,6 +85,13 @@ export async function GET(request: NextRequest) {
   const type = ALLOWED_OTP_TYPES.has(rawType as AllowedOtpType)
     ? (rawType as AllowedOtpType)
     : "email";
+
+  if (VOTING_PAUSED) {
+    const response = NextResponse.redirect(getSafeRedirectUrl(request, "closed", requestedVideoId));
+    response.cookies.delete(PENDING_MAGIC_VOTE_COOKIE);
+    response.cookies.delete(VERIFIED_EMAIL_COOKIE);
+    return response;
+  }
 
   if (!tokenHash || tokenHash.length > 512) {
     return NextResponse.redirect(getSafeRedirectUrl(request, "error"));

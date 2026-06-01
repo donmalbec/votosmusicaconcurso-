@@ -133,7 +133,7 @@ export function VoteModal({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Cerrar aviso de mantenimiento"
+            aria-label="Cerrar aviso de votación cerrada"
             className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)]"
           >
             <X size={18} aria-hidden="true" />

@@ -21,7 +21,7 @@ export function HomeClient() {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [completedMagicVideoId, setCompletedMagicVideoId] = useState<string | null>(null);
   const [voteNotice, setVoteNotice] = useState<{
-    type: "success" | "duplicate" | "error";
+    type: "success" | "duplicate" | "closed" | "error";
     videoId?: string;
   } | null>(null);
 
@@ -88,7 +88,7 @@ export function HomeClient() {
     if (voteError && !voteSuccess) {
       queueMicrotask(() => {
         setVoteNotice({
-          type: voteError === "duplicate" ? "duplicate" : "error",
+          type: voteError === "duplicate" ? "duplicate" : voteError === "closed" ? "closed" : "error",
           videoId,
         });
       });
@@ -170,6 +170,8 @@ export function HomeClient() {
                   ? "Voto registrado"
                   : voteNotice.type === "duplicate"
                     ? "Voto ya registrado"
+                    : voteNotice.type === "closed"
+                      ? VOTING_PAUSED_TITLE
                     : "No pudimos finalizar"}
               </p>
               <p className="mt-1 text-xs font-bold leading-relaxed text-white/60">
@@ -177,6 +179,8 @@ export function HomeClient() {
                   ? `Tu voto${noticedVideo ? ` por "${noticedVideo.title}"` : ""} fue confirmado correctamente.`
                   : voteNotice.type === "duplicate"
                     ? "Ese correo o dispositivo ya tenía un voto registrado en el concurso."
+                    : voteNotice.type === "closed"
+                      ? VOTING_PAUSED_MESSAGE
                     : "El correo fue verificado, pero necesitamos que intentes confirmar el voto nuevamente."}
               </p>
             </div>
@@ -237,22 +241,24 @@ export function HomeClient() {
                 PizzaDAO x MusicaW3
               </p>
               <p className="mx-auto mt-4 max-w-2xl text-sm font-bold leading-relaxed text-white/70 sm:text-base">
-                Escucha las canciones, elige tu favorita y confirma tu voto desde el enlace que llegará a tu correo.
+                {VOTING_PAUSED
+                  ? "La recepción de votos terminó. El ranking queda visible mientras revisamos los resultados finales."
+                  : "Escucha las canciones, elige tu favorita y confirma tu voto desde el enlace que llegará a tu correo."}
               </p>
               <div className="mx-auto mt-7 flex max-w-xl flex-col gap-3 sm:flex-row sm:justify-center">
                 <a
-                  href="#participantes"
+                  href={VOTING_PAUSED ? "#ranking" : "#participantes"}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-neon-yellow px-7 py-3.5 text-[12px] font-black uppercase tracking-[0.18em] text-black shadow-[0_4px_20px_rgba(255,230,0,0.18)] transition duration-200 hover:-translate-y-px hover:shadow-[0_8px_28px_rgba(255,230,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <ArrowDown size={15} aria-hidden="true" />
-                  Votar ahora
+                  {VOTING_PAUSED ? "Ver ranking" : "Votar ahora"}
                 </a>
                 <a
-                  href="#ranking"
+                  href={VOTING_PAUSED ? "#participantes" : "#ranking"}
                   className="inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] border-neon-yellow bg-transparent px-7 py-3.5 text-[12px] font-black uppercase tracking-[0.18em] text-neon-yellow transition duration-200 hover:-translate-y-px hover:bg-neon-yellow/10 hover:shadow-[0_8px_28px_rgba(255,230,0,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-yellow)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <BarChart3 size={15} aria-hidden="true" />
-                  Ver ranking
+                  {VOTING_PAUSED ? "Ver canciones" : "Ver ranking"}
                 </a>
               </div>
             </div>
@@ -315,7 +321,7 @@ export function HomeClient() {
               <h2 className="mb-3 text-2xl font-black uppercase leading-none text-white md:text-4xl">
                 {VOTING_PAUSED ? (
                   <>
-                    Votación <span style={{ color: "var(--neon-yellow)" }}>Pausada</span>
+                    Votación <span style={{ color: "var(--neon-yellow)" }}>Cerrada</span>
                   </>
                 ) : (
                   <>
@@ -325,7 +331,7 @@ export function HomeClient() {
               </h2>
               <p className="text-[11px] uppercase tracking-[0.42em] opacity-40">
                 {VOTING_PAUSED
-                  ? "Votos en pausa por mantenimiento"
+                  ? "Resultados en revisión"
                   : "Selecciona tu canción favorita abajo"}
               </p>
             </div>
@@ -333,6 +339,7 @@ export function HomeClient() {
           </div>
         </section>
 
+        {!VOTING_PAUSED && (
         <section aria-labelledby="como-votar" className="mt-8 w-full max-w-6xl animate-fade-up" style={{ animationDelay: '120ms' }}>
           <div className="rounded-lg border border-neon-yellow/25 bg-black/78 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-2xl sm:p-6">
             <div className="mb-5 text-center">
@@ -396,6 +403,7 @@ export function HomeClient() {
             </div>
           </div>
         </section>
+        )}
 
         <div className="h-14 w-full flex-shrink-0 pointer-events-none sm:h-20" />
 
@@ -487,10 +495,12 @@ export function HomeClient() {
               Participantes
             </p>
             <h2 className="mt-2 text-2xl font-black uppercase leading-none text-white sm:text-3xl">
-              Toca VOTAR en una sola canción
+              {VOTING_PAUSED ? "Canciones participantes" : "Toca VOTAR en una sola canción"}
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-xs font-bold leading-relaxed text-white/55 sm:text-sm">
-              Después de enviar tu correo, busca el mensaje de Canción de Pizza y confirma el enlace para que el voto cuente.
+              {VOTING_PAUSED
+                ? "La votación ya terminó; esta lista queda disponible para revisar las canciones y sus votos finales."
+                : "Después de enviar tu correo, busca el mensaje de Canción de Pizza y confirma el enlace para que el voto cuente."}
             </p>
           </div>
 
